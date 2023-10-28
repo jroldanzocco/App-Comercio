@@ -1,0 +1,13 @@
+﻿.centrar-login
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 82vh;
+}
+
+.centrar-login input
+{
+    width: 700px;
+}
