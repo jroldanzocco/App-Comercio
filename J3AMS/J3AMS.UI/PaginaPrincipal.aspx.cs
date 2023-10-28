@@ -7,16 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
-    public partial class _Default : Page
+    public partial class PaginaPrincipal : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-        }
 
-        protected void btnLoggin_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("PaginaPrincipal.aspx");
         }
     }
 }

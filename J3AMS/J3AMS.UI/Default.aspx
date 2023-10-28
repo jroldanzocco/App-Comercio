@@ -12,7 +12,7 @@
                 <label for="txtPassword" class="form-label">Contraseña</label>
                 <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
-            <asp:Button ID="btnLoggin" CssClass="btn btn-primary" runat="server" Text="Ingresar" />    
+            <asp:Button ID="btnLoggin" CssClass="btn btn-primary" OnClick="btnLoggin_Click" runat="server" Text="Ingresar"/>    
         </div>
     </main>
 

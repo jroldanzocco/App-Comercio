@@ -1,4 +1,16 @@
-﻿.centrar-login
+﻿* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/*
+    Página login
+*/
+
+
+.centrar-login
 {
     display: flex;
     flex-direction: column;
@@ -10,4 +22,46 @@
 .centrar-login input
 {
     width: 700px;
+}
+
+/*
+    Menú principal -- Header
+*/
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 62.39px;
+    background-color: #212529;
+    color: white;
+}
+
+.header div
+{
+    width: 50%;
+}
+
+.logo
+{
+    margin: 20px 0px 0px 25px;
+}
+
+.header ul
+{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+    
+}
+
+.header ul li 
+{
+    list-style: none;
+}
+
+.header ul li a
+{
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
 }
