@@ -9,14 +9,30 @@
     Página login
 */
 
-
-.centrar-login
+.container-login
 {
+    display: flex;
+    align-items: center;
+    height: 82vh;
+}
+
+.centrar-login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 82vh;
+    height: 45vh;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: #212529;
+    color: white;
+    width: 30%;
+    margin: auto auto;
+}
+
+.centrar-login div
+{
+    margin: 40px 0;
 }
 
 .centrar-login input
@@ -28,12 +44,19 @@
     Menú principal -- Header
 */
 
+header 
+{
+    background-color: #212529;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
     height: 62.39px;
-    background-color: #212529;
     color: white;
+    width: 80%;
+    margin: 0 auto;
+    background-color: inherit;
 }
 
 .header div
@@ -43,7 +66,7 @@
 
 .logo
 {
-    margin: 20px 0px 0px 25px;
+    margin: 8px 0px 0px 120px;
 }
 
 .header ul
@@ -65,3 +88,29 @@
     color: white;
     cursor: pointer;
 }
+
+/*
+    Menú principal body
+*/
+
+.centrar-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 70vh;
+    margin: 10vh auto;
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 30%;
+    padding: 5vh 0;
+    cursor: pointer;
+    background-color: #212529;
+}
+
+.centrar-menu input
+{
+    width: 130px;
+    padding: 7px;
+}
+

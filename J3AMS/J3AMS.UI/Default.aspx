@@ -2,8 +2,10 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <main>  
-        <div class="centrar-login">
+    <main>
+        <div class="container-login">
+            <div class="centrar-login">
+
             <div class="mb-3">
                 <label for="txtNombreUsuario" class="form-label">Usuario</label>
                 <asp:TextBox ID="txtNombreUsuario" CssClass="form-control" runat="server"></asp:TextBox>
@@ -12,8 +14,11 @@
                 <label for="txtPassword" class="form-label">Contraseña</label>
                 <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
-            <asp:Button ID="btnLoggin" CssClass="btn btn-primary" OnClick="btnLoggin_Click" runat="server" Text="Ingresar"/>    
+             <div class="mb-3">
+                <asp:Button ID="btnLoggin" CssClass="btn btn-primary" OnClick="btnLoggin_Click" runat="server" Text="Ingresar" />
+             </div>
         </div>
+            </div>
     </main>
 
 </asp:Content>
