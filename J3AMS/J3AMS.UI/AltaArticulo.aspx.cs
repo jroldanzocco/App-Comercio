@@ -7,16 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
-    public partial class PaginaPrincipal : System.Web.UI.Page
+    public partial class Alta : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void btnProductos_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AltaArticulo.aspx");
         }
     }
 }

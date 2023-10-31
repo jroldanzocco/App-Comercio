@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+text
+{
+    display: none;
+}
 
 /*
     Página login
@@ -69,17 +73,21 @@ header
     margin: 8px 0px 0px 120px;
 }
 
-.header ul
-{
+.header ul {
     display: flex;
     justify-content: space-evenly;
     margin-top: 20px;
-    
+    margin-top: 12px;
 }
 
-.header ul li 
-{
+.header ul li {
     list-style: none;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100px;
+    text-align:center;
+    
 }
 
 .header ul li a
@@ -114,3 +122,28 @@ header
     padding: 7px;
 }
 
+/*
+    Formulario alta
+*/
+
+.container-alta {
+    border: 1px solid #212529;
+    border-radius: 20px;
+    margin-top: 250px;
+    width: 30%;
+    margin: 200px auto 0;
+    height: 600px;
+    color: white;
+    background-color: #212529;
+}
+
+.container-alta h2
+{
+    height: 100px;
+}
+
+.form-alta
+{
+    width: 70%;
+    margin: 0 auto;
+}

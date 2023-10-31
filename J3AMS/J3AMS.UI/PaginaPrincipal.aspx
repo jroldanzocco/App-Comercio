@@ -33,7 +33,7 @@
             <div class="centrar-menu">
                 <asp:Button ID="btnClientes" cssClass="btn btn-primary" runat="server" Text="Clientes" />
                 <asp:Button ID="btnProveedores" cssClass="btn btn-primary" runat="server" Text="Proveedores" />
-                <asp:Button ID="btnProductos" cssClass="btn btn-primary" runat="server" Text="Productos" />
+                <asp:Button ID="btnProductos" cssClass="btn btn-primary" OnClick="btnProductos_Click" runat="server" Text="Productos" />
                 <asp:Button ID="btnVentas" cssClass="btn btn-primary" runat="server" Text="Ventas" />
                 <asp:Button ID="btnCompras" cssClass="btn btn-primary" runat="server" Text="Compras" />
                 <asp:Button ID="btnFacturas" cssClass="btn btn-primary" runat="server" Text="Facturas" />
