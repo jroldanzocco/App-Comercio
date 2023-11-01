@@ -4,11 +4,6 @@
     box-sizing: border-box;
 }
 
-text
-{
-    display: none;
-}
-
 /*
     Página login
 */
@@ -129,17 +124,20 @@ header
 .container-alta {
     border: 1px solid #212529;
     border-radius: 20px;
-    margin-top: 250px;
     width: 30%;
     margin: 200px auto 0;
     height: 600px;
     color: white;
     background-color: #212529;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .container-alta h2
 {
-    height: 100px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -154,7 +152,8 @@ header
 .btn-alta
 {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 70%;
 }
 
 .btn-alta input

@@ -23,5 +23,10 @@ namespace J3AMS.UI
         {
             Response.Redirect("MenuClientes.aspx");
         }
+
+        protected void btnProveedores_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MenuProveedores.aspx");
+        }
     }
 }

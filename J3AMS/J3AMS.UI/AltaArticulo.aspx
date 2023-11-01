@@ -1,4 +1,4 @@
-﻿A<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AltaArticulo.aspx.cs" Inherits="J3AMS.UI.Alta" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AltaArticulo.aspx.cs" Inherits="J3AMS.UI.Alta" %>
 
 <!DOCTYPE html>
 
@@ -28,7 +28,7 @@
                 <label for="txtStock" class="form-label">Stock minimo</label>
                 <asp:TextBox ID="txtStock" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
-            <div class="btn-alta">
+            <div class="mb-3 btn-alta">
                 <asp:Button ID="btnAgregarArticulo" CssClass="btn btn-primary" runat="server" Text="Agregar" />
                 <asp:Button ID="btnVolver" OnClick="btnVolver_Click" CssClass="btn btn-primary" runat="server" Text="Volver" />
             </div>

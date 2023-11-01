@@ -11,7 +11,7 @@ namespace J3AMS.UI
 {
 
 
-    public partial class MenuClientes
+    public partial class MenuProveedores
     {
 
         /// <summary>
@@ -24,48 +24,48 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.Button btnMenuPrincipal;
 
         /// <summary>
-        /// Control btnNuevoCliente.
+        /// Control btnNuevoProveedor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevoCliente;
+        protected global::System.Web.UI.WebControls.Button btnNuevoProveedor;
 
         /// <summary>
-        /// Control btnBuscarCliente.
+        /// Control btnBuscarProveedor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscarCliente;
+        protected global::System.Web.UI.WebControls.Button btnBuscarProveedor;
 
         /// <summary>
-        /// Control btnEditarCliente.
+        /// Control btnEditarProveedor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditarCliente;
+        protected global::System.Web.UI.WebControls.Button btnEditarProveedor;
 
         /// <summary>
-        /// Control btnInformeCliente.
+        /// Control btnInformeProveedor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnInformeCliente;
+        protected global::System.Web.UI.WebControls.Button btnInformeProveedor;
 
         /// <summary>
-        /// Control btnEliminarCliente.
+        /// Control btnEliminarProveedor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEliminarCliente;
+        protected global::System.Web.UI.WebControls.Button btnEliminarProveedor;
     }
 }

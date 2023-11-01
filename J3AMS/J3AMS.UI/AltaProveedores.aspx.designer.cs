@@ -11,61 +11,79 @@ namespace J3AMS.UI
 {
 
 
-    public partial class MenuClientes
+    public partial class AltaProveedores
     {
 
         /// <summary>
-        /// Control btnMenuPrincipal.
+        /// Control frmAltaProveedores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMenuPrincipal;
+        protected global::System.Web.UI.HtmlControls.HtmlForm frmAltaProveedores;
 
         /// <summary>
-        /// Control btnNuevoCliente.
+        /// Control txtRazonSocial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevoCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtRazonSocial;
 
         /// <summary>
-        /// Control btnBuscarCliente.
+        /// Control txtNombre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscarCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtNombre;
 
         /// <summary>
-        /// Control btnEditarCliente.
+        /// Control txtCuit.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditarCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtCuit;
 
         /// <summary>
-        /// Control btnInformeCliente.
+        /// Control txtFormaPago.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnInformeCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtFormaPago;
 
         /// <summary>
-        /// Control btnEliminarCliente.
+        /// Control txtPlazo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEliminarCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtPlazo;
+
+        /// <summary>
+        /// Control btnAgregarCliente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarCliente;
+
+        /// <summary>
+        /// Control btnVolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVolver;
     }
 }

@@ -10,11 +10,11 @@
     <link href="Content/estilos.css" rel="stylesheet" />
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="MenuClientes" runat="server">
         <main>
             <div class="centrar-menu">
                 <asp:Button ID="btnMenuPrincipal" OnClick="btnMenuPrincipal_Click" CssClass="btn btn-primary" runat="server" Text="Menú principal" />
-                <asp:Button ID="btnNuevoCliente" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
+                <asp:Button ID="btnNuevoCliente" OnClick="btnNuevoCliente_Click" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
                 <asp:Button ID="btnBuscarCliente" CssClass="btn btn-primary" runat="server" Text="Buscar" />
                 <asp:Button ID="btnEditarCliente" CssClass="btn btn-primary" runat="server" Text="Editar" />
                 <asp:Button ID="btnInformeCliente" CssClass="btn btn-primary" runat="server" Text="Informes" />
