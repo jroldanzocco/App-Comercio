@@ -140,10 +140,24 @@ header
 .container-alta h2
 {
     height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-alta
 {
     width: 70%;
     margin: 0 auto;
+}
+
+.btn-alta
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-alta input
+{
+    width: 95px;
 }

@@ -126,6 +126,8 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="MenuArticulos.aspx" />
+    <Content Include="MenuClientes.aspx" />
     <Content Include="PaginaPrincipal.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -221,6 +223,20 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MenuArticulos.aspx.cs">
+      <DependentUpon>MenuArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuArticulos.aspx.designer.cs">
+      <DependentUpon>MenuArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MenuClientes.aspx.cs">
+      <DependentUpon>MenuClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuClientes.aspx.designer.cs">
+      <DependentUpon>MenuClientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginaPrincipal.aspx.cs">
       <DependentUpon>PaginaPrincipal.aspx</DependentUpon>

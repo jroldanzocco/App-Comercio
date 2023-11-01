@@ -28,6 +28,10 @@
                 <label for="txtStock" class="form-label">Stock minimo</label>
                 <asp:TextBox ID="txtStock" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
+            <div class="btn-alta">
+                <asp:Button ID="btnAgregarArticulo" CssClass="btn btn-primary" runat="server" Text="Agregar" />
+                <asp:Button ID="btnVolver" OnClick="btnVolver_Click" CssClass="btn btn-primary" runat="server" Text="Volver" />
+            </div>
         </div>
     </form>
 </body>
