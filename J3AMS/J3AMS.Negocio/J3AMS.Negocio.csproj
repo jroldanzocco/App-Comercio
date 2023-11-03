@@ -42,7 +42,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoADatos.cs" />
+    <Compile Include="ArticuloNegocio.cs" />
+    <Compile Include="IABML.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\J3AMS.Data\J3AMS.Data.csproj">
+      <Project>{1b1d1024-d2d5-4430-99fe-e5f19b345561}</Project>
+      <Name>J3AMS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\J3AMS.Dominio\J3AMS.Dominio.csproj">
+      <Project>{5f54ced0-142d-4fdb-8da1-6e14fbf90a5c}</Project>
+      <Name>J3AMS.Dominio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

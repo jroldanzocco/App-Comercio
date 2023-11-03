@@ -15,7 +15,7 @@
             <div class="centrar-menu">
                 <asp:Button ID="btnMenuPrincipal" OnClick="btnMenuPrincipal_Click" CssClass="btn btn-primary" runat="server" Text="Menú principal" />
                 <asp:Button ID="btnNuevoArticulo" OnClick="btnNuevoArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
-                <asp:Button ID="btnBuscarArticulo" CssClass="btn btn-primary" runat="server" Text="Buscar" />
+                <asp:Button ID="btnBuscarArticulo" OnClick="btnBuscarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Buscar" />
                 <asp:Button ID="btnEditarArticulo" CssClass="btn btn-primary" runat="server" Text="Editar" />
                 <asp:Button ID="btnInformeArticulo" CssClass="btn btn-primary" runat="server" Text="Informes" />
                 <asp:Button ID="btnEliminarArticulo" CssClass="btn btn-primary" runat="server" Text="Eliminar" />

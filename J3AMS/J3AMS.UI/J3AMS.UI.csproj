@@ -106,6 +106,7 @@
     <Content Include="AltaArticulo.aspx" />
     <Content Include="AltaCliente.aspx" />
     <Content Include="AltaProveedores.aspx" />
+    <Content Include="BuscarArticulo.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -226,6 +227,13 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BuscarArticulo.aspx.cs">
+      <DependentUpon>BuscarArticulo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscarArticulo.aspx.designer.cs">
+      <DependentUpon>BuscarArticulo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -315,6 +323,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\J3AMS.Dominio\J3AMS.Dominio.csproj">
+      <Project>{5f54ced0-142d-4fdb-8da1-6e14fbf90a5c}</Project>
+      <Name>J3AMS.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\J3AMS.Negocio\J3AMS.Negocio.csproj">
+      <Project>{5e7cdfe1-9f9f-40ed-92da-b11c75cfbdf7}</Project>
+      <Name>J3AMS.Negocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
