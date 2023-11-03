@@ -128,10 +128,12 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Login.aspx" />
     <Content Include="MenuArticulos.aspx" />
     <Content Include="MenuClientes.aspx" />
     <Content Include="MenuProveedores.aspx" />
     <Content Include="PaginaPrincipal.aspx" />
+    <Content Include="Resources\css\styles.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -241,6 +243,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MenuArticulos.aspx.cs">
       <DependentUpon>MenuArticulos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -294,6 +303,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
