@@ -13,7 +13,7 @@ namespace J3AMS.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ArticuloNegocio negocio = new ArticuloNegocio();
+            ProveedorNegocio negocio = new ProveedorNegocio();
             dgvArticulos.DataSource = negocio.Listar();
             dgvArticulos.DataBind();
         }
