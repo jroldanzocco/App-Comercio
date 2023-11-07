@@ -1,32 +1,93 @@
-CREATE DATABASE J3AMS;
-
-USE J3AMS;
-
-CREATE TABLE Marca (
-    Id INT PRIMARY KEY,
-    Descripcion NVARCHAR(255)
-);
-
-CREATE TABLE Articulo (
-    Codigo INT PRIMARY KEY,
+USE MASTER
+GO
+CREATE DATABASE J3AMS_DB
+GO
+USE J3AMS_DB
+GO
+CREATE TABLE CategoriasIva (
+    Id TINYINT PRIMARY KEY IDENTITY (1, 1),
+    Descripcion NVARCHAR(255) NOT NULL,
+    PorcentajeIva DECIMAL(3,1) NOT NULL
+)
+CREATE TABLE Proveedores (
+    Id INT PRIMARY KEY IDENTITY (1, 1),
+    RazonSocial NVARCHAR(255) NOT NULL,
+    NombreFantasia NVARCHAR(255) NOT NULL,
+	CUIT NVARCHAR(255) NOT NULL UNIQUE,
+	Domicilio NVARCHAR(255),
+	Telefono NVARCHAR(255),
+	Celular NVARCHAR(255),
+	Email NVARCHAR(255),
+    CategoriaIva TINYINT NOT NULL foreign key references CategoriasIva(Id),
+    PlazoPago TINYINT NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE Clientes (
+    Id INT PRIMARY KEY IDENTITY (1, 1),
+    Apellidos NVARCHAR(255) NOT NULL,
+    Nombres NVARCHAR(255) NOT NULL,
+    DNI NVARCHAR(255) NOT NULL UNIQUE,
+	Domicilio NVARCHAR(255),
+	Telefono NVARCHAR(255),
+	Celular NVARCHAR(255),
+	Email NVARCHAR(255),
+    CategoriaIva TINYINT NOT NULL foreign key references CategoriasIva(Id),
+    PlazoPago TINYINT NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE Marcas (
+    Id TINYINT PRIMARY KEY IDENTITY (1, 1),
+    Descripcion NVARCHAR(255) NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE Tipos (
+    Id TINYINT PRIMARY KEY IDENTITY (1, 1),
+    Descripcion NVARCHAR(255) NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE Productos (
+	Id INT PRIMARY KEY IDENTITY (1, 1),
+    Codigo INT NOT NULL UNIQUE,
     Descripcion NVARCHAR(255),
-    Tipo NVARCHAR(255),
-    MarcaId INT,
-    Proveedor NVARCHAR(255),
-    Stock INT,
-    FOREIGN KEY (MarcaId) REFERENCES Marca(Id)
-);
-
-
-INSERT INTO Marca (Id, Descripcion)
-VALUES (1, 'Coca Cola');
-INSERT INTO Marca (Id, Descripcion)
-VALUES (2, 'Pepsi');
-
-INSERT INTO Articulo (Codigo, Descripcion, Tipo, MarcaId, Proveedor, Stock)
-VALUES (101, 'Lata chica', 'Lata', 1, 'The Coca-Cola Company', 50);
-INSERT INTO Articulo (Codigo, Descripcion, Tipo, MarcaId, Proveedor, Stock)
-VALUES (102, 'Botella grande', 'Botella', 2, 'PepsiCo', 75);
-
-Select * From Articulo A
-Inner Join Marca M On A.MarcaId = M.Id
+    Tipo TINYINT NOT NULL foreign key references Tipos(Id),
+    Marca TINYINT NOT NULL foreign key references Marcas(Id),
+    Proveedor INT NOT NULL foreign key references Proveedores(Id),
+	PrecioCosto MONEY NOT NULL,
+	PrecioVenta MONEY NOT NULL,
+    Stock INT NOT NULL,
+    StockMinimo INT NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE FacturasCompras (
+	Numero INT PRIMARY KEY IDENTITY (1, 1),
+	Proveedor INT FOREIGN KEY REFERENCES Proveedores(Id),
+	Importe MONEY NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE FacturasVentas (
+	Numero INT PRIMARY KEY IDENTITY (1, 1),
+	Cliente INT FOREIGN KEY REFERENCES Clientes(Id),
+	Importe MONEY NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE Compras (
+	Id INT PRIMARY KEY IDENTITY (1, 1),
+	Articulo INT NOT NULL foreign key references Productos(Id),
+	Cantidad INT NOT NULL,
+	NumeroFactura INT NOT NULL foreign key references FacturasCompras(Numero),
+	Facturada BIT NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE Ventas (
+	Id INT PRIMARY KEY IDENTITY (1, 1),
+	Articulo INT NOT NULL foreign key references Productos(Id),
+	Cantidad INT NOT NULL,
+	NumeroFactura INT NOT NULL foreign key references FacturasVentas(Numero),
+	Facturada BIT NOT NULL,
+	Activo BIT NOT NULL
+)
+CREATE TABLE Usuarios (
+    Id INT PRIMARY KEY IDENTITY (1, 1),
+    NombreUsuario NVARCHAR(255) NOT NULL UNIQUE,
+    Contraseña NVARCHAR(255) NOT NULL
+)

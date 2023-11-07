@@ -21,33 +21,33 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT A.ProductoID, A.Nombre, A.PrecioCompra, A.PorcentajeGanancia, A.StockActual, A.StockMinimo, A.MarcaID, M.Nombre Marca, A.TipoID, T.Nombre Tipo,A.ProveedorID, P.Nombre Proveedor  FROM Productos A left join Marcas M on A.MarcaID = M.MarcaID left join Tipos T on A.TipoID = T.TipoID left join Proveedores P on A.ProveedorID = p.ProveedorID\r\n");
+                _datos.SetConsulta("SELECT \r\n\tA.Id, \r\n\tA.Descripcion, \r\n\tT.Descripcion AS Tipo,\r\n\tM.Descripcion AS Marca,\r\n\tP.NombreFantasia AS Proveedor,\r\n\tA.PrecioCosto, \r\n\tA.Stock, \r\n\tA.StockMinimo\r\nFROM Productos A\r\nleft join Marcas M on A.Marca = M.Id \r\nleft join Tipos T on A.Tipo = T.Id \r\nleft join Proveedores P on A.Proveedor = P.Id");
                 _datos.EjecutarLectura();
 
                 while (_datos.Lector.Read())
                 {
                     listProductos.Add(new Producto()
                     {
-                        Id = (int)_datos.Lector["ProductoID"],
-                        Nombre = _datos.Lector["Nombre"] as string ?? string.Empty,
-                        PrecioCompra = (decimal)_datos.Lector["PrecioCompra"],
-                        PorcentajeGanancia = (decimal)_datos.Lector["PorcentajeGanancia"],
+                        Id = (int)_datos.Lector["Id"],
+                        Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
+                        PrecioCosto = (decimal)_datos.Lector["PrecioCosto"],
+                        /*PorcentajeGanancia = (decimal)_datos.Lector["PorcentajeGanancia"],*/
                         Stock = (int)_datos.Lector["StockActual"],
                         StockMinimo = (int)_datos.Lector["StockMinimo"],
                         Marca = new Marca()
                         {
-                            Id = (int)_datos.Lector["MarcaID"],
-                            Nombre = _datos.Lector["Marca"] as string ?? string.Empty,
+                            Id = (int)_datos.Lector["Id"],
+                            Descripcion = _datos.Lector["Marca"] as string ?? string.Empty,
                         },
                         Tipo = new Tipo()
                         {
-                            Id = (int)_datos.Lector["TipoID"],
-                            Nombre = _datos.Lector["Tipo"] as string ?? string.Empty
+                            Id = (int)_datos.Lector["Id"],
+                            Descripcion = _datos.Lector["Tipo"] as string ?? string.Empty
                         },
                         Proveedor = new Proveedor()
                         {
-                            Id = (int)_datos.Lector["ProveedorID"],
-                            Nombre = _datos.Lector["Proveedor"] as string ?? string.Empty
+                            Id = (int)_datos.Lector["Id"],
+                            NombreFantasia = _datos.Lector["NombreFantasia"] as string ?? string.Empty
                         },
 
                     });;

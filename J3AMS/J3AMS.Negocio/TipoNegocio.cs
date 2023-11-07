@@ -7,32 +7,32 @@ using System.Threading.Tasks;
 
 namespace J3AMS.Negocio
 {
-    public class MarcaNegocio : IABML<Marca>
+    public class TipoNegocio : IABML<Tipo>
     {
         private readonly AccesoADatos _datos;
 
-        public MarcaNegocio()
+        public TipoNegocio()
         {
             _datos = new AccesoADatos();
         }
-        public List<Marca> Listar()
+        public List<Tipo> Listar()
         {
-            var listMarcas = new List<Marca>();
+            var listTipos = new List<Tipo>();
 
             try
             {
-                _datos.SetConsulta("SELECT Id, Descripcion FROM Marcas");
+                _datos.SetConsulta("SELECT Id, Descripcion FROM Tipos");
                 _datos.EjecutarLectura();
 
                 while (_datos.Lector.Read())
                 {
-                    listMarcas.Add(new Marca()
+                    listTipos.Add(new Tipo()
                     {
                         Id = (int)_datos.Lector["Id"],
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
                     });
                 }
-                return listMarcas;
+                return listTipos;
             }
             catch (Exception ex)
             {

@@ -12,17 +12,18 @@ namespace J3AMS.Dominio
         public int Id { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         [StringLength(100, ErrorMessage = "Maximo 100 caracteres")]
-        public string Nombre { get; set; }
+        public int Codigo { get; set; }
+        public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
-        public decimal PrecioCompra { get; set; }
+        public Tipo Tipo { get; set; }
+        public Marca Marca { get; set; }
+        public Proveedor Proveedor { get; set; }
+        public decimal PrecioCosto { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         public decimal PorcentajeGanancia { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         public int Stock { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         public int StockMinimo { get; set; }
-        public Marca Marca { get; set; }
-        public Tipo Tipo { get; set; }
-        public Proveedor Proveedor { get; set; }
     }
 }

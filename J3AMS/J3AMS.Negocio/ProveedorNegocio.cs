@@ -21,17 +21,18 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT ProveedorID, Nombre, Direccion, Telefono, Email FROM Proveedores");
+                _datos.SetConsulta("SELECT Id, NombreFantasia, Domicilio, Telefono, Celular, Email FROM Proveedores");
                 _datos.EjecutarLectura();
 
                 while (_datos.Lector.Read())
                 {
                     listProveedores.Add(new Proveedor()
                     {
-                        Id = (int)_datos.Lector["ProveedorID"],
-                        Nombre = _datos.Lector["Nombre"] as string ?? string.Empty,
-                        Direccion = _datos.Lector["Direccion"] as string ?? string.Empty,
+                        Id = (int)_datos.Lector["Id"],
+                        NombreFantasia = _datos.Lector["NombreFantasia"] as string ?? string.Empty,
+                        Domicilio = _datos.Lector["Domicilio"] as string ?? string.Empty,
                         Telefono = _datos.Lector["Telefono"] as string ?? string.Empty,
+                        Celular = _datos.Lector["Celular"] as string ?? string.Empty,
                         Email = _datos.Lector["Email"] as string ?? string.Empty,
 
                     });
