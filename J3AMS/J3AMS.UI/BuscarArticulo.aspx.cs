@@ -11,11 +11,17 @@ namespace J3AMS.UI
 {
     public partial class BuscarArticulo : System.Web.UI.Page
     {
+        public List<Producto> ListaProducto { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProveedorNegocio negocio = new ProveedorNegocio();
-            dgvArticulos.DataSource = negocio.Listar();
-            dgvArticulos.DataBind();
+            ProductoNegocio negocio = new ProductoNegocio();
+            ListaProducto = negocio.Listar();
+
+            if (!IsPostBack)
+            {
+                repRepetidor.DataSource = ListaProducto;
+                repRepetidor.DataBind();
+            }
         }
     }
 }

@@ -25,8 +25,6 @@
                 <asp:TextBox ID="txtMarca" CssClass="form-control" runat="server"></asp:TextBox>
                 <label for="txtProveedor" class="form-label">Proveedor</label>
                 <asp:TextBox ID="txtProveedor" CssClass="form-control" runat="server"></asp:TextBox>
-                <label for="txtStock" class="form-label">Stock</label>
-                <asp:TextBox ID="txtStock" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="mb-3 btn-alta">
                 <asp:Button ID="btnAgregarArticulo" CssClass="btn btn-primary" runat="server" Text="Agregar" />

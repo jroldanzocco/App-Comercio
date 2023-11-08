@@ -15,7 +15,7 @@ namespace J3AMS.UI
         {
 
         }
-        protected void btnAgregarCliente_Click(object sender, EventArgs e)
+        protected void btnAgregarArticulo_Click(object sender, EventArgs e)
         {
             ProductoNegocio negocio = new ProductoNegocio();
             Producto aux = new Producto();
@@ -29,14 +29,12 @@ namespace J3AMS.UI
             aux.Tipo = tipo;
 
             Marca marca = new Marca();
-            marca.Descripcion = txtDescripcion.Text;
+            marca.Descripcion = txtMarca.Text;
             aux.Marca = marca;
 
             Proveedor proveedor = new Proveedor();
             proveedor.RazonSocial = txtDescripcion.Text;
             aux.Proveedor = proveedor;
-
-            aux.Stock = int.Parse(txtStock.Text);
 
             negocio.Add(aux);
 
