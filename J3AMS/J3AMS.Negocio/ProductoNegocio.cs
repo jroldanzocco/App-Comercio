@@ -23,7 +23,7 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("");
+                _datos.SetConsulta("SELECT \r\n\tA.Id,\r\n\tA.Codigo,\r\n\tA.Descripcion,\r\n\tT.Descripcion AS Tipo,\r\n\tM.Descripcion AS Marca,\r\n\tP.NombreFantasia AS Proveedor,\r\n\tA.PrecioCosto, \r\n\tA.Stock, \r\n\tA.StockMinimo\r\nFROM Productos A\r\nleft join Marcas M on A.Marca = M.Id\r\nleft join Tipos T on A.Tipo = T.Id\r\nleft join Proveedores P on A.Proveedor = P.Id");
                 _datos.EjecutarLectura();
 
                 while (_datos.Lector.Read())
@@ -31,6 +31,9 @@ namespace J3AMS.Negocio
                     listProductos.Add(new Producto()
                     {
                         Id = (int)_datos.Lector["Id"],
+
+                        Codigo = (int)_datos.Lector["Codigo"],
+
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
 
                         Tipo = new Tipo()
@@ -43,13 +46,6 @@ namespace J3AMS.Negocio
                             Id = (int)_datos.Lector["Id"],
                             Descripcion = _datos.Lector["Marca"] as string ?? string.Empty,
                         },
-
-                        Proveedor = new Proveedor()
-                        {
-                            Id = (int)_datos.Lector["Id"],
-                            NombreFantasia = _datos.Lector["NombreFantasia"] as string ?? string.Empty
-                        },
-
                     });
                 }
                 return listProductos;

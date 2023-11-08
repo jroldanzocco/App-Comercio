@@ -83,7 +83,7 @@
                 <p>&copy; <%: DateTime.Now.Year %> - J3 IT Solutions</p>
             </footer>
         </div>
-    </form>
+    </form>z
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>

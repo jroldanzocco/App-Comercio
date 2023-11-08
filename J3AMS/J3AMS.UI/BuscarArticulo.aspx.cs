@@ -23,5 +23,13 @@ namespace J3AMS.UI
                 repRepetidor.DataBind();
             }
         }
+        protected void btnNuevoArticulo_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaArticulo.aspx");
+        }
+        protected void btnBuscarArticulo_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("BuscarArticulo.aspx");
+        }
     }
 }
