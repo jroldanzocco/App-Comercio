@@ -1,8 +1,10 @@
 ﻿using J3AMS.Dominio;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace J3AMS.Negocio
@@ -63,6 +65,30 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
 
+        }
+        public void Add(Producto newEntity)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            try
+            {
+                datos.SetConsulta("INSERT INTO Productos (Codigo, Descripcion, Tipo, Marca, Proveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)\r\nVALUES \r\n(@codigo, @descripcion, @tipo, @marca, @proveedor, @stock, 0, 0, 0, 1)");
+                datos.SetParametro("@codigo", newEntity.Codigo);
+                datos.SetParametro("@descripcion", newEntity.Descripcion);
+                datos.SetParametro("@@tipo", newEntity.Tipo.Id);
+                datos.SetParametro("@marca", newEntity.Marca.Id);
+                datos.SetParametro("@@proveedor", newEntity.Proveedor);
+                datos.SetParametro("@stock", newEntity.Proveedor);
+
+                datos.EjecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
         }
     }
 }

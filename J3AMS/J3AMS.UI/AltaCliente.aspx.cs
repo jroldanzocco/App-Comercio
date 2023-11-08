@@ -1,4 +1,6 @@
-﻿using System;
+﻿using J3AMS.Dominio;
+using J3AMS.Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +15,6 @@ namespace J3AMS.UI
         {
 
         }
-
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("MenuClientes.aspx");
