@@ -52,6 +52,7 @@ CREATE TABLE Productos (
     IdMarca TINYINT NOT NULL foreign key references Marcas(Id),
     IdProveedor INT NOT NULL foreign key references Proveedores(Id),
 	PrecioCosto MONEY NOT NULL,
+	PorcentajeGanancia decimal NOT NULL,
 	PrecioVenta MONEY NOT NULL,
     Stock INT NOT NULL,
     StockMinimo INT NOT NULL,
