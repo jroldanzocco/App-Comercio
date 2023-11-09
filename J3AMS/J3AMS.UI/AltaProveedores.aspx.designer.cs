@@ -51,22 +51,22 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.TextBox txtCuit;
 
         /// <summary>
-        /// Control txtFormaPago.
+        /// Control txtDomicilio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFormaPago;
+        protected global::System.Web.UI.WebControls.TextBox txtDomicilio;
 
         /// <summary>
-        /// Control txtPlazo.
+        /// Control txtTelefono.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPlazo;
+        protected global::System.Web.UI.WebControls.TextBox txtTelefono;
 
         /// <summary>
         /// Control btnAgregarCliente.

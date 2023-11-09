@@ -49,5 +49,35 @@ namespace J3AMS.Negocio
             }
 
         }
+
+
+        public void Add(Proveedor newEntity)
+        {
+            AccesoADatos datos = new AccesoADatos();
+
+            try
+            {
+                datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, IdCategoriaIva, PlazoPago, Activo)\r\n" +
+                    "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, 1, 1, 1)");
+                datos.SetParametro("@Razon", newEntity.RazonSocial);
+                datos.SetParametro("@Nombre", newEntity.NombreFantasia);
+                datos.SetParametro("@CUIT", newEntity.CUIT);
+                datos.SetParametro("@Domicilio", newEntity.Domicilio);
+                datos.SetParametro("@Telefono", newEntity.Telefono);
+
+                datos.EjecutarLectura();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
     }
 }

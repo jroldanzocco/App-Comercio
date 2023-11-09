@@ -20,13 +20,13 @@
                 <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server"></asp:TextBox>
                 <label for="txtCuit" class="form-label">CUIT</label>
                 <asp:TextBox ID="txtCuit" CssClass="form-control" runat="server"></asp:TextBox>
-                <label for="txtFormaPago" class="form-label">Forma de Pago</label>
-                <asp:TextBox ID="txtFormaPago" CssClass="form-control" runat="server"></asp:TextBox>
-                <label for="txtPlazo" class="form-label">Plazo de pago</label>
-                <asp:TextBox ID="txtPlazo" CssClass="form-control" runat="server"></asp:TextBox>
+                <label for="txtDomicilio" class="form-label">Domicilio</label>
+                <asp:TextBox ID="txtDomicilio" CssClass="form-control" runat="server"></asp:TextBox>
+                <label for="txtTelefono" class="form-label">Telefono</label>
+                <asp:TextBox ID="txtTelefono" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="mb-3 btn-alta">
-                <asp:Button ID="btnAgregarCliente" CssClass="btn btn-primary" runat="server" Text="Agregar" />
+                <asp:Button ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Agregar" />
                 <asp:Button ID="btnVolver" OnClick="btnVolver_Click" CssClass="btn btn-primary" runat="server" Text="Volver" />
             </div>
         </div>
