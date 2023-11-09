@@ -50,5 +50,32 @@ namespace J3AMS.Negocio
             }
 
         }
+
+        public void Add(Cliente newEntity)
+        {
+            AccesoADatos datos = new AccesoADatos();
+
+            try
+            { 
+                datos.SetConsulta("INSERT INTO Clientes(Apellidos, Nombres, DNI, IdCategoriaIva, PlazoPago, Activo)\r\nVALUES(@Apellido, @Nombre, @DNI, @IdIva, @Plazo, 1)");
+                datos.SetParametro("@Apellido", newEntity.Apellidos);
+                datos.SetParametro("@Nombre", newEntity.Nombres);
+                datos.SetParametro("@DNI", newEntity.DNI);
+                datos.SetParametro("@IdIva", newEntity.categoriaIva.Id);
+                datos.SetParametro("@Plazo", newEntity.Plazo);
+
+                datos.EjecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
     }
 }

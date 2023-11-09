@@ -23,6 +23,9 @@ namespace J3AMS.Dominio
         public string Telefono { get; set; }
         public string Celular { get; set; }
 
+        public CategoriaIva categoriaIva { get; set; }
+        public int Plazo { get; set; }
+
         [RegularExpression(@"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$", ErrorMessage = "El correo debe ser valido.")]
         [StringLength(100, ErrorMessage = "Maximo 100 caracteres")]
         public string Email { get; set; }

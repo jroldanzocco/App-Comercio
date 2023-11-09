@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriaIva.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Producto.cs" />

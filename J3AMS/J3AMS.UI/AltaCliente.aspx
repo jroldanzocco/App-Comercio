@@ -20,15 +20,15 @@
                     <asp:TextBox ID="txtApellido" CssClass="form-control" runat="server"></asp:TextBox>
                     <label for="txtDni" class="form-label">CUIT/DNI</label>
                     <asp:TextBox ID="txtDni" CssClass="form-control" runat="server"></asp:TextBox>
-                    <label for="txtIva" class="form-label">Categoria IVA</label>
-                    <asp:TextBox ID="txtIva" CssClass="form-control" runat="server"></asp:TextBox>
+                    <label for="ddlIva" class="form-label">Categoria IVA</label>
+                    <asp:DropDownList ID="ddlIva" runat="server"></asp:DropDownList>
                     <label for="txtFormaPago" class="form-label">Forma de pago</label>
                     <asp:TextBox ID="txtFormaPago" CssClass="form-control" runat="server"></asp:TextBox>
                     <label for="txtPlazo" class="form-label">Plazo de pago</label>
                     <asp:TextBox ID="txtPlazo" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="mb-3 btn-alta">
-                    <asp:Button ID="btnAgregarCliente" CssClass="btn btn-primary" runat="server" Text="Agregar" />
+                    <asp:Button ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Agregar" />
                     <asp:Button ID="btnVolver" OnClick="btnVolver_Click" CssClass="btn btn-primary" runat="server" Text="Volver" />
                 </div>
             </div>
