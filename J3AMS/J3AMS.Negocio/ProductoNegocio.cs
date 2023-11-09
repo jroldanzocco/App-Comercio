@@ -86,5 +86,25 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public void Delete(Producto newEntity)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            try
+            {
+                datos.SetParametro("@id", newEntity.Id);
+                datos.SetConsulta("DELETE FROM Productos WHERE Id = @id");
+
+                datos.EjecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }

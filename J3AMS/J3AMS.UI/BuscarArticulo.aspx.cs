@@ -27,5 +27,22 @@ namespace J3AMS.UI
         {
             Response.Redirect("AltaArticulo.aspx");
         }
+        protected void btnEliminarArticulo_Click(object sender, EventArgs e)
+        {
+            string id = Request.QueryString["Id"];
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                ProductoNegocio negocio = new ProductoNegocio();
+                Producto aux = new Producto();
+
+                if (int.TryParse(id, out int articuloId))
+                {
+                    aux.Id = articuloId;
+                    negocio.Delete(aux);
+                    Response.Redirect("BuscarArticulo.aspx");
+                }
+            }
+        }
     }
 }

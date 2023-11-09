@@ -27,7 +27,7 @@
             </div>
             <div>
                 <ul>
-                    <li><a href="PaginaPrincipal.aspx">Menu Principal</a></li>
+                    <li><a href="PaginaPrincipal.aspx">Menu</a></li>
                     <li><a href="#">Clientes</a></li>
                     <li><a href="#">Proveedores</a></li>
                     <li><a href="BuscarArticulo.aspx">Articulos</a></li>
