@@ -47,7 +47,6 @@ CREATE TABLE Tipos (
 )
 CREATE TABLE Productos (
 	Id INT PRIMARY KEY IDENTITY (1, 1),
-    Codigo INT NOT NULL UNIQUE,
     Descripcion NVARCHAR(255),
     IdTipo TINYINT NOT NULL foreign key references Tipos(Id),
     IdMarca TINYINT NOT NULL foreign key references Marcas(Id),
@@ -72,7 +71,7 @@ CREATE TABLE FacturasVentas (
 )
 CREATE TABLE Compras (
 	Id INT PRIMARY KEY IDENTITY (1, 1),
-	Articulo INT NOT NULL foreign key references Productos(Id),
+	IdArticulo INT NOT NULL foreign key references Productos(Id),
 	Cantidad INT NOT NULL,
 	NumeroFactura INT NOT NULL foreign key references FacturasCompras(Numero),
 	Facturada BIT NOT NULL,
@@ -119,21 +118,21 @@ VALUES ('IVA General', 21.0);
 INSERT INTO CategoriasIva (Descripcion, PorcentajeIva)
 VALUES ('IVA Reducido', 10.5);
 --Proveedores
-INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago, Activo)
+INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Proveedor 1 Razón Social', 'Proveedor 1 Nombre Fantasía', '12345678901', 'Domicilio 1', '1234567890', '9876543210', 'proveedor1@email.com', 1, 30, 1);
-INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago, Activo)
+INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Proveedor 2 Razón Social', 'Proveedor 2 Nombre Fantasía', '98765432109', 'Domicilio 2', '9876543210', '1234567890', 'proveedor2@email.com', 2, 45, 1);
-INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago, Activo)
+INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Proveedor 3 Razón Social', 'Proveedor 3 Nombre Fantasía', '78901234567', 'Domicilio 3', '5555555555', '6666666666', 'proveedor3@email.com', 1, 60, 1);
-INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago, Activo)
+INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Proveedor 4 Razón Social', 'Proveedor 4 Nombre Fantasía', '34567890123', 'Domicilio 4', '4444444444', '7777777777', 'proveedor4@email.com', 2, 30, 1);
-INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago, Activo)
+INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Proveedor 5 Razón Social', 'Proveedor 5 Nombre Fantasía', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45, 1);
 --PARA ALTA PRODUCTO
+INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)
+VALUES ('Pera', 1, 1, 14, 1, 2, 10, 0, 1)
 INSERT INTO Productos (Codigo, Descripcion, Tipo, Marca, Proveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)
-VALUES (1, 'Pera', 1, 1, 14, 1, 2, 10, 0, 1)
-INSERT INTO Productos (Codigo, Descripcion, Tipo, Marca, Proveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)
-VALUES (2, 'Durazno', 1, 1, 14, 1, 2, 10, 0, 1)
+VALUES ('Durazno', 1, 1, 14, 1, 2, 10, 0, 1)
 --PARA CONSULTA PRODUCTO
 SELECT 
 	A.Id,
@@ -146,9 +145,9 @@ SELECT
 	A.Stock, 
 	A.StockMinimo
 FROM Productos A
-left join Marcas M on A.Marca = M.Id
-left join Tipos T on A.Tipo = T.Id
-left join Proveedores P on A.Proveedor = P.Id
+left join Marcas M on A.IdMarca = M.Id
+left join Tipos T on A.IdTipo = T.Id
+left join Proveedores P on A.IdProveedor = P.Id
 --CONSULTAS
 SELECT * FROM Marcas
 SELECT * FROM Tipos
