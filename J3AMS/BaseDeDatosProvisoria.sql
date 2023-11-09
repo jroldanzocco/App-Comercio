@@ -12,7 +12,7 @@ CREATE TABLE CategoriasIva (
 CREATE TABLE Proveedores (
     Id INT PRIMARY KEY IDENTITY (1, 1),
     RazonSocial NVARCHAR(255) NOT NULL,
-    NombreFantasia NVARCHAR(255) NOT NULL,
+    NombreFantasia NVARCHAR(255) NULL,
 	CUIT NVARCHAR(255) NOT NULL UNIQUE,
 	Domicilio NVARCHAR(255),
 	Telefono NVARCHAR(255),
@@ -47,15 +47,14 @@ CREATE TABLE Tipos (
 )
 CREATE TABLE Productos (
 	Id INT PRIMARY KEY IDENTITY (1, 1),
-    Descripcion NVARCHAR(255),
-    IdTipo TINYINT NOT NULL foreign key references Tipos(Id),
-    IdMarca TINYINT NOT NULL foreign key references Marcas(Id),
-    IdProveedor INT NOT NULL foreign key references Proveedores(Id),
+    Descripcion NVARCHAR(255) NOT NULL,
+    IdTipo TINYINT NULL foreign key references Tipos(Id),
+    IdMarca TINYINT NULL foreign key references Marcas(Id),
+    IdProveedor INT NULL foreign key references Proveedores(Id),
 	PrecioCosto MONEY NOT NULL,
-	PorcentajeGanancia decimal NOT NULL,
 	PrecioVenta MONEY NOT NULL,
     Stock INT NOT NULL,
-    StockMinimo INT NOT NULL,
+    StockMinimo INT NULL,
 	Activo BIT NOT NULL
 )
 CREATE TABLE FacturasCompras (
@@ -130,10 +129,10 @@ VALUES ('Proveedor 4 Razón Social', 'Proveedor 4 Nombre Fantasía', '34567890123'
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Proveedor 5 Razón Social', 'Proveedor 5 Nombre Fantasía', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45, 1);
 --PARA ALTA PRODUCTO
-INSERT INTO Productos
-VALUES ('Pera', 1, 1, 1, 1,10, 2, 10, 0, 1)
-INSERT INTO Productos
-VALUES ('Durazno', 1, 1, 2, 1,10, 2, 10, 0, 1)
+INSERT INTO Productos (Descripcion, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)
+VALUES ('Pera', 1, 2, 10, 0, 1)
+INSERT INTO Productos (Descripcion, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)
+VALUES ('Durazno', 1, 2, 10, 0, 1)
 --PARA CONSULTA PRODUCTO
 SELECT 
 	A.Id,
