@@ -27,9 +27,5 @@ namespace J3AMS.UI
         {
             Response.Redirect("AltaArticulo.aspx");
         }
-        protected void btnBuscarArticulo_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("BuscarArticulo.aspx");
-        }
     }
 }

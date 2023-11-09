@@ -21,7 +21,7 @@
                 <ul>
                     <li><a href="#">Clientes</a></li>
                     <li><a href="#">Proveedores</a></li>
-                    <li><a href="#">Articulos</a></li>
+                    <li><a href="BuscarArticulo.aspx">Articulos</a></li>
                     <li><a href="#">Facturación</a></li>
                     <li><a href="#">Informes</a></li>
                 </ul>

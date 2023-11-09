@@ -16,7 +16,7 @@ namespace J3AMS.UI
 
         protected void btnProductos_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MenuArticulos.aspx");
+            Response.Redirect("BuscarArticulo.aspx");
         }
 
         protected void btnClientes_Click(object sender, EventArgs e)
