@@ -25,9 +25,16 @@
                 <asp:TextBox ID="txtMarca" CssClass="form-control" runat="server"></asp:TextBox>
                 <label for="txtProveedor" class="form-label">Proveedor</label>
                 <asp:TextBox ID="txtProveedor" CssClass="form-control" runat="server"></asp:TextBox>
+                <label for="txtProveedor" class="form-label">Proveedor</label>
+                <asp:TextBox ID="txtPrecioCosto" CssClass="form-control" runat="server"></asp:TextBox>
+                <label for="txtPrecioCosto" class="form-label">Precio Costo</label>
+                <asp:TextBox ID="txtPrecioVenta" CssClass="form-control" runat="server"></asp:TextBox>
+                <label for="txtPrecioVenta" class="form-label">Precio Venta</label>
+                <asp:TextBox ID="txtStockMinimo" CssClass="form-control" runat="server"></asp:TextBox>
+                <label for="txtStockMinimo" class="form-label">Stock Minimo</label>
             </div>
             <div class="mb-3 btn-alta">
-                <asp:Button ID="btnAgregarArticulo" CssClass="btn btn-primary" runat="server" Text="Agregar" />
+                <asp:Button ID="btnAgregarArticulo" OnClick="btnAgregarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Agregar" />
                 <asp:Button ID="btnVolver" OnClick="btnVolver_Click" CssClass="btn btn-primary" runat="server" Text="Volver" />
             </div>
         </div>

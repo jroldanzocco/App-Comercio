@@ -25,16 +25,22 @@ namespace J3AMS.UI
             aux.Descripcion = txtDescripcion.Text;
 
             Tipo tipo = new Tipo();
-            tipo.Descripcion = txtTipo.Text;
+            tipo.Id = int.Parse(txtTipo.Text);
             aux.Tipo = tipo;
 
             Marca marca = new Marca();
-            marca.Descripcion = txtMarca.Text;
+            marca.Id = int.Parse(txtMarca.Text);
             aux.Marca = marca;
 
             Proveedor proveedor = new Proveedor();
-            proveedor.RazonSocial = txtDescripcion.Text;
+            proveedor.Id = int.Parse(txtProveedor.Text);
             aux.Proveedor = proveedor;
+
+            decimal.TryParse(txtPrecioCosto.Text, out decimal PrecioCosto);
+
+            decimal.TryParse(txtPrecioVenta.Text, out decimal PrecioVenta);
+
+            proveedor.Id = int.Parse(txtStockMinimo.Text);
 
             negocio.Add(aux);
 
@@ -42,7 +48,7 @@ namespace J3AMS.UI
         }
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MenuArticulos.aspx");
+            Response.Redirect("BuscarArticulo.aspx");
         }
     }
 }

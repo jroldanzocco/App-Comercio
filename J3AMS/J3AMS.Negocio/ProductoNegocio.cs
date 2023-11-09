@@ -66,13 +66,16 @@ namespace J3AMS.Negocio
             try
             {
                 datos.SetConsulta("INSERT INTO Productos (Codigo, Descripcion, Tipo, Marca, Proveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo) " +
-                                 "VALUES (@codigo, @descripcion, @tipo, @marca, @proveedor, 1, 2, 10, 0, 1)");
+                                 "VALUES (@codigo, @descripcion, @tipo, @marca, @proveedor, @precioCosto, @precioVenta, 0, @stockMinimo, 1)");
 
                 datos.SetParametro("@codigo", newEntity.Codigo);
                 datos.SetParametro("@descripcion", newEntity.Descripcion);
                 datos.SetParametro("@tipo", newEntity.Tipo.Id);
                 datos.SetParametro("@marca", newEntity.Marca.Id);
                 datos.SetParametro("@proveedor", newEntity.Proveedor.Id);
+                datos.SetParametro("@precioCosto", newEntity.PrecioCosto);
+                datos.SetParametro("@precioVenta", newEntity.PrecioVenta);
+                datos.SetParametro("@stockMinimo", newEntity.StockMinimo);
 
                 datos.EjecutarLectura();
             }

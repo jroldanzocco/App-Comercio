@@ -29,7 +29,7 @@
             </ItemTemplate>
         </asp:Repeater>
     </table>
-
+    
     <asp:Button ID="btnNuevoArticulo" OnClick="btnNuevoArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
     <asp:Button ID="btnBuscarArticulo" OnClick="btnBuscarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Buscar" />
 

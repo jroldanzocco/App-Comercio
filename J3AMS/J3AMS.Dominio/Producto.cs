@@ -20,7 +20,7 @@ namespace J3AMS.Dominio
         public Proveedor Proveedor { get; set; }
         public decimal PrecioCosto { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
-        public decimal PorcentajeGanancia { get; set; }
+        public decimal PrecioVenta { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         public int Stock { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
