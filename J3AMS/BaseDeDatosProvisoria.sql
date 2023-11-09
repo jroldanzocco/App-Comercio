@@ -131,9 +131,9 @@ INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono,
 VALUES ('Proveedor 5 Razón Social', 'Proveedor 5 Nombre Fantasía', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45, 1);
 --PARA ALTA PRODUCTO
 INSERT INTO Productos
-VALUES ('Pera', 1, 1, 14, 1,10, 2, 10, 0, 1)
+VALUES ('Pera', 1, 1, 1, 1,10, 2, 10, 0, 1)
 INSERT INTO Productos
-VALUES ('Durazno', 1, 1, 14, 1,10, 2, 10, 0, 1)
+VALUES ('Durazno', 1, 1, 2, 1,10, 2, 10, 0, 1)
 --PARA CONSULTA PRODUCTO
 SELECT 
 	A.Id,
