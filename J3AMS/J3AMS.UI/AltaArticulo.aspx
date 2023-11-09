@@ -15,17 +15,22 @@
         <div class="container-alta">
             <h2 class="text-center">Nuevo Artículo</h2>
             <div class="mb-3 form-alta">
-                <label for="txtCodigo" class="form-label">Codigo</label>
-                <asp:TextBox ID="txtCodigo" CssClass="form-control" runat="server"></asp:TextBox>
+                <label for="txtNombre" class="form-label">Nombre</label>
+                <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server"></asp:TextBox>
                 <label for="txtDescripcion" class="form-label">Descripción</label>
                 <asp:TextBox ID="txtDescripcion" CssClass="form-control" runat="server"></asp:TextBox>
-                <label for="txtTipo" class="form-label">Tipo</label>
-                <asp:TextBox ID="txtTipo" CssClass="form-control" runat="server"></asp:TextBox>
-                <label for="txtMarca" class="form-label">Marca</label>
-                <asp:TextBox ID="txtMarca" CssClass="form-control" runat="server"></asp:TextBox>
-                <label for="txtProveedor" class="form-label">Proveedor</label>
-                <asp:TextBox ID="txtProveedor" CssClass="form-control" runat="server"></asp:TextBox>
-                <label for="txtProveedor" class="form-label">Proveedor</label>
+                <div>
+                <label for="ddlTipo" class="form-label">Tipo</label>
+                <asp:DropDownList ID="ddlTipo" CssClass="btn btn-secondary dropdown-toggle" runat="server"></asp:DropDownList>
+                </div>
+                <div>
+                <label for="ddlMarca" class="form-label">Marca</label>
+                <asp:DropDownList ID="ddlMarca" CssClass="btn btn-secondary dropdown-toggle" runat="server"></asp:DropDownList>
+                </div>
+                <div>
+                <label for="ddlProveedor" class="form-label">Proveedor</label>
+                <asp:DropDownList ID="ddlProveedor" CssClass="btn btn-secondary dropdown-toggle" runat="server"></asp:DropDownList>
+                </div>
                 <asp:TextBox ID="txtPrecioCosto" CssClass="form-control" runat="server"></asp:TextBox>
                 <label for="txtPrecioCosto" class="form-label">Precio Costo</label>
                 <asp:TextBox ID="txtPrecioVenta" CssClass="form-control" runat="server"></asp:TextBox>

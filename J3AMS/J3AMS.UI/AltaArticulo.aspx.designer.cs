@@ -24,13 +24,13 @@ namespace J3AMS.UI
         protected global::System.Web.UI.HtmlControls.HtmlForm frmAltaArticulo;
 
         /// <summary>
-        /// Control txtCodigo.
+        /// Control txtNombre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCodigo;
+        protected global::System.Web.UI.WebControls.TextBox txtNombre;
 
         /// <summary>
         /// Control txtDescripcion.
@@ -42,31 +42,31 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
 
         /// <summary>
-        /// Control txtTipo.
+        /// Control ddlTipo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTipo;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipo;
 
         /// <summary>
-        /// Control txtMarca.
+        /// Control ddlMarca.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMarca;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMarca;
 
         /// <summary>
-        /// Control txtProveedor.
+        /// Control ddlProveedor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProveedor;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProveedor;
 
         /// <summary>
         /// Control txtPrecioCosto.
