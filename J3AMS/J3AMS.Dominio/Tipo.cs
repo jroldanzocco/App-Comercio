@@ -13,5 +13,10 @@ namespace J3AMS.Dominio
         [Required(ErrorMessage = "El campo es requerido")]
         [StringLength(50, ErrorMessage = "Maximo 50 caracteres")]
         public string Descripcion { get; set; }
+
+        public override string ToString()
+        {
+            return Descripcion;
+        }
     }
 }

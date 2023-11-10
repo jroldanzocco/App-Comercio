@@ -72,7 +72,7 @@ namespace J3AMS.UI
 
             negocio.Add(aux);
 
-            Response.Redirect("MenuArticulos.aspx");
+            Response.Redirect("BuscarArticulo.aspx");
         }
         protected void btnVolver_Click(object sender, EventArgs e)
         {
