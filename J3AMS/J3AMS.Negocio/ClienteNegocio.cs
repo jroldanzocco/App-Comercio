@@ -31,6 +31,7 @@ namespace J3AMS.Negocio
                         Id = (int)_datos.Lector["Id"],
                         Apellidos = _datos.Lector["Apellidos"] as string ?? string.Empty,
                         Nombres = _datos.Lector["Nombres"] as string ?? string.Empty,
+                        DNI = _datos.Lector["DNI"] as string ?? string.Empty,
                         Domicilio = _datos.Lector["Domicilio"] as string ?? string.Empty,
                         Telefono = _datos.Lector["Telefono"] as string ?? string.Empty,
                         Celular = _datos.Lector["Celular"] as string ?? string.Empty,
@@ -50,7 +51,6 @@ namespace J3AMS.Negocio
             }
 
         }
-
         public void Add(Cliente newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
@@ -76,6 +76,25 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
+        public void Delete(Producto newEntity)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            try
+            {
+                datos.SetParametro("@id", newEntity.Id);
+                datos.SetConsulta("DELETE FROM Clientes WHERE Id = @id");
 
+                Console.WriteLine("Cliente eliminado con éxito.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al eliminar el cliente.");
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }

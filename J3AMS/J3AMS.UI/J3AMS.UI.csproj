@@ -105,9 +105,10 @@
     <Content Include="About.aspx" />
     <Content Include="AltaArticulo.aspx" />
     <Content Include="AltaCliente.aspx" />
-    <Content Include="AltaProveedores.aspx" />
+    <Content Include="AltaProveedor.aspx" />
     <Content Include="BuscarArticulo.aspx" />
-    <Content Include="Contact.aspx" />
+    <Content Include="BuscarCliente.aspx" />
+    <Content Include="BuscarProveedor.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -129,10 +130,6 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Login.aspx" />
-    <Content Include="MenuArticulos.aspx" />
-    <Content Include="MenuClientes.aspx" />
-    <Content Include="MenuProveedores.aspx" />
     <Content Include="PaginaPrincipal.aspx" />
     <Content Include="Resources\css\login.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -212,12 +209,12 @@
     <Compile Include="AltaCliente.aspx.designer.cs">
       <DependentUpon>AltaCliente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AltaProveedores.aspx.cs">
-      <DependentUpon>AltaProveedores.aspx</DependentUpon>
+    <Compile Include="AltaProveedor.aspx.cs">
+      <DependentUpon>AltaProveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AltaProveedores.aspx.designer.cs">
-      <DependentUpon>AltaProveedores.aspx</DependentUpon>
+    <Compile Include="AltaProveedor.aspx.designer.cs">
+      <DependentUpon>AltaProveedor.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
@@ -235,12 +232,19 @@
     <Compile Include="BuscarArticulo.aspx.designer.cs">
       <DependentUpon>BuscarArticulo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
+    <Compile Include="BuscarCliente.aspx.cs">
+      <DependentUpon>BuscarCliente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
+    <Compile Include="BuscarCliente.aspx.designer.cs">
+      <DependentUpon>BuscarCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BuscarProveedor.aspx.cs">
+      <DependentUpon>BuscarProveedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscarProveedor.aspx.designer.cs">
+      <DependentUpon>BuscarProveedor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -251,34 +255,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MenuArticulos.aspx.cs">
-      <DependentUpon>MenuArticulos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MenuArticulos.aspx.designer.cs">
-      <DependentUpon>MenuArticulos.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MenuClientes.aspx.cs">
-      <DependentUpon>MenuClientes.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MenuClientes.aspx.designer.cs">
-      <DependentUpon>MenuClientes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MenuProveedores.aspx.cs">
-      <DependentUpon>MenuProveedores.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MenuProveedores.aspx.designer.cs">
-      <DependentUpon>MenuProveedores.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginaPrincipal.aspx.cs">
       <DependentUpon>PaginaPrincipal.aspx</DependentUpon>

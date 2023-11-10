@@ -78,6 +78,25 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
+        public void Delete(Producto newEntity)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            try
+            {
+                datos.SetParametro("@id", newEntity.Id);
+                datos.SetConsulta("DELETE FROM Proveedores WHERE Id = @id");
 
+                Console.WriteLine("Proveedor eliminado con éxito.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al eliminar el proveedor.");
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }

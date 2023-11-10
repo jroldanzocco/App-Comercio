@@ -38,7 +38,7 @@ namespace J3AMS.UI
         }
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MenuClientes.aspx");
+            Response.Redirect("BuscarCliente.aspx");
         }
 
         protected void btnAgregarCliente_Click(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace J3AMS.UI
             Cliente aux = new Cliente();
 
             aux.Apellidos = txtApellido.Text;
-            aux.Nombres = txtNombreCLiente.Text;
+            aux.Nombres = txtNombreCliente.Text;
             aux.DNI = txtDni.Text;
             CategoriaIva categoriaIva = new CategoriaIva();
             categoriaIva.Id = int.Parse(ddlIva.SelectedValue);

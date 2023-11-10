@@ -21,12 +21,12 @@ namespace J3AMS.UI
 
         protected void btnClientes_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MenuClientes.aspx");
+            Response.Redirect("BuscarCliente.aspx");
         }
 
         protected void btnProveedores_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MenuProveedores.aspx");
+            Response.Redirect("BuscarProveedor.aspx");
         }
     }
 }
