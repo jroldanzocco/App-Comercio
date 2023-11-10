@@ -76,7 +76,7 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-        public void Delete(Producto newEntity)
+        public void Delete(Cliente newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
             try
