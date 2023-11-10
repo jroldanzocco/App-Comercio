@@ -12,20 +12,22 @@ namespace J3AMS.UI
     public partial class BuscarArticulo : System.Web.UI.Page
     {
         public List<Producto> ListaProducto { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProductoNegocio negocio = new ProductoNegocio();
-            ListaProducto = negocio.Listar();
-
             if (!IsPostBack)
             {
-                repRepetidor.DataSource = ListaProducto;
-                repRepetidor.DataBind();
+                CargarProductos();
             }
         }
+
         protected void btnNuevoArticulo_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaArticulo.aspx");
+        }
+        protected void btnEditarArticulo_Click(object sender, EventArgs e)
+        {
+            
         }
         protected void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
@@ -36,13 +38,22 @@ namespace J3AMS.UI
                 ProductoNegocio negocio = new ProductoNegocio();
                 Producto aux = new Producto();
 
-                if (int.TryParse(id, out int articuloId))
+                if (int.TryParse(id, out int Id))
                 {
-                    aux.Id = articuloId;
+                    aux.Id = Id;
                     negocio.Delete(aux);
-                    Response.Redirect("BuscarArticulo.aspx");
                 }
+
+                CargarProductos();
             }
+        }
+
+        private void CargarProductos()
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            ListaProducto = negocio.Listar();
+            repRepetidor.DataSource = ListaProducto;
+            repRepetidor.DataBind();
         }
     }
 }

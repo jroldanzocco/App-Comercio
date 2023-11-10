@@ -1,11 +1,13 @@
 ﻿using J3AMS.Dominio;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace J3AMS.Negocio
 {
@@ -23,27 +25,31 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT \r\n\tA.Id,\r\n\tA.Descripcion,\r\n\tT.Descripcion AS Tipo,\r\n\tM.Descripcion AS Marca,\r\n\tP.NombreFantasia AS Proveedor,\r\n\tA.PrecioCosto, \r\n\tA.Stock, \r\n\tA.StockMinimo\r\nFROM Productos A\r\nleft join Marcas M on A.IdMarca = M.Id\r\nleft join Tipos T on A.IdTipo = T.Id\r\nleft join Proveedores P on A.IdProveedor = P.Id");
+                _datos.SetConsulta("SELECT A.Id, A.Descripcion, T.Descripcion AS Tipo, M.Descripcion AS Marca, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
+                                  "FROM Productos A " +
+                                  "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
+                                  "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
+                                  "LEFT JOIN Proveedores P ON A.IdProveedor = P.Id");
+
                 _datos.EjecutarLectura();
 
                 while (_datos.Lector.Read())
                 {
-                    listProductos.Add(new Producto()
+                    listProductos.Add(new Producto
                     {
                         Id = (int)_datos.Lector["Id"],
-
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
-
-                        Tipo = new Tipo()
+                        Tipo = new Tipo
                         {
                             Id = (int)_datos.Lector["Id"],
                             Descripcion = _datos.Lector["Tipo"] as string ?? string.Empty
                         },
-                        Marca = new Marca()
+                        Marca = new Marca
                         {
                             Id = (int)_datos.Lector["Id"],
                             Descripcion = _datos.Lector["Marca"] as string ?? string.Empty,
                         },
+                        // Nos falta agregar la propiedad Proveedor
                     });
                 }
                 return listProductos;
@@ -56,7 +62,6 @@ namespace J3AMS.Negocio
             {
                 _datos.CerrarConexion();
             }
-
         }
         public void Add(Producto newEntity)
         {
@@ -66,7 +71,6 @@ namespace J3AMS.Negocio
                 datos.SetConsulta("INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo) " +
                                  "VALUES (@descripcion, @tipo, @marca, @proveedor, @precioCosto, @precioVenta, 0, @stockMinimo, 1)");
 
-                
                 datos.SetParametro("@descripcion", newEntity.Descripcion);
                 datos.SetParametro("@tipo", newEntity.Tipo.Id);
                 datos.SetParametro("@marca", newEntity.Marca.Id);
@@ -86,7 +90,6 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-
         public void Delete(Producto newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
@@ -95,10 +98,11 @@ namespace J3AMS.Negocio
                 datos.SetParametro("@id", newEntity.Id);
                 datos.SetConsulta("DELETE FROM Productos WHERE Id = @id");
 
-                datos.EjecutarLectura();
+                Console.WriteLine("Producto eliminado con éxito.");
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Error al eliminar el producto.");
                 throw ex;
             }
             finally
@@ -106,5 +110,6 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
+
     }
 }

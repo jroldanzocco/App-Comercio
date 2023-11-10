@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="Site.Master" AutoEventWireup="true" CodeBehind="BuscarArticulo.aspx.cs" Inherits="J3AMS.UI.BuscarArticulo" %>
+﻿<%@ Page Title="Artículos" Language="C#" MasterPageFile="Site.Master" AutoEventWireup="true" CodeBehind="BuscarArticulo.aspx.cs" Inherits="J3AMS.UI.BuscarArticulo" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <table class="table">
@@ -21,9 +21,9 @@
                     <td><%# Eval("Tipo") %></td>
                     <td><%# Eval("Marca") %></td>
                     <td>
-                        <asp:Button ID="btnEditarArticulo" CssClass="btn btn-primary" runat="server" Text="Editar" />
+                        <asp:Button ID="btnEditarArticulo" OnClick="btnEditarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
                         <asp:Button ID="btnInformeArticulo" CssClass="btn btn-primary" runat="server" Text="Informes" />
-                        <asp:Button ID="btnEliminarArticulo" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
+                        <asp:Button ID="btnEliminarArticulo" OnClick="btnEliminarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
                     </td>
                 </tr>
             </ItemTemplate>

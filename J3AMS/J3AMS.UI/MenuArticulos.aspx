@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MenuArticulos.aspx.cs" Inherits="J3AMS.UI.MenuArticulos" %>
+﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="MenuArticulos.aspx.cs" Inherits="J3AMS.UI.MenuArticulos" %>
 
 <!DOCTYPE html>
 
