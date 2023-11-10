@@ -19,8 +19,8 @@
     <asp:Repeater ID="repRepetidor" runat="server">
         <ItemTemplate>
             <tr>
-                <td><%# Eval("Apellido") %></td>
-                <td><%# Eval("Nombre") %></td>
+                <td><%# Eval("Apellidos") %></td>
+                <td><%# Eval("Nombres") %></td>
                 <td><%# Eval("DNI") %></td>
                 <td><%# Eval("Domicilio") %></td>
                 <td><%# Eval("Telefono") %></td>

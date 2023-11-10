@@ -21,7 +21,7 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT Id, Apellidos, Nombres, Domicilio, Telefono, Celular, Email FROM Clientes");
+                _datos.SetConsulta("SELECT Id, Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email FROM Clientes");
                 _datos.EjecutarLectura();
 
                 while(_datos.Lector.Read())

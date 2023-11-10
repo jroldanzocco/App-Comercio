@@ -56,7 +56,7 @@ namespace J3AMS.UI
 
             clienteNegocio.Add(aux);
 
-            Response.Redirect("MenuArticulos.aspx");
+            Response.Redirect("BuscarCliente.aspx");
         }
     }
 }
