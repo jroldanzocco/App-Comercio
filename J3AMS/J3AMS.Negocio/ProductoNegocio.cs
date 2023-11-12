@@ -95,8 +95,9 @@ namespace J3AMS.Negocio
             AccesoADatos datos = new AccesoADatos();
             try
             {
-                datos.SetParametro("@id", newEntity.Id);
                 datos.SetConsulta("DELETE FROM Productos WHERE Id = @id");
+                datos.SetParametro("@id", newEntity.Id);
+                datos.EjecutarLectura();
 
                 Console.WriteLine("Producto eliminado con éxito.");
             }

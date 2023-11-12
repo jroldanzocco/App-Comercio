@@ -31,7 +31,8 @@ namespace J3AMS.UI
         }
         protected void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
-            string id = Request.QueryString["Id"];
+            //string id = Request.QueryString["Id"];
+            string id = ((Button)sender).CommandArgument;
 
             if (!string.IsNullOrEmpty(id))
             {
