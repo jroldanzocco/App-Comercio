@@ -104,8 +104,9 @@ namespace J3AMS.Negocio
             AccesoADatos datos = new AccesoADatos();
             try
             {
-                datos.SetParametro("@id", newEntity.Id);
-                datos.SetConsulta("UPDATE Proveedores SET Activo = 0 WHERE id = @id");
+                datos.SetParametro("@idDelete", newEntity.Id);
+                datos.SetConsulta("UPDATE Proveedores SET Activo = 0 WHERE id = @idDelete");
+                datos.EjecutarLectura();
             }
             catch (Exception ex)
             {
