@@ -31,7 +31,7 @@ namespace J3AMS.UI
         }
         protected void btnEliminarProveedor_Click(object sender, EventArgs e)
         {
-            string id = Request.QueryString["Id"];
+            string id = ((Button)sender).CommandArgument;
 
             if (!string.IsNullOrEmpty(id))
             {
@@ -41,7 +41,7 @@ namespace J3AMS.UI
                 if (int.TryParse(id, out int Id))
                 {
                     aux.Id = Id;
-                    negocio.Delete(aux);
+                    negocio.SoftDelete(aux);
                 }
 
                 CargarProveedores();

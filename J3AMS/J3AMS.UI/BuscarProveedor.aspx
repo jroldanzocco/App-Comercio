@@ -18,7 +18,7 @@
 
     <asp:Repeater ID="repRepetidor" runat="server">
         <ItemTemplate>
-            <tr>
+            <tr runat="server" visible='<%# Convert.ToBoolean(Eval("Activo")) == true %>'>
                 <td><%# Eval("RazonSocial") %></td>
                 <td><%# Eval("NombreFantasia") %></td>
                 <td><%# Eval("CUIT") %></td>
@@ -29,7 +29,7 @@
                 <td>
                     <asp:Button ID="btnEditarProveedor" OnClick="btnEditarProveedor_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
                     <asp:Button ID="btnInformeProveedor" CssClass="btn btn-primary" runat="server" Text="Informes" />
-                    <asp:Button ID="btnEliminarProveedor" OnClick="btnEliminarProveedor_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
+                    <asp:Button ID="btnEliminarProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" OnClick="btnEliminarProveedor_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
                 </td>
             </tr>
         </ItemTemplate>

@@ -21,7 +21,7 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT Id, NombreFantasia, Domicilio, Telefono, Celular, Email FROM Proveedores");
+                _datos.SetConsulta("SELECT Id, NombreFantasia, Domicilio, Telefono, Celular, Email, Activo FROM Proveedores");
                 _datos.EjecutarLectura();
 
                 while (_datos.Lector.Read())
@@ -34,7 +34,7 @@ namespace J3AMS.Negocio
                         Telefono = _datos.Lector["Telefono"] as string ?? string.Empty,
                         Celular = _datos.Lector["Celular"] as string ?? string.Empty,
                         Email = _datos.Lector["Email"] as string ?? string.Empty,
-
+                        Activo = (bool)_datos.Lector["Activo"]
                     });
                 }
                 return listProveedores;
@@ -64,7 +64,7 @@ namespace J3AMS.Negocio
                 datos.SetParametro("@CUIT", newEntity.CUIT);
                 datos.SetParametro("@Domicilio", newEntity.Domicilio);
                 datos.SetParametro("@Telefono", newEntity.Telefono);
-
+                datos.SetParametro("@Activo", true);
                 datos.EjecutarLectura();
 
             }
@@ -91,6 +91,24 @@ namespace J3AMS.Negocio
             catch (Exception ex)
             {
                 Console.WriteLine("Error al eliminar el proveedor.");
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void SoftDelete(Proveedor newEntity)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            try
+            {
+                datos.SetParametro("@id", newEntity.Id);
+                datos.SetConsulta("UPDATE Proveedores SET Activo = 0 WHERE id = @id");
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             finally
