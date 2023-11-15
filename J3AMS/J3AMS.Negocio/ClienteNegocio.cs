@@ -15,7 +15,7 @@ namespace J3AMS.Negocio
         {
             _datos = new AccesoADatos();
         }
-        public List<Cliente> Listar()
+        public List<Cliente> Listar(string id = "")
         {
             var listClientes = new List<Cliente>();
 

@@ -2,6 +2,7 @@
 using J3AMS.Negocio;
 using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
@@ -36,6 +37,27 @@ namespace J3AMS.UI
                         ddlProveedor.DataBind();
 
                 }
+
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
+
+                if (id != "")
+                {
+                    ProductoNegocio negocio = new ProductoNegocio();
+                    Producto aux = (negocio.Listar(id))[0];
+
+                    txtNombre.Text = aux.Descripcion;
+                    txtDescripcion.Text = "Campo a resolver";
+                    txtStockMinimo.Text = "Revisar Query";
+                    txtPrecioVenta.Text = aux.PrecioVenta.ToString();
+                    txtPrecioCosto.Text = aux.PrecioCosto.ToString();
+
+                    ddlTipo.SelectedValue = aux.Tipo.Id.ToString();
+                    ddlMarca.SelectedValue = aux.Marca.Id.ToString();
+                    ddlProveedor.SelectedValue = aux.Proveedor.Id.ToString();
+                }
+
+
+
             }
             catch (Exception ex)
             {
@@ -49,7 +71,7 @@ namespace J3AMS.UI
             ProductoNegocio negocio = new ProductoNegocio();
             Producto aux = new Producto();
 
-
+            aux.Id = int.Parse(Request.QueryString["id"]);
             aux.Descripcion = txtDescripcion.Text;
 
             Tipo tipo = new Tipo();
@@ -68,9 +90,12 @@ namespace J3AMS.UI
 
             decimal.TryParse(txtPrecioVenta.Text, out decimal PrecioVenta);
 
-            aux.StockMinimo = int.Parse(txtStockMinimo.Text);
+            //aux.StockMinimo = int.Parse(txtStockMinimo.Text);
 
-            negocio.Add(aux);
+            if (Request.QueryString["id"] != null)
+                negocio.Update(aux);
+            else
+                negocio.Add(aux);
 
             Response.Redirect("BuscarArticulo.aspx");
         }

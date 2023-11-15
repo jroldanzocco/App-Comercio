@@ -9,6 +9,6 @@ namespace J3AMS.Negocio
 {
     interface IABML<T>
     {
-        List<T> Listar();
+        List<T> Listar(string id = "");
     }
 }
