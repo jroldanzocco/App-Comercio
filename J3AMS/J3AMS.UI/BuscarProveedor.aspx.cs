@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using UnitOfWork.SqlServer;
 
 namespace J3AMS.UI
 {
@@ -35,7 +36,8 @@ namespace J3AMS.UI
 
             if (!string.IsNullOrEmpty(id))
             {
-                ProveedorNegocio negocio = new ProveedorNegocio();
+                var unitOfWork = new UnitOfWorkSqlServer();
+                ProveedorNegocio negocio = new ProveedorNegocio(unitOfWork);
                 Proveedor aux = new Proveedor();
 
                 if (int.TryParse(id, out int Id))
@@ -50,7 +52,8 @@ namespace J3AMS.UI
 
         private void CargarProveedores()
         {
-            ProveedorNegocio negocio = new ProveedorNegocio();
+            var unitOfWork = new UnitOfWorkSqlServer();
+            ProveedorNegocio negocio = new ProveedorNegocio(unitOfWork);
             ListaProveedor = negocio.Listar();
             repRepetidor.DataSource = ListaProveedor;
             repRepetidor.DataBind();

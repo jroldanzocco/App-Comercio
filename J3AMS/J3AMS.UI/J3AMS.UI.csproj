@@ -308,6 +308,14 @@
       <Project>{5e7cdfe1-9f9f-40ed-92da-b11c75cfbdf7}</Project>
       <Name>J3AMS.Negocio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UnitOfWork.Interface\UnitOfWork.Interfaces.csproj">
+      <Project>{CF7A8D5C-9B7A-449A-A3C1-370BD4DB0180}</Project>
+      <Name>UnitOfWork.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnitOfWork.SqlServer\UnitOfWork.SqlServer.csproj">
+      <Project>{D7006C2E-4828-41A6-AE2B-85BBBA159F31}</Project>
+      <Name>UnitOfWork.SqlServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

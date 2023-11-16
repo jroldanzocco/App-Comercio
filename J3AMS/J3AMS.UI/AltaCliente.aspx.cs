@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using UnitOfWork.SqlServer;
 
 namespace J3AMS.UI
 {
@@ -17,9 +18,10 @@ namespace J3AMS.UI
             {
                 if(!IsPostBack)
                 {
+                    var UnitOfWork = new UnitOfWorkSqlServer();
                     //CategoriaIvaNegocio categoriaIvaNegocio = new CategoriaIvaNegocio();
                     //List<CategoriaIva> categoriaIvas = categoriaIvaNegocio.Listar();
-                    ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+                    ProveedorNegocio proveedorNegocio = new ProveedorNegocio(UnitOfWork);
                     List<Proveedor> proveedores = proveedorNegocio.Listar();
 
                     ddlIva.DataSource = proveedores;

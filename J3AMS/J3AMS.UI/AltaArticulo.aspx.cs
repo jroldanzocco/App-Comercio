@@ -3,6 +3,7 @@ using J3AMS.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
+using UnitOfWork.SqlServer;
 
 namespace J3AMS.UI
 {
@@ -14,9 +15,10 @@ namespace J3AMS.UI
             {
                 if(!IsPostBack)
                 {
+                    var unitOfWork = new UnitOfWorkSqlServer();
                         TipoNegocio tipoNegocio = new TipoNegocio();
                         //List<Tipo> tipos = tipoNegocio.Listar();
-                        ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+                        ProveedorNegocio proveedorNegocio = new ProveedorNegocio(unitOfWork);
                         List<Proveedor> proveedores = proveedorNegocio.Listar();
                         MarcaNegocio marcaNegocio = new MarcaNegocio();
                         //List<Marca> marcas = marcaNegocio.Listar();

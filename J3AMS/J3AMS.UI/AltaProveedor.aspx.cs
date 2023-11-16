@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using UnitOfWork.SqlServer;
 
 namespace J3AMS.UI
 {
@@ -23,7 +24,8 @@ namespace J3AMS.UI
 
         protected void btnAgregarProveedor_Click(object sender, EventArgs e)
         {
-            ProveedorNegocio negocio = new ProveedorNegocio();
+            var unitOfWork = new UnitOfWorkSqlServer();
+            ProveedorNegocio negocio = new ProveedorNegocio(unitOfWork);
             Proveedor aux = new Proveedor();
 
             aux.RazonSocial = txtRazonSocial.Text;
