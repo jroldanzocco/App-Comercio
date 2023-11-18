@@ -26,6 +26,8 @@ namespace J3AMS.Dominio
         [StringLength(100, ErrorMessage = "Maximo 100 caracteres")]
         public string Celular { get; set; }
         public string Email { get; set; }
+        public byte IdCategoriaIva { get; set; }
+        public byte PlazoPago { get; set; }
         public bool Activo { get; set; }
     }
 }
