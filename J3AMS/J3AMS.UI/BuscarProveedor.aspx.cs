@@ -20,7 +20,10 @@ namespace J3AMS.UI
                 CargarProveedores();
             }
         }
-
+        protected void btnVolverAlMenu_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PaginaPrincipal.aspx");
+        }
         protected void btnNuevoProveedor_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaProveedor.aspx");

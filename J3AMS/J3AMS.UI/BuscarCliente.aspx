@@ -37,5 +37,6 @@
 </table>
 
 <asp:Button ID="btnNuevoCliente" OnClick="btnNuevoCliente_Click" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
+<asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Volver al Menu" />
 
 </asp:Content>

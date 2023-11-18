@@ -20,7 +20,10 @@ namespace J3AMS.UI
                 CargarProductos();
             }
         }
-
+        protected void btnVolverAlMenu_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PaginaPrincipal.aspx");
+        }
         protected void btnNuevoArticulo_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaArticulo.aspx");
