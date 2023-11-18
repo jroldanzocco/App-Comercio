@@ -25,15 +25,15 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT A.Id, A.Descripcion, T.Descripcion AS Tipo, M.Descripcion AS Marca, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
-                                  "FROM Productos A " +
-                                  "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
-                                  "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
-                                  "LEFT JOIN Proveedores P ON A.IdProveedor = P.Id");
+                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
+                                 "FROM Productos A " +
+                                 "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
+                                 "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
+                                 "LEFT JOIN Proveedores P ON A.IdProveedor = P.Id");
 
-                if(id != "")
+                if (id != "")
                 {
-                    _datos.SetConsulta("SELECT A.Id, A.Descripcion, T.Descripcion AS Tipo, M.Descripcion AS Marca, P.Id, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
+                    _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
                                   "FROM Productos A " +
                                   "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
                                   "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
@@ -49,23 +49,23 @@ namespace J3AMS.Negocio
                 {
                     listProductos.Add(new Producto
                     {
-                        Id = (int)_datos.Lector["Id"],
+                        Id = (int)_datos.Lector["IdArt"],
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
                         //VERIFICAR LA CONSULTA
                         //StockMinimo = (int)_datos.Lector["A.StockMinimo"],
                         Tipo = new Tipo
                         {
-                            Id = (int)_datos.Lector["Id"],
+                            Id = (byte)_datos.Lector["IdTipo"],
                             Descripcion = _datos.Lector["Tipo"] as string ?? string.Empty
                         },
                         Marca = new Marca
                         {
-                            Id = (int)_datos.Lector["Id"],
+                            Id = (byte)_datos.Lector["IdMarca"],
                             Descripcion = _datos.Lector["Marca"] as string ?? string.Empty,
                         },
                         Proveedor = new Proveedor
                         {
-                            Id = (int)_datos.Lector["Id"],
+                            Id = (int)_datos.Lector["IdProv"],
                             NombreFantasia = _datos.Lector["Proveedor"] as string ?? string.Empty,
                         }
                         // Nos falta agregar la propiedad Proveedor
@@ -152,12 +152,12 @@ namespace J3AMS.Negocio
                     aux.StockMinimo = (int)_datos.Lector["P.StockMinimo"];
                     aux.Tipo = new Tipo
                     {
-                        Id = (int)_datos.Lector["T.Id"],
+                        Id = (byte)_datos.Lector["T.Id"],
                         Descripcion = _datos.Lector["T.Descripcion"] as string ?? string.Empty
                     };
                     aux.Marca = new Marca
                     {
-                        Id = (int)_datos.Lector["M.Id"],
+                        Id = (byte)_datos.Lector["M.Id"],
                         Descripcion = _datos.Lector["M.Descripcion"] as string ?? string.Empty
                     };
                         // Nos falta agregar la propiedad Proveedor                 

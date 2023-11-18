@@ -15,25 +15,25 @@ namespace J3AMS.UI
                 if(!IsPostBack)
                 {
                         TipoNegocio tipoNegocio = new TipoNegocio();
-                        //List<Tipo> tipos = tipoNegocio.Listar();
+                        List<Tipo> tipos = tipoNegocio.Listar();
                         ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
                         List<Proveedor> proveedores = proveedorNegocio.Listar();
                         MarcaNegocio marcaNegocio = new MarcaNegocio();
-                        //List<Marca> marcas = marcaNegocio.Listar();
+                        List<Marca> marcas = marcaNegocio.Listar();
 
-                        ddlTipo.DataSource = proveedores;
+                        ddlTipo.DataSource = tipos;
                         ddlTipo.DataValueField = "Id";
-                        ddlTipo.DataTextField = "NombreFantasia";
+                        ddlTipo.DataTextField = "Descripcion";
                         ddlTipo.DataBind();
 
-                        ddlMarca.DataSource = proveedores;
+                        ddlMarca.DataSource = marcas;
                         ddlMarca.DataValueField = "Id";
-                        ddlMarca.DataTextField = "NombreFantasia";
+                        ddlMarca.DataTextField = "Descripcion";
                         ddlMarca.DataBind();
 
                         ddlProveedor.DataSource = proveedores;
                         ddlProveedor.DataValueField = "Id";
-                        ddlProveedor.DataTextField = "Domicilio";
+                        ddlProveedor.DataTextField = "NombreFantasia";
                         ddlProveedor.DataBind();
 
                 }
@@ -45,8 +45,8 @@ namespace J3AMS.UI
                     ProductoNegocio negocio = new ProductoNegocio();
                     Producto aux = (negocio.Listar(id))[0];
 
-                    txtNombre.Text = aux.Descripcion;
-                    txtDescripcion.Text = "Campo a resolver";
+                    txtNombre.Text = "Campo a resolver";
+                    txtDescripcion.Text = aux.Descripcion;
                     txtStockMinimo.Text = "Revisar Query";
                     txtPrecioVenta.Text = aux.PrecioVenta.ToString();
                     txtPrecioCosto.Text = aux.PrecioCosto.ToString();
@@ -71,22 +71,25 @@ namespace J3AMS.UI
             ProductoNegocio negocio = new ProductoNegocio();
             Producto aux = new Producto();
 
-            aux.Id = int.Parse(Request.QueryString["id"]);
             aux.Descripcion = txtDescripcion.Text;
 
             Tipo tipo = new Tipo();
-            tipo.Id = int.Parse(ddlTipo.SelectedValue);
+            tipo.Id = byte.Parse(ddlTipo.SelectedValue);
             aux.Tipo = tipo;
 
             Marca marca = new Marca();
-            marca.Id = int.Parse(ddlMarca.SelectedValue);
+            marca.Id = byte.Parse(ddlMarca.SelectedValue);
             aux.Marca = marca;
 
             Proveedor proveedor = new Proveedor();
             proveedor.Id = int.Parse(ddlProveedor.SelectedValue);
             aux.Proveedor = proveedor;
 
-            decimal.TryParse(txtPrecioCosto.Text,out decimal PrecioCosto);
+            aux.PrecioCosto = Convert.ToDecimal(txtPrecioCosto.Text);
+
+            aux.PrecioVenta = Convert.ToDecimal(txtPrecioVenta.Text);
+
+            decimal.TryParse(txtPrecioCosto.Text,out decimal P);
 
             decimal.TryParse(txtPrecioVenta.Text, out decimal PrecioVenta);
 

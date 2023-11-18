@@ -9,7 +9,7 @@ namespace J3AMS.Dominio
 {
     public class Tipo
     {
-        public int Id { get; set; }
+        public byte Id { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         [StringLength(50, ErrorMessage = "Maximo 50 caracteres")]
         public string Descripcion { get; set; }

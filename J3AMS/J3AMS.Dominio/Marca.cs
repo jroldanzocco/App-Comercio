@@ -8,7 +8,7 @@ namespace J3AMS.Dominio
 {
     public class Marca
     {
-        public int Id { get; set; }
+        public byte Id { get; set; }
         public string Descripcion { get; set; }
         public override string ToString()
         {

@@ -28,7 +28,7 @@ namespace J3AMS.Negocio
                 {
                     listTipos.Add(new Tipo()
                     {
-                        Id = (int)_datos.Lector["Id"],
+                        Id = (byte)_datos.Lector["Id"],
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
                     });
                 }
