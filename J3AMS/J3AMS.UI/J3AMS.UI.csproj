@@ -105,7 +105,6 @@
     <Content Include="About.aspx" />
     <Content Include="AltaArticulo.aspx" />
     <Content Include="AltaCliente.aspx" />
-    <Content Include="AltaProveedor.aspx" />
     <Content Include="BuscarArticulo.aspx" />
     <Content Include="BuscarCliente.aspx" />
     <Content Include="Proveedor.aspx" />
@@ -208,13 +207,6 @@
     <Compile Include="AltaCliente.aspx.designer.cs">
       <DependentUpon>AltaCliente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AltaProveedor.aspx.cs">
-      <DependentUpon>AltaProveedor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AltaProveedor.aspx.designer.cs">
-      <DependentUpon>AltaProveedor.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -314,7 +306,7 @@
     </ProjectReference>
     <ProjectReference Include="..\UnitOfWork.SqlServer\UnitOfWork.SqlServer.csproj">
       <Project>{d7006c2e-4828-41a6-ae2b-85bbba159f31}</Project>
-      <Name>UnitOfWork.SqlServer</Name>
+      <Name>UnitOfWork</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -45,6 +45,7 @@
     <Compile Include="Actions\IReadRepository.cs" />
     <Compile Include="Actions\IRemoveRepository.cs" />
     <Compile Include="Actions\IUpdateRepository.cs" />
+    <Compile Include="ICategoriaIvaRepository.cs" />
     <Compile Include="IProveedorRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

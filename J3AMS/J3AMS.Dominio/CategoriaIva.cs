@@ -8,9 +8,9 @@ namespace J3AMS.Dominio
 {
     public class CategoriaIva
     {
-        public int Id { get; set; }
+        public byte Id { get; set; }
         public string Descripcion { get; set; }
-
+        public decimal PorcentajeIva { get; set; }
         public override string ToString()
         {
             return Descripcion;

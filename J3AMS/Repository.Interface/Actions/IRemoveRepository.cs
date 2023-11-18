@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Repository.Interface.Actions
 {
-    public interface IRemoveRepository<T> where T : struct
+    public interface IRemoveRepository<P>
     {
-        void Delete(T id);
+        void Delete(P id);
     }
 }

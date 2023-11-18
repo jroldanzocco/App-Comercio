@@ -15,7 +15,7 @@ namespace J3AMS.UI
             {
                 if(!IsPostBack)
                 {
-                    var unitOfWork = new UnitOfWork.SqlServer.UnitOfWork();
+                        var unitOfWork = new UnitOfWork.SqlServer.UnitOfWork();
                         TipoNegocio tipoNegocio = new TipoNegocio();
                         //List<Tipo> tipos = tipoNegocio.Listar();
                         ProveedorNegocio proveedorNegocio = new ProveedorNegocio(unitOfWork);
@@ -57,9 +57,6 @@ namespace J3AMS.UI
                     ddlMarca.SelectedValue = aux.Marca.Id.ToString();
                     ddlProveedor.SelectedValue = aux.Proveedor.Id.ToString();
                 }
-
-
-
             }
             catch (Exception ex)
             {
