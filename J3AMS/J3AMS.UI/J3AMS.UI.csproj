@@ -108,7 +108,7 @@
     <Content Include="AltaProveedor.aspx" />
     <Content Include="BuscarArticulo.aspx" />
     <Content Include="BuscarCliente.aspx" />
-    <Content Include="BuscarProveedor.aspx" />
+    <Content Include="Proveedor.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -238,12 +238,12 @@
     <Compile Include="BuscarCliente.aspx.designer.cs">
       <DependentUpon>BuscarCliente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BuscarProveedor.aspx.cs">
-      <DependentUpon>BuscarProveedor.aspx</DependentUpon>
+    <Compile Include="Proveedor.aspx.cs">
+      <DependentUpon>Proveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BuscarProveedor.aspx.designer.cs">
-      <DependentUpon>BuscarProveedor.aspx</DependentUpon>
+    <Compile Include="Proveedor.aspx.designer.cs">
+      <DependentUpon>Proveedor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

@@ -40,8 +40,12 @@ namespace J3AMS.Negocio
 
             try
             {
-                datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, IdCategoriaIva, PlazoPago, Activo)\r\n" +
-                    "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, 1, 1, 1)");
+                datos.SetConsulta("INSERT INTO Proveedores" +
+                                  "(RazonSocial, NombreFantasia, CUIT, Domicilio, " +
+                                  "Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo) " +
+                                  "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, @Celular, " +
+                                  "@Email, 1, 1, 1)");
+
                 datos.SetParametro("@Razon", newEntity.RazonSocial);
                 datos.SetParametro("@Nombre", newEntity.NombreFantasia);
                 datos.SetParametro("@CUIT", newEntity.CUIT);
@@ -71,22 +75,13 @@ namespace J3AMS.Negocio
             }
         }
 
-        public void SoftDelete(Proveedor newEntity)
+        public void Insert(Proveedor proveedor)
         {
-            AccesoADatos datos = new AccesoADatos();
-            try
+            using (var connection = _unitOfWork.Create())
             {
-                datos.SetParametro("@idDelete", newEntity.Id);
-                datos.SetConsulta("UPDATE Proveedores SET Activo = 0 WHERE id = @idDelete");
-                datos.EjecutarLectura();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.CerrarConexion();
+                connection.Repositories.ProveedorRepository.Add(proveedor);
+
+                connection.SaveChanges();
             }
         }
     }

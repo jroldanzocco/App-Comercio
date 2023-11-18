@@ -19,7 +19,29 @@ namespace Repository.SqlServer
 
         public void Add(Proveedor entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var command = CrearComando("INSERT INTO Proveedores" +
+                                           "(RazonSocial, NombreFantasia, CUIT, Domicilio, " +
+                                           "Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo) " +
+                                           "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, @Celular, " +
+                                           "@Email, 1, 1, 1)");
+
+                command.Parameters.AddWithValue("@Razon", entity.RazonSocial);
+                command.Parameters.AddWithValue("@Nombre", entity.NombreFantasia);
+                command.Parameters.AddWithValue("@CUIT", entity.CUIT);
+                command.Parameters.AddWithValue("@Domicilio", entity.Domicilio);
+                command.Parameters.AddWithValue("@Telefono", entity.Telefono);
+                command.Parameters.AddWithValue("@Celular", entity.Celular);
+                command.Parameters.AddWithValue("@Email", entity.Email);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public void Delete(int id)

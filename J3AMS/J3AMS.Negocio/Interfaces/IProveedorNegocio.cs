@@ -1,9 +1,5 @@
 ﻿using J3AMS.Dominio;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace J3AMS.Negocio.Interfaces
 {
@@ -11,5 +7,6 @@ namespace J3AMS.Negocio.Interfaces
     {
         List<Proveedor> Listar();
         void Delete(int id);
+        void Insert(Proveedor proveedor);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using J3AMS.Data;
 using System;
 using System.Data.SqlClient;
+using System.Runtime.Remoting.Contexts;
 using UnitOfWork.Interface;
 
 namespace UnitOfWork.SqlServer
@@ -25,14 +26,13 @@ namespace UnitOfWork.SqlServer
         {
             if (_transaction != null)
             {
-                _transaction.Rollback();
-                _transaction = null;
+                _transaction.Dispose();
             }
 
             if (_connection != null)
             {
                 _connection.Close();
-                _connection = null;
+                _connection.Dispose();
             }
 
             Repositories = null;
@@ -40,12 +40,7 @@ namespace UnitOfWork.SqlServer
 
         public void SaveChanges()
         {
-            if (_transaction == null)
-                throw new InvalidOperationException
-                 ("Transaction have already been committed. Check your transaction handling.");
-
             _transaction.Commit();
-            _transaction = null;
         }
     }
 }
