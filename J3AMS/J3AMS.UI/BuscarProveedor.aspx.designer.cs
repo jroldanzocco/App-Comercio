@@ -15,13 +15,13 @@ namespace J3AMS.UI
     {
 
         /// <summary>
-        /// lblMsg control.
+        /// lblInforme control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMsg;
+        protected global::System.Web.UI.WebControls.Label lblInforme;
 
         /// <summary>
         /// txtRazonSocial control.
@@ -31,15 +31,6 @@ namespace J3AMS.UI
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRazonSocial;
-
-        /// <summary>
-        /// txtNombreFantasia control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombreFantasia;
 
         /// <summary>
         /// txtCuit control.
