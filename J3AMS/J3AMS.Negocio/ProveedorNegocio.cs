@@ -132,31 +132,19 @@ namespace J3AMS.Negocio
 
             try
             {
-                var query = "SELECT " +
-                            "Id, " +
-                            "RazonSocial, " +
-                            "NombreFantasia, " +
-                            "CUIT, " +
-                            "Domicilio, " +
-                            "Telefono, " +
-                            "Celular, " +
-                            "Email, " +
-                            "IdCategoriaIva, " +
-                            "PlazoPago, " +
-                            "Activo, " +
-                            "FROM Proveedores" +
-                            "WHERE P.Id = @ID";
+                _datos.SetConsulta("SELECT Id, RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, " +
+                                   "Email, IdCategoriaIva, PlazoPago, Activo From Proveedores where Id = @Id");
 
-                _datos.SetConsulta(query);
                 _datos.SetParametro("ID", id);
 
+                _datos.EjecutarLectura();
 
                 while (_datos.Lector.Read())
                 {
                     aux.Id = (int)_datos.Lector["Id"];
                         aux.RazonSocial = _datos.Lector["RazonSocial"] as string ?? string.Empty;
                         aux.NombreFantasia = _datos.Lector["NombreFantasia"] as string ?? string.Empty;
-                        aux.CUIT = _datos.Lector["NombreFantasia"] as string ?? string.Empty;
+                        aux.CUIT = _datos.Lector["CUIT"] as string ?? string.Empty;
                         aux.Domicilio = _datos.Lector["Domicilio"] as string ?? string.Empty;
                         aux.Telefono = _datos.Lector["Telefono"] as string ?? string.Empty;
                         aux.Celular = _datos.Lector["Celular"] as string ?? string.Empty;
