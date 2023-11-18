@@ -2,44 +2,45 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    
     <%--Modal--%>
+    <style>
+        .modal-header{
+            justify-content: center !important;
+        }
+    </style>
     <div class="container">
         <div class="modal fade" id="modalProveedor" role="dialog">
             <div class ="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Agregar proveedor</h4>
-                        <asp:Label ID="lblMsg" Text="" runat="server" /> 
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><asp:Label ID="lblInforme" runat="server"/></h4>
                     </div>
-                    <div class="modal-body">
-                        <label>Razon Social</label>
-                        <asp:TextBox ID="txtRazonSocial" CssClass="form-control" placeholder="Razon social" runat="server" />
+                    <div class="modal-body text-center">
+                        <label class="d-block font-weight-bold h6">Razon Social</label>
+                        <asp:TextBox ID="txtRazonSocial" CssClass="form-control mx-auto text-center" placeholder="Razon social" runat="server" />
                         
-                        <label>Nombre Fantasia</label>
-                        <asp:TextBox ID="txtNombreFantasia" CssClass="form-control" placeholder="Nombre Fantasia" runat="server"/>
+                        <label class="d-block mt-3 font-weight-bold h6">CUIT</label>
+                        <asp:TextBox ID="txtCuit" CssClass="form-control mx-auto text-center" placeholder="CUIT" runat="server"/>
                         
-                        <label>CUIT</label>
-                        <asp:TextBox ID="txtCuit" CssClass="form-control" placeholder="CUIT" runat="server"/>
+                        <label class="d-block mt-3 font-weight-bold h6">Domicilio</label>
+                        <asp:TextBox ID="txtDomicilio" CssClass="form-control mx-auto text-center" placeholder="Domicilio" runat="server"/>
                         
-                        <label>Domicilio</label>
-                        <asp:TextBox ID="txtDomicilio" CssClass="form-control" placeholder="Domicilio" runat="server"/>
+                        <label class="d-block mt-3 font-weight-bold h6">Telefono</label>
+                        <asp:TextBox ID="txtTelefono" CssClass="form-control mx-auto text-center" placeholder="Telefono" runat="server"/>
                         
-                        <label>Telefono</label>
-                        <asp:TextBox ID="txtTelefono" CssClass="form-control" placeholder="Telefono" runat="server"/>
+                        <label class="d-block mt-3 font-weight-bold h6">Celular</label>
+                        <asp:TextBox ID="txtCelular" CssClass="form-control mx-auto text-center" placeholder="Celular" runat="server"/>
                         
-                        <label>Celular</label>
-                        <asp:TextBox ID="txtCelular" CssClass="form-control" placeholder="Celular" runat="server"/>
-                        
-                        <label>Email</label>
-                        <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="correo@ejemplo.com" runat="server"/>
+                        <label class="d-block mt-3 font-weight-bold h6">Email</label>
+                        <asp:TextBox ID="txtEmail" CssClass="form-control mx-auto text-center" placeholder="correo@ejemplo.com" runat="server"/>
 
-                        <label>Plazo de pago</label>
-                        <asp:TextBox ID="txtPlazoPago" CssClass="form-control" placeholder="Dias" runat="server"/>
+                        <label class="d-block mt-3 font-weight-bold h6">Plazo de pago(Dias)</label>
+                        <asp:TextBox ID="txtPlazoPago" CssClass="form-control mx-auto" placeholder="Dias" runat="server"/>
                         
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btnGuardar" CssClass="btn btn-primary" Text="Agregar" runat="server" />
+                        <asp:Button ID="btnGuardar" CssClass="btn btn-primary w-100 mx-auto" Text="Volver" runat="server" />
                     </div>
                 </div>
             </div>

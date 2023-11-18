@@ -80,8 +80,8 @@ namespace J3AMS.UI
 
             if (proveedor != null)
             {
+                lblInforme.Text = proveedor.NombreFantasia;
                 txtRazonSocial.Text = proveedor.RazonSocial;
-                txtNombreFantasia.Text = proveedor.NombreFantasia;
                 txtCuit.Text = proveedor.CUIT;
                 txtDomicilio.Text = proveedor.Domicilio;
                 txtTelefono.Text = proveedor.Telefono;
@@ -94,7 +94,6 @@ namespace J3AMS.UI
         private void DeshabilitarTxtInforme()
         {
             txtRazonSocial.ReadOnly = true;
-            txtNombreFantasia.ReadOnly = true;
             txtCuit.ReadOnly = true;
             txtDomicilio.ReadOnly = true;
             txtTelefono.ReadOnly = true;
