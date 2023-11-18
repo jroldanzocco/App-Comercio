@@ -108,6 +108,7 @@
     <Content Include="AltaProveedor.aspx" />
     <Content Include="BuscarArticulo.aspx" />
     <Content Include="BuscarCliente.aspx" />
+    <Content Include="BuscarFacturaVenta.aspx" />
     <Content Include="BuscarProveedor.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -161,6 +162,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="FacturasVentas.master" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -239,6 +241,13 @@
     <Compile Include="BuscarCliente.aspx.designer.cs">
       <DependentUpon>BuscarCliente.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BuscarFacturaVenta.aspx.cs">
+      <DependentUpon>BuscarFacturaVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscarFacturaVenta.aspx.designer.cs">
+      <DependentUpon>BuscarFacturaVenta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BuscarProveedor.aspx.cs">
       <DependentUpon>BuscarProveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -252,6 +261,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FacturasVentas.master.cs">
+      <DependentUpon>FacturasVentas.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FacturasVentas.master.designer.cs">
+      <DependentUpon>FacturasVentas.master</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

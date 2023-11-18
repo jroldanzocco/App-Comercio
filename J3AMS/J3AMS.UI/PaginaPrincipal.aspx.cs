@@ -31,5 +31,9 @@ namespace J3AMS.UI
         {
             Response.Redirect("BuscarProveedor.aspx");
         }
+        protected void btnFacturas_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("BuscarFacturaVenta.aspx");
+        }
     }
 }
