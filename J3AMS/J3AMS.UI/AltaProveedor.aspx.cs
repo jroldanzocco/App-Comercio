@@ -11,9 +11,10 @@ namespace J3AMS.UI
 {
     public partial class AltaProveedor : System.Web.UI.Page
     {
+        private ProveedorNegocio _proveedores;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            _proveedores = new ProveedorNegocio();
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
