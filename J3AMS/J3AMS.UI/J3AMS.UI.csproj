@@ -313,7 +313,7 @@
       <Name>UnitOfWork.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitOfWork.SqlServer\UnitOfWork.SqlServer.csproj">
-      <Project>{D7006C2E-4828-41A6-AE2B-85BBBA159F31}</Project>
+      <Project>{d7006c2e-4828-41a6-ae2b-85bbba159f31}</Project>
       <Name>UnitOfWork.SqlServer</Name>
     </ProjectReference>
   </ItemGroup>

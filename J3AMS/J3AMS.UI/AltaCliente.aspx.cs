@@ -18,7 +18,7 @@ namespace J3AMS.UI
             {
                 if(!IsPostBack)
                 {
-                    var UnitOfWork = new UnitOfWorkSqlServer();
+                    var UnitOfWork = new UnitOfWork.SqlServer.UnitOfWork();
                     //CategoriaIvaNegocio categoriaIvaNegocio = new CategoriaIvaNegocio();
                     //List<CategoriaIva> categoriaIvas = categoriaIvaNegocio.Listar();
                     ProveedorNegocio proveedorNegocio = new ProveedorNegocio(UnitOfWork);

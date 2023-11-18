@@ -24,7 +24,7 @@ namespace J3AMS.UI
 
         protected void btnAgregarProveedor_Click(object sender, EventArgs e)
         {
-            var unitOfWork = new UnitOfWorkSqlServer();
+            var unitOfWork = new UnitOfWork.SqlServer.UnitOfWork();
             ProveedorNegocio negocio = new ProveedorNegocio(unitOfWork);
             Proveedor aux = new Proveedor();
 

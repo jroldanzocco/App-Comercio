@@ -15,7 +15,7 @@ namespace J3AMS.UI
             {
                 if(!IsPostBack)
                 {
-                    var unitOfWork = new UnitOfWorkSqlServer();
+                    var unitOfWork = new UnitOfWork.SqlServer.UnitOfWork();
                         TipoNegocio tipoNegocio = new TipoNegocio();
                         //List<Tipo> tipos = tipoNegocio.Listar();
                         ProveedorNegocio proveedorNegocio = new ProveedorNegocio(unitOfWork);

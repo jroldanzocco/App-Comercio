@@ -24,7 +24,18 @@ namespace Repository.SqlServer
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var command = CrearComando("UPDATE Proveedores SET Activo = 0 WHERE Id = " + id);
+
+                command.ExecuteNonQuery();
+
+                Console.WriteLine("Proveedor eliminado con éxito.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al eliminar el proveedor.");
+            }
         }
 
         public Proveedor Get(int id)
@@ -34,25 +45,34 @@ namespace Repository.SqlServer
 
         public IEnumerable<Proveedor> GetAll()
         {
-            var command = CrearComando("SELECT Id, NombreFantasia, Domicilio, Telefono, Celular, Email, Activo FROM Proveedores");
             var listProveedores = new List<Proveedor>();
-
-            using (var lector = command.ExecuteReader())
+            try
             {
-                while (lector.Read())
+                var command = CrearComando("SELECT Id, NombreFantasia, Domicilio, Telefono, Celular, Email, Activo FROM Proveedores");
+                
+
+                using (var lector = command.ExecuteReader())
                 {
-                    listProveedores.Add(new Proveedor()
+                    while (lector.Read())
                     {
-                        Id = (int)lector["Id"],
-                        NombreFantasia = lector["NombreFantasia"] as string ?? string.Empty,
-                        Domicilio = lector["Domicilio"] as string ?? string.Empty,
-                        Telefono = lector["Telefono"] as string ?? string.Empty,
-                        Celular = lector["Celular"] as string ?? string.Empty,
-                        Email = lector["Email"] as string ?? string.Empty,
-                        Activo = (bool)lector["Activo"]
-                    });
+                        listProveedores.Add(new Proveedor()
+                        {
+                            Id = (int)lector["Id"],
+                            NombreFantasia = lector["NombreFantasia"] as string ?? string.Empty,
+                            Domicilio = lector["Domicilio"] as string ?? string.Empty,
+                            Telefono = lector["Telefono"] as string ?? string.Empty,
+                            Celular = lector["Celular"] as string ?? string.Empty,
+                            Email = lector["Email"] as string ?? string.Empty,
+                            Activo = (bool)lector["Activo"]
+                        });
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
 
             return listProveedores;
         }

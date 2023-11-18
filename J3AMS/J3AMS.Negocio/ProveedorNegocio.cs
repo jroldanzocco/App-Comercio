@@ -1,4 +1,5 @@
 ﻿using J3AMS.Dominio;
+using J3AMS.Negocio.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using UnitOfWork.Interface;
 
 namespace J3AMS.Negocio
 {
-    public class ProveedorNegocio
+    public class ProveedorNegocio : IProveedorNegocio
     {
         private readonly AccesoADatos _datos;
         private IUnitOfWork _unitOfWork;
@@ -24,8 +25,11 @@ namespace J3AMS.Negocio
             using (var connection = _unitOfWork.Create())
             {
                 var listaProveedores = connection.Repositories.ProveedorRepository.GetAll();
+
+               
                 
                 return listaProveedores.ToList();
+
             }
         }
 
@@ -57,24 +61,13 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-        public void Delete(Proveedor newEntity)
+        public void Delete(int id)
         {
-            AccesoADatos datos = new AccesoADatos();
-            try
+            using (var connection = _unitOfWork.Create())
             {
-                datos.SetParametro("@id", newEntity.Id);
-                datos.SetConsulta("DELETE FROM Proveedores WHERE Id = @id");
+                connection.Repositories.ProveedorRepository.Delete(id);
 
-                Console.WriteLine("Proveedor eliminado con éxito.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al eliminar el proveedor.");
-                throw ex;
-            }
-            finally
-            {
-                datos.CerrarConexion();
+                connection.SaveChanges();
             }
         }
 

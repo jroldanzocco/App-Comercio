@@ -5,10 +5,10 @@ using UnitOfWork.Interface;
 
 namespace UnitOfWork.SqlServer
 {
-    public class UnitOfWorkSqlServerRepository : IUnitOfWorkRepository
+    public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
         public IProveedorRepository ProveedorRepository { get; }
-        public UnitOfWorkSqlServerRepository(SqlConnection connection, SqlTransaction transaction)
+        public UnitOfWorkRepository(SqlConnection connection, SqlTransaction transaction)
         {
             ProveedorRepository = new ProveedorRepository(connection, transaction);
         }

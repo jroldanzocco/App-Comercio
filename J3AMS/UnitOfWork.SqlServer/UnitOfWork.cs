@@ -2,11 +2,11 @@
 
 namespace UnitOfWork.SqlServer
 {
-    public class UnitOfWorkSqlServer : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public IUnitOfWorkAdapter Create()
         {
-            return new UnitOfWorkSqlServerAdapter();
+            return new UnitOfWorkAdapter();
         }
     }
 }

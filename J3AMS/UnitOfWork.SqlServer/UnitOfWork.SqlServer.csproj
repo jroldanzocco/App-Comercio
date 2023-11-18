@@ -47,9 +47,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitOfWorkSqlServerRepository.cs" />
-    <Compile Include="UnitOfWorkSqlServerAdapter.cs" />
-    <Compile Include="UnitOfWorkSqlServer.cs" />
+    <Compile Include="UnitOfWorkRepository.cs" />
+    <Compile Include="UnitOfWorkAdapter.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\J3AMS.Data\J3AMS.Common.csproj">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,16 @@ namespace Repository.SqlServer
         protected SqlCommand CrearComando(string query)
         {
             return new SqlCommand(query, _connection, _transaction);
+        }
+
+        protected SqlParameter SetParametro(string nombre, object valor, SqlDbType tipoDato)
+        {
+            SqlParameter parametro = new SqlParameter();
+            parametro.ParameterName = nombre;
+            parametro.Value = valor ?? DBNull.Value;
+            parametro.SqlDbType = tipoDato;
+
+            return parametro;
         }
     }
 }

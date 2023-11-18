@@ -1,21 +1,16 @@
-﻿using J3AMS.Dominio;
-using J3AMS.Negocio;
+﻿using J3AMS.Negocio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using UnitOfWork.SqlServer;
 
 namespace J3AMS.UI
 {
     public partial class BuscarProveedor : System.Web.UI.Page
     {
-        public List<Proveedor> ListaProveedor { get; set; }
+        private ProveedorNegocio _proveedorNegocio;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            _proveedorNegocio = new ProveedorNegocio(new UnitOfWork.SqlServer.UnitOfWork());
             if (!IsPostBack)
             {
                 CargarProveedores();
@@ -32,29 +27,19 @@ namespace J3AMS.UI
         }
         protected void btnEliminarProveedor_Click(object sender, EventArgs e)
         {
-            string id = ((Button)sender).CommandArgument;
+            string idTemp = ((Button)sender).CommandArgument;
 
-            if (!string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(idTemp))
             {
-                var unitOfWork = new UnitOfWorkSqlServer();
-                ProveedorNegocio negocio = new ProveedorNegocio(unitOfWork);
-                Proveedor aux = new Proveedor();
-
-                if (int.TryParse(id, out int Id))
-                {
-                    aux.Id = Id;
-                    negocio.SoftDelete(aux);
-                }
-
-                CargarProveedores();
+                int.TryParse(idTemp, out int id);
+                _proveedorNegocio.Delete(id);
             }
+            CargarProveedores();
         }
 
         private void CargarProveedores()
         {
-            var unitOfWork = new UnitOfWorkSqlServer();
-            ProveedorNegocio negocio = new ProveedorNegocio(unitOfWork);
-            ListaProveedor = negocio.Listar();
+            var ListaProveedor = _proveedorNegocio.Listar();
             repRepetidor.DataSource = ListaProveedor;
             repRepetidor.DataBind();
         }
