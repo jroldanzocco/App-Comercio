@@ -56,7 +56,9 @@
     <div class="container-fluid">
     <div class="d-flex justify-content-between">
     <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-secondary" runat="server" Text="Volver al Menu" />
+        <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
     <asp:Button ID="btnNuevoProveedor" OnClick="btnNuevoProveedor_Click" CssClass="btn btn-success" runat="server" Text="Nuevo Proveedor" />
+    <% } %>
     </div>
         <div class="d-flex flex-column">
         <div class="table-responsive">
@@ -79,9 +81,11 @@
                         <td><%# Eval("Telefono") %></td>
                         <td><%# Eval("Email") %></td>
                         <td class="d-flex gap-2">
-                            <asp:Button ID="btnEditarProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" OnClick="btnEditarProveedor_Click" CssClass="btn btn-primary w-100" runat="server" Text="Editar" />
                             <asp:Button ID="btnInformeProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" CssClass="btn btn-info w-100 " runat="server" Text="Informes" OnClick="btnInformeProveedor_Click" />
+                            <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
+                            <asp:Button ID="btnEditarProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" OnClick="btnEditarProveedor_Click" CssClass="btn btn-primary w-100" runat="server" Text="Editar" />
                             <asp:Button ID="btnEliminarProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" OnClick="btnEliminarProveedor_Click" CssClass="btn btn-danger w-100" runat="server" Text="Eliminar" />
+                            <% } %>
                         </td>
                     </tr>
                 </ItemTemplate>
