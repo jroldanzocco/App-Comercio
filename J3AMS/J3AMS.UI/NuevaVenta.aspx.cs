@@ -41,8 +41,6 @@ namespace J3AMS.UI
                 CargarProductosVendidos();
             }
         }
-
-
         protected void btnAgregarArticulo_Click(object sender, EventArgs e)
         {
             int idProducto = ObtenerIdProductoSeleccionado(sender);
@@ -50,23 +48,43 @@ namespace J3AMS.UI
             if (idProducto > 0)
             {
                 Producto producto = ObtenerProductoPorId(idProducto);
-                ListaProductosVendidos.Add(producto);
+                Producto productoEnLista = ListaProductosVendidos.FirstOrDefault(p => p.Id == idProducto);
+
+                if (productoEnLista != null)
+                {
+                    productoEnLista.Cantidad++;
+                }
+                else
+                {
+                    producto.Cantidad = 1;
+                    ListaProductosVendidos.Add(producto);
+                }
                 CargarProductosVendidos();
             }
         }
         protected void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
-            int idProducto = ObtenerIdProductoSeleccionado(sender);
-            if (idProducto > 0)
+            int idProductoEliminar = ObtenerIdProductoSeleccionado(sender);
+
+            if (idProductoEliminar > 0)
             {
-                Producto productoAEliminar = ListaProductosVendidos.FirstOrDefault(p => p.Id == idProducto);
-                if (productoAEliminar != null)
+                Producto productoEnLista = ListaProductosVendidos.FirstOrDefault(p => p.Id == idProductoEliminar);
+
+                if (productoEnLista != null)
                 {
-                    ListaProductosVendidos.Remove(productoAEliminar);
+                    if (productoEnLista.Cantidad > 1)
+                    {
+                        productoEnLista.Cantidad--;
+                    }
+                    else
+                    {
+                        ListaProductosVendidos.Remove(productoEnLista);
+                    }
                     CargarProductosVendidos();
                 }
             }
         }
+
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
             // Restaurarar Stock

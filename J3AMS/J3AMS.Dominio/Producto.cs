@@ -25,5 +25,6 @@ namespace J3AMS.Dominio
         public int Stock { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         public int StockMinimo { get; set; }
+        public int Cantidad { get; set; }
     }
 }

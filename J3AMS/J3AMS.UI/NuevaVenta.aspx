@@ -18,6 +18,7 @@
         <ItemTemplate>
             <div>
                 <span><%# Eval("Descripcion") %></span>
+                <span><%# Eval("Cantidad") %></span>
                 <asp:Button ID="btnEliminarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
             </div>
         </ItemTemplate>
