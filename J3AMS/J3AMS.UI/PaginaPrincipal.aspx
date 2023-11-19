@@ -19,16 +19,12 @@
         </header>
         <main>
             <div class="centrar-menu">
-                <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
-
                 <asp:Button ID="btnClientes" OnClick="btnClientes_Click" CssClass="btn btn-primary" runat="server" Text="Clientes" />
                 <asp:Button ID="btnProveedores" OnClick="btnProveedores_Click" CssClass="btn btn-primary" runat="server" Text="Proveedores" />
                 <asp:Button ID="btnProductos" CssClass="btn btn-primary" OnClick="btnProductos_Click" runat="server" Text="Productos" />
                 <asp:Button ID="btnVentas" CssClass="btn btn-primary" OnClick="btnNuevaVenta_Click" runat="server" Text="Ventas" />
                 <asp:Button ID="btnCompras" CssClass="btn btn-primary" OnClick="btnNuevaCompra_Click" runat="server" Text="Compras" />
                 <asp:Button ID="btnFacturas" CssClass="btn btn-primary" OnClick="btnFacturas_Click" runat="server" Text="Facturas" />
-
-                <% } %>
             </div>
         </main>
     </form>

@@ -15,8 +15,12 @@ namespace J3AMS.UI
                 Session.Add("error", "No estás logueado");
                 Response.Redirect("Default.aspx");
             }
-
-            try
+            if (((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() != "Admin")
+            {
+                Session.Add("error", "Necesitas permisos. Contactar al administrador");
+                Response.Redirect("PaginaPrincipal.aspx");
+            }
+                try
             {
                 if(!IsPostBack)
                 {
