@@ -1,4 +1,6 @@
-﻿using System;
+﻿using J3AMS.Dominio;
+using J3AMS.Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +18,33 @@ namespace J3AMS.UI
 
         protected void btnLoggin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PaginaPrincipal.aspx");
+            Usuario usuario;
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            try
+            {
+                usuario = new Usuario();
+
+                usuario.NombreUsuario = txtNombreUsuario.Text;
+                usuario.Contrasenia = txtPassword.Text;
+
+                if(negocio.Loguear(usuario))
+                {
+                    Session.Add("usuario", usuario);
+                    Response.Redirect("PaginaPrincipal.aspx");
+                }
+                else
+                {
+                    Session.Add("error", "usuario o clave incorecto/a");
+                    Response.Redirect("Default.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                throw;
+            }
+            
         }
     }
 }

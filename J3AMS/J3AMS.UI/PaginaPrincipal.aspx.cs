@@ -27,6 +27,10 @@ namespace J3AMS.UI
         {
             Response.Redirect("NuevaVenta.aspx");
         }
+        protected void btnNuevaCompra_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NuevaCompra.aspx");
+        }
         protected void btnProveedores_Click(object sender, EventArgs e)
         {
             Response.Redirect("BuscarProveedor.aspx");
