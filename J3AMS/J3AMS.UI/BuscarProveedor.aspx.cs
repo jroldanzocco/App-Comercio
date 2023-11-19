@@ -17,6 +17,12 @@ namespace J3AMS.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] == null)
+            {
+                Session.Add("error", "No estás logueado");
+                Response.Redirect("Default.aspx");
+            }
+
             _proveedores = new ProveedorNegocio();
             if (!IsPostBack)
             {
