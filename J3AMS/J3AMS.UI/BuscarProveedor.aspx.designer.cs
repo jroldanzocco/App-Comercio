@@ -87,22 +87,22 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.TextBox txtPlazoPago;
 
         /// <summary>
-        /// Control btnGuardar.
+        /// btnVolver control.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        protected global::System.Web.UI.WebControls.Button btnVolver;
 
         /// <summary>
-        /// Control repRepetidor.
+        /// btnVolverAlMenu control.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater repRepetidor;
+        protected global::System.Web.UI.WebControls.Button btnVolverAlMenu;
 
         /// <summary>
         /// Control btnNuevoProveedor.
@@ -114,12 +114,12 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.Button btnNuevoProveedor;
 
         /// <summary>
-        /// Control btnVolverAlMenu.
+        /// repRepetidor control.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVolverAlMenu;
+        protected global::System.Web.UI.WebControls.Repeater repRepetidor;
     }
 }
