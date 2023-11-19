@@ -15,13 +15,22 @@ namespace J3AMS.UI
     {
 
         /// <summary>
-        /// Control repRepetidor.
+        /// Control repArticulosDisponibles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater repRepetidor;
+        protected global::System.Web.UI.WebControls.Repeater repArticulosDisponibles;
+
+        /// <summary>
+        /// Control repProductosVendidos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repProductosVendidos;
 
         /// <summary>
         /// Control btnVolverAlMenu.

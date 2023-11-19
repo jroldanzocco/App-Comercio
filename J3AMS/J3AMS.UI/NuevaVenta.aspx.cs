@@ -11,21 +11,22 @@ namespace J3AMS.UI
 {
     public partial class NuevaVenta : System.Web.UI.Page
     {
-        public List<Producto> ListaVenta
+        private List<Producto> ListaProductosVendidos
         {
             get
             {
-                if (Session["ListaVenta"] == null)
+                if (Session["ListaProductosVendidos"] == null)
                 {
-                    Session["ListaVenta"] = new List<Producto>();
+                    Session["ListaProductosVendidos"] = new List<Producto>();
                 }
-                return (List<Producto>)Session["ListaVenta"];
+                return (List<Producto>)Session["ListaProductosVendidos"];
             }
             set
             {
-                Session["ListaVenta"] = value;
+                Session["ListaProductosVendidos"] = value;
             }
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["usuario"] == null)
@@ -36,76 +37,70 @@ namespace J3AMS.UI
 
             if (!IsPostBack)
             {
-                CargarProductos();
+                CargarProductosDisponibles();
+                CargarProductosVendidos();
             }
         }
+
+
         protected void btnAgregarArticulo_Click(object sender, EventArgs e)
         {
             int idProducto = ObtenerIdProductoSeleccionado(sender);
 
             if (idProducto > 0)
             {
-                ProductoNegocio negocio = new ProductoNegocio();
-                //DESARROLLAR
-                //Producto producto = negocio.FiltrarPorId(idProducto);
-
-                //if (producto != null)
-                //{
-                    // Agregar el producto a la lista de venta
-                    //DESARROLLAR
-
-                    // Almacenar la lista actualizada en la sesión
-                    //Session["ListaVenta"] = ListaVenta;
-
-                    // Actualizar la interfaz de usuario
-                //}
-                //else
-                //{
-
-                //}
+                Producto producto = ObtenerProductoPorId(idProducto);
+                ListaProductosVendidos.Add(producto);
+                CargarProductosVendidos();
             }
         }
-
         protected void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
-            int idProductoEliminar = ObtenerIdProductoSeleccionado(sender);
-
-            if (idProductoEliminar > 0)
+            int idProducto = ObtenerIdProductoSeleccionado(sender);
+            if (idProducto > 0)
             {
-                ListaVenta.RemoveAll(p => p.Id == idProductoEliminar);
+                Producto productoAEliminar = ListaProductosVendidos.FirstOrDefault(p => p.Id == idProducto);
+                if (productoAEliminar != null)
+                {
+                    ListaProductosVendidos.Remove(productoAEliminar);
+                    CargarProductosVendidos();
+                }
             }
         }
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
-            //Restaurarar Stock
+            // Restaurarar Stock
             Response.Redirect("PaginaPrincipal.aspx");
         }
-        private void CargarProductos()
+
+        private void CargarProductosVendidos()
+        {
+            repProductosVendidos.DataSource = ListaProductosVendidos;
+            repProductosVendidos.DataBind();
+        }
+
+        private void CargarProductosDisponibles()
         {
             try
             {
                 ProductoNegocio negocio = new ProductoNegocio();
                 List<Producto> listaProductos = negocio.Listar();
 
-                repRepetidor.DataSource = listaProductos;
-                repRepetidor.DataBind();
+                repArticulosDisponibles.DataSource = listaProductos;
+                repArticulosDisponibles.DataBind();
             }
             catch (Exception ex)
             {
-                Response.Write($"Error al cargar los productos: {ex.Message}");
+                Response.Write($"Error al cargar los productos disponibles: {ex.Message}");
             }
         }
-        private void ActualizarInterfazUsuario()
-        {
-            try
-            {
 
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"Error al actualizar la interfaz de usuario: {ex.Message}");
-            }
+        private Producto ObtenerProductoPorId(int id)
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            return negocio.ObtenerPorId(id);
         }
+
         private int ObtenerIdProductoSeleccionado(object sender)
         {
             Button btn = (Button)sender;
@@ -117,12 +112,6 @@ namespace J3AMS.UI
             }
 
             return -1;
-        }
-
-
-        private int ObtenerIdProductoAEliminar()
-        {
-            return 1;
         }
     }
 }
