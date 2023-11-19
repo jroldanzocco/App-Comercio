@@ -128,6 +128,9 @@ INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono,
 VALUES ('Proveedor 4 Razón Social', 'Proveedor 4 Nombre Fantasía', '34567890123', 'Domicilio 4', '4444444444', '7777777777', 'proveedor4@email.com', 2, 30, 1);
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Proveedor 5 Razón Social', 'Proveedor 5 Nombre Fantasía', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45, 1);
+--Usuarios
+INSERT INTO Usuarios (NombreUsuario, Contraseña)
+VALUES ('Admin', 'Admin');
 --PARA ALTA PRODUCTO
 INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)
 VALUES ('Pera', 1, 1, 1, 1, 2, 10, 0, 1)
@@ -157,3 +160,6 @@ SELECT * FROM Clientes
 --PARA ALTA USUARIO
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago,Activo)
 VALUES (@Descripcion, @Nombres, @DNI, @Domicilio, @Telefono, @Celular, @Email, @CategoriaIva, @PlazoPago, 1)
+--PARA ALTA USUARIO
+INSERT INTO Usuarios (NombreUsuario,Contraseña)
+VALUES (@user, @pass)

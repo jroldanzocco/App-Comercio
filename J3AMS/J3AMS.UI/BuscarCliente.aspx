@@ -27,16 +27,21 @@
                 <td><%# Eval("Celular") %></td>
                 <td><%# Eval("Email") %></td>
                 <td>
-                    <asp:Button ID="btnEditarCliente" OnClick="btnEditarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
+                    
                     <asp:Button ID="btnInformeCliente" CssClass="btn btn-primary" runat="server" Text="Informes" />
-                    <asp:Button ID="btnEliminarCliente" OnClick="btnEliminarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
+                    <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
+                        <asp:Button ID="btnEditarCliente" OnClick="btnEditarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
+                        <asp:Button ID="btnEliminarCliente" OnClick="btnEliminarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
+                    <% } %>
                 </td>
             </tr>
         </ItemTemplate>
     </asp:Repeater>
 </table>
 
+<% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
 <asp:Button ID="btnNuevoCliente" OnClick="btnNuevoCliente_Click" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
+<% } %>
 <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Volver al Menu" />
 
 </asp:Content>

@@ -11,26 +11,34 @@ namespace J3AMS.UI
 {
     public partial class NuevaVenta : System.Web.UI.Page
     {
-        public List<Producto> ListaVenta
+        private List<Producto> ListaProductosVendidos
         {
             get
             {
-                if (Session["ListaVenta"] == null)
+                if (Session["ListaProductosVendidos"] == null)
                 {
-                    Session["ListaVenta"] = new List<Producto>();
+                    Session["ListaProductosVendidos"] = new List<Producto>();
                 }
-                return (List<Producto>)Session["ListaVenta"];
+                return (List<Producto>)Session["ListaProductosVendidos"];
             }
             set
             {
-                Session["ListaVenta"] = value;
+                Session["ListaProductosVendidos"] = value;
             }
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] == null)
+            {
+                Session.Add("error", "No estás logueado");
+                Response.Redirect("Default.aspx");
+            }
+
             if (!IsPostBack)
             {
-                CargarProductos();
+                CargarProductosDisponibles();
+                CargarProductosVendidos();
             }
         }
         protected void btnAgregarArticulo_Click(object sender, EventArgs e)
@@ -39,67 +47,78 @@ namespace J3AMS.UI
 
             if (idProducto > 0)
             {
-                ProductoNegocio negocio = new ProductoNegocio();
-                //DESARROLLAR
-                //Producto producto = negocio.FiltrarPorId(idProducto);
+                Producto producto = ObtenerProductoPorId(idProducto);
+                Producto productoEnLista = ListaProductosVendidos.FirstOrDefault(p => p.Id == idProducto);
 
-                //if (producto != null)
-                //{
-                    // Agregar el producto a la lista de venta
-                    //DESARROLLAR
-
-                    // Almacenar la lista actualizada en la sesión
-                    //Session["ListaVenta"] = ListaVenta;
-
-                    // Actualizar la interfaz de usuario
-                //}
-                //else
-                //{
-
-                //}
+                if (productoEnLista != null)
+                {
+                    productoEnLista.Cantidad++;
+                }
+                else
+                {
+                    producto.Cantidad = 1;
+                    ListaProductosVendidos.Add(producto);
+                }
+                CargarProductosVendidos();
             }
         }
-
         protected void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
             int idProductoEliminar = ObtenerIdProductoSeleccionado(sender);
 
             if (idProductoEliminar > 0)
             {
-                ListaVenta.RemoveAll(p => p.Id == idProductoEliminar);
+                Producto productoEnLista = ListaProductosVendidos.FirstOrDefault(p => p.Id == idProductoEliminar);
+
+                if (productoEnLista != null)
+                {
+                    if (productoEnLista.Cantidad > 1)
+                    {
+                        productoEnLista.Cantidad--;
+                    }
+                    else
+                    {
+                        ListaProductosVendidos.Remove(productoEnLista);
+                    }
+                    CargarProductosVendidos();
+                }
             }
         }
+
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
-            //Restaurarar Stock
+            // Restaurarar Stock
             Response.Redirect("PaginaPrincipal.aspx");
         }
-        private void CargarProductos()
+
+        private void CargarProductosVendidos()
+        {
+            repProductosVendidos.DataSource = ListaProductosVendidos;
+            repProductosVendidos.DataBind();
+        }
+
+        private void CargarProductosDisponibles()
         {
             try
             {
                 ProductoNegocio negocio = new ProductoNegocio();
                 List<Producto> listaProductos = negocio.Listar();
 
-                repRepetidor.DataSource = listaProductos;
-                repRepetidor.DataBind();
+                repArticulosDisponibles.DataSource = listaProductos;
+                repArticulosDisponibles.DataBind();
             }
             catch (Exception ex)
             {
-                Response.Write($"Error al cargar los productos: {ex.Message}");
+                Response.Write($"Error al cargar los productos disponibles: {ex.Message}");
             }
         }
-        private void ActualizarInterfazUsuario()
-        {
-            try
-            {
 
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"Error al actualizar la interfaz de usuario: {ex.Message}");
-            }
+        private Producto ObtenerProductoPorId(int id)
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            return negocio.ObtenerPorId(id);
         }
+
         private int ObtenerIdProductoSeleccionado(object sender)
         {
             Button btn = (Button)sender;
@@ -111,12 +130,6 @@ namespace J3AMS.UI
             }
 
             return -1;
-        }
-
-
-        private int ObtenerIdProductoAEliminar()
-        {
-            return 1;
         }
     }
 }
