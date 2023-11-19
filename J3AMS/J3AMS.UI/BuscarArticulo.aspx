@@ -9,6 +9,7 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Marca</th>
+                <th scope="col">Stock</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
                     <td><%# Eval("Descripcion") %></td>
                     <td><%# Eval("Tipo") %></td>
                     <td><%# Eval("Marca") %></td>
+                    <td><%# Eval("Stock") %></td>
                     <td>
 
                         <asp:Button ID="btnInformeArticulo" CssClass="btn btn-primary" runat="server" Text="Informes" />
