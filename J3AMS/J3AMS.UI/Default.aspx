@@ -12,7 +12,8 @@
             </div>
             <div class="mb-3">
                 <label for="txtPassword" class="form-label">Contraseña</label>
-                <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server"></asp:TextBox>
+                <input id="txtPassword" runat="server" type="password" class="form-control" />
+                
             </div>
              <div class="mb-3">
                 <asp:Button ID="btnLoggin" CssClass="btn btn-primary" OnClick="btnLoggin_Click" runat="server" Text="Ingresar" />

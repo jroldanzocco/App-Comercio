@@ -23,7 +23,7 @@ namespace J3AMS.UI
 
             try
             {
-                usuario = new Usuario(txtNombreUsuario.Text, txtPassword.Text, false);
+                usuario = new Usuario(txtNombreUsuario.Text, txtPassword.Value, false);
 
 
                 if(negocio.Loguear(usuario))
