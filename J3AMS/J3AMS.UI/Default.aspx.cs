@@ -13,7 +13,10 @@ namespace J3AMS.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (Session["usuario"] != null)
+            {
+                Response.Redirect("PaginaPrincipal", false);
+            }
         }
 
         protected void btnLoggin_Click(object sender, EventArgs e)
