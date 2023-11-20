@@ -36,25 +36,25 @@ namespace J3AMS.UI
                         ddlProveedor.DataTextField = "NombreFantasia";
                         ddlProveedor.DataBind();
 
+                        string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
+
+                        if (id != "")
+                        {
+                            ProductoNegocio negocio = new ProductoNegocio();
+                            Producto aux = (negocio.Listar(id))[0];
+
+                            txtNombre.Text = "Campo a resolver";
+                            txtDescripcion.Text = aux.Descripcion;
+                            txtStockMinimo.Text = aux.StockMinimo.ToString();
+                            txtPrecioVenta.Text = aux.PrecioVenta.ToString();
+                            txtPrecioCosto.Text = aux.PrecioCosto.ToString();
+
+                            ddlTipo.SelectedValue = aux.Tipo.Id.ToString();
+                            ddlMarca.SelectedValue = aux.Marca.Id.ToString();
+                            ddlProveedor.SelectedValue = aux.Proveedor.Id.ToString();
+                        }
                 }
 
-                string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
-
-                if (id != "")
-                {
-                    ProductoNegocio negocio = new ProductoNegocio();
-                    Producto aux = (negocio.Listar(id))[0];
-
-                    txtNombre.Text = "Campo a resolver";
-                    txtDescripcion.Text = aux.Descripcion;
-                    txtStockMinimo.Text = "Revisar Query";
-                    txtPrecioVenta.Text = aux.PrecioVenta.ToString();
-                    txtPrecioCosto.Text = aux.PrecioCosto.ToString();
-
-                    ddlTipo.SelectedValue = aux.Tipo.Id.ToString();
-                    ddlMarca.SelectedValue = aux.Marca.Id.ToString();
-                    ddlProveedor.SelectedValue = aux.Proveedor.Id.ToString();
-                }
 
 
 
@@ -89,14 +89,14 @@ namespace J3AMS.UI
 
             aux.PrecioVenta = Convert.ToDecimal(txtPrecioVenta.Text);
 
-            decimal.TryParse(txtPrecioCosto.Text,out decimal P);
+            aux.StockMinimo = int.Parse(txtStockMinimo.Text);
 
-            decimal.TryParse(txtPrecioVenta.Text, out decimal PrecioVenta);
-
-            //aux.StockMinimo = int.Parse(txtStockMinimo.Text);
-
-            if (Request.QueryString["id"] != null)
+            string id = Request.QueryString["id"];
+            if (id != null)
+            {
+                aux.Id = int.Parse(id);
                 negocio.Update(aux);
+            }
             else
                 negocio.Add(aux);
 

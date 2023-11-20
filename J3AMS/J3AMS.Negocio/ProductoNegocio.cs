@@ -25,7 +25,7 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
+                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto AS PCosto, A.PrecioVenta AS PVenta, A.Stock, A.StockMinimo AS StMin " +
                                  "FROM Productos A " +
                                  "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
                                  "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
@@ -33,7 +33,7 @@ namespace J3AMS.Negocio
 
                 if (id != "")
                 {
-                    _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
+                    _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto AS PCosto, A.PrecioVenta AS PVenta, A.Stock, A.StockMinimo AS StMin " +
                                   "FROM Productos A " +
                                   "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
                                   "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
@@ -51,6 +51,9 @@ namespace J3AMS.Negocio
                     {
                         Id = (int)_datos.Lector["IdArt"],
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
+                        PrecioCosto = (decimal)_datos.Lector["PCosto"],
+                        PrecioVenta = (decimal)_datos.Lector["PVenta"],
+                        StockMinimo = (int)_datos.Lector["StMin"],
                         //VERIFICAR LA CONSULTA
                         //StockMinimo = (int)_datos.Lector["A.StockMinimo"],
                         Tipo = new Tipo
@@ -69,7 +72,7 @@ namespace J3AMS.Negocio
                             NombreFantasia = _datos.Lector["Proveedor"] as string ?? string.Empty,
                         }
                         // Nos falta agregar la propiedad Proveedor
-                    });
+                    }) ;
                 }
                 return listProductos;
             }
@@ -147,8 +150,8 @@ namespace J3AMS.Negocio
                 {
                     
                     aux.Descripcion = _datos.Lector["P.Descripcion"] as string ?? string.Empty;
-                    aux.PrecioCosto = (Decimal)_datos.Lector["P.PrecioCosto"];
-                    aux.PrecioVenta = (Decimal)_datos.Lector["P.PrecioVenta"];
+                    aux.PrecioCosto = (decimal)_datos.Lector["P.PrecioCosto"];
+                    aux.PrecioVenta = (decimal)_datos.Lector["P.PrecioVenta"];
                     aux.StockMinimo = (int)_datos.Lector["P.StockMinimo"];
                     aux.Tipo = new Tipo
                     {
