@@ -11,7 +11,7 @@ namespace J3AMS.Dominio
     {
         public byte Id { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
-        [StringLength(50, ErrorMessage = "Maximo 50 caracteres")]
+        [StringLength(255, ErrorMessage = "Maximo 255 caracteres")]
         public string Descripcion { get; set; }
         public bool Activo { get; set; }
 

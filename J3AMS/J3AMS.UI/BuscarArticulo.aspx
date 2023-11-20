@@ -5,7 +5,6 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Codigo</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Marca</th>
@@ -18,7 +17,6 @@
             <ItemTemplate>
                 <tr>
                     <td><%# Eval("Id") %></td>
-                    <td><%# Eval("Codigo") %></td>
                     <td><%# Eval("Descripcion") %></td>
                     <td><%# Eval("Tipo") %></td>
                     <td><%# Eval("Marca") %></td>

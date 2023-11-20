@@ -62,7 +62,7 @@ namespace J3AMS.UI
             CategoriaIva categoriaIva = new CategoriaIva();
             categoriaIva.Id = int.Parse(ddlIva.SelectedValue);
             aux.categoriaIva = categoriaIva;
-            aux.Plazo = int.Parse(txtPlazo.Text);
+            aux.Plazo = byte.Parse(txtPlazo.Text);
 
             clienteNegocio.Add(aux);
 

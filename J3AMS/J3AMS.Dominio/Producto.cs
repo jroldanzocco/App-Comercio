@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace J3AMS.Dominio
 {
@@ -11,20 +6,28 @@ namespace J3AMS.Dominio
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
-        [StringLength(100, ErrorMessage = "Maximo 100 caracteres")]
-        public int Codigo { get; set; }
+        [StringLength(255, ErrorMessage = "Maximo 255 caracteres")]
         public string Descripcion { get; set; }
-        [Required(ErrorMessage = "El campo es requerido")]
+        [Range(0, 255, ErrorMessage = "El valor debe estar entre 0 y 255.")]
+        public byte IdTipo { get; set; }
+        [Range(0, 255, ErrorMessage = "El valor debe estar entre 0 y 255.")]
+        public byte IdMarca { get; set; }
+        [Range(0, 255, ErrorMessage = "El valor debe estar entre 0 y 255.")]
+        public byte IdProveedor { get; set; }
         public Tipo Tipo { get; set; }
         public Marca Marca { get; set; }
         public Proveedor Proveedor { get; set; }
+        [Required(ErrorMessage = "El campo es requerido")]
         public decimal PrecioCosto { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         public decimal PrecioVenta { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
+        [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser menor a 0.")]
         public int Stock { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
+        [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser menor a 0.")]
         public int StockMinimo { get; set; }
         public int Cantidad { get; set; }
+        public bool Activo { get; set; }
     }
 }
