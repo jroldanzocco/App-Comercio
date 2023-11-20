@@ -9,6 +9,7 @@
     <title><%: Page.Title %> - Sistema de comercio</title>
 
     <link href="Content/estilos.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -21,12 +22,17 @@
 <body>
 
     <header>
-        <div class="header">
-            <div>
-                <h2 class="logo">J3</h2>
-            </div>
-        </div>
-    </header>
+    <div class="header d-flex justify-content-between align-items-center">
+        
+            <h2 class="logo mb-2">J3</h2>
+            <% if (Session["usuario"] != null) { %>
+                <button type="button" onserverclick="BtnDesloguear_Click" class="btn btn-danger" runat="server">Logout</button>
+            <% } %>
+            
+       
+    </div>
+</header>
+
 
     <form runat="server">
         <asp:ScriptManager runat="server">

@@ -13,5 +13,11 @@ namespace J3AMS.UI
         {
 
         }
+
+        protected void BtnDesloguear_Click(object sender, EventArgs e)
+        {
+            Session.Remove("usuario");
+            Response.Redirect("~/PaginaPrincipal.aspx");
+        }
     }
 }

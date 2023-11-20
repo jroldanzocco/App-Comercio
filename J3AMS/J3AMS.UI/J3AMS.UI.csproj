@@ -134,7 +134,6 @@
     <Content Include="NuevaCompra.aspx" />
     <Content Include="NuevaVenta.aspx" />
     <Content Include="PaginaPrincipal.aspx" />
-    <Content Include="Resources\css\login.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
