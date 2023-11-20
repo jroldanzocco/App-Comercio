@@ -11,26 +11,35 @@ namespace J3AMS.UI
 {
 
 
-    public partial class BuscarArticulo
+    public partial class BuscarFacturas
     {
 
         /// <summary>
-        /// Control repRepetidor.
+        /// Control txtNumeroFactura.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater repRepetidor;
+        protected global::System.Web.UI.WebControls.TextBox txtNumeroFactura;
 
         /// <summary>
-        /// Control btnNuevoArticulo.
+        /// Control btnBuscar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevoArticulo;
+        protected global::System.Web.UI.WebControls.Button btnBuscar;
+
+        /// <summary>
+        /// Control gvResultados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvResultados;
 
         /// <summary>
         /// Control btnVolverAlMenu.
@@ -40,5 +49,14 @@ namespace J3AMS.UI
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnVolverAlMenu;
+
+        /// <summary>
+        /// Control Imprimir.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Imprimir;
     }
 }

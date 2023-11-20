@@ -1,0 +1,33 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FacturasVentas.master.cs" Inherits="J3AMS.UI.FacturasVentas" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="factura-container">
+        <h1>Factura de Venta</h1>
+        <div class="info-cliente">
+            <p>Cliente: <%-- Nombre del cliente --%></p>
+            <p>Dirección: <%--Dirección del cliente --%></p>
+            <p>Fecha: <%-- Fecha de la factura --%></p>
+        </div>
+        <table class="detalle-factura">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%-- Detalle de la factura --%>
+                <tr>
+                    <td><%-- Código del producto --%></td>
+                    <td><%-- Cantidad --%></td>
+                    <td><%-- Precio unitario --%></td>
+                    <td><%-- Total --%></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="total-factura">
+            <p>Total: <%-- Total de la factura --%></p>
+        </div>
+    </div>
+</asp:Content>

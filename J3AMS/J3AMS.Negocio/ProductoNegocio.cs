@@ -207,5 +207,60 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
+        public Producto ObtenerPorId(int id)
+        {
+            try
+            {
+                Producto producto = new Producto();
+
+                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
+                                  "FROM Productos A " +
+                                  "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
+                                  "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
+                                  "LEFT JOIN Proveedores P ON A.IdProveedor = P.Id " +
+                                  "WHERE A.Id = @Id");
+
+                _datos.SetParametro("@Id", id);
+                _datos.EjecutarLectura();
+
+                while (_datos.Lector.Read())
+                {
+                    producto = new Producto
+                    {
+                        Id = (int)_datos.Lector["IdArt"],
+                        Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
+                        Tipo = new Tipo
+                        {
+                            Id = (byte)_datos.Lector["IdTipo"],
+                            Descripcion = _datos.Lector["Tipo"] as string ?? string.Empty
+                        },
+                        Marca = new Marca
+                        {
+                            Id = (byte)_datos.Lector["IdMarca"],
+                            Descripcion = _datos.Lector["Marca"] as string ?? string.Empty,
+                        },
+                        Proveedor = new Proveedor
+                        {
+                            Id = (int)_datos.Lector["IdProv"],
+                            NombreFantasia = _datos.Lector["Proveedor"] as string ?? string.Empty,
+                        },
+                        PrecioCosto = (decimal)_datos.Lector["PrecioCosto"],
+                        Stock = (int)_datos.Lector["Stock"],
+                        StockMinimo = (int)_datos.Lector["StockMinimo"]
+                    };
+                }
+
+                return producto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _datos.CerrarConexion();
+            }
+        }
+
     }
 }

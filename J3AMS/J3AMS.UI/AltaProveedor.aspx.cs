@@ -11,9 +11,20 @@ namespace J3AMS.UI
 {
     public partial class AltaProveedor : System.Web.UI.Page
     {
+        private ProveedorNegocio _proveedores;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["usuario"] == null)
+            {
+                Session.Add("error", "No estás logueado");
+                Response.Redirect("Default.aspx");
+            }
+            if (((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() != "Admin")
+            {
+                Session.Add("error", "Necesitas permisos. Contactar al administrador");
+                Response.Redirect("PaginaPrincipal.aspx");
+            }
+            _proveedores = new ProveedorNegocio();
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)

@@ -15,12 +15,21 @@ namespace J3AMS.UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] == null)
+            {
+                Session.Add("error", "No estás logueado");
+                Response.Redirect("Default.aspx");
+            }
+
             if (!IsPostBack)
             {
                 CargarProductos();
             }
         }
-
+        protected void btnVolverAlMenu_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PaginaPrincipal.aspx");
+        }
         protected void btnNuevoArticulo_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaArticulo.aspx");

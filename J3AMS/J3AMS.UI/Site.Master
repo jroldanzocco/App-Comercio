@@ -20,24 +20,13 @@
 </head>
 <body>
 
-            <header>
-            <div class="header">
+    <header>
+        <div class="header">
             <div>
                 <h2 class="logo">J3</h2>
             </div>
-            <div>
-                <ul>
-                    <li><a href="PaginaPrincipal.aspx">Menu</a></li>
-                    <li><a href="BuscarCliente.aspx">Clientes</a></li>
-                    <li><a href="BuscarProveedor.aspx">Proveedores</a></li>
-                    <li><a href="BuscarArticulo.aspx">Articulos</a></li>
-                    <li><a href="#">Facturación</a></li>
-                    <li><a href="#">Informes</a></li>
-                </ul>
-            </div>
-
-            </div>
-        </header>
+        </div>
+    </header>
 
     <form runat="server">
         <asp:ScriptManager runat="server">
