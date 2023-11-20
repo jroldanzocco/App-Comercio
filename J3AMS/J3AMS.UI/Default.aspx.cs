@@ -23,10 +23,8 @@ namespace J3AMS.UI
 
             try
             {
-                usuario = new Usuario();
+                usuario = new Usuario(txtNombreUsuario.Text, txtPassword.Text, false);
 
-                usuario.NombreUsuario = txtNombreUsuario.Text;
-                usuario.Contrasenia = txtPassword.Text;
 
                 if(negocio.Loguear(usuario))
                 {
@@ -42,7 +40,6 @@ namespace J3AMS.UI
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
-                throw;
             }
             
         }

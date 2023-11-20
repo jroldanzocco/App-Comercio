@@ -27,7 +27,7 @@
 
                         <asp:Button ID="btnInformeArticulo" CssClass="btn btn-primary" runat="server" Text="Informes" />
 
-                        <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
+                        <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN) { %>
 
                             <asp:Button ID="btnEditarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEditarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
                             <asp:Button ID="btnEliminarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
@@ -41,7 +41,7 @@
 
     </table>
 
-    <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
+    <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN) { %>
     <asp:Button ID="btnNuevoArticulo" OnClick="btnNuevoArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
     <% } %>
     <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Volver al Menu" />

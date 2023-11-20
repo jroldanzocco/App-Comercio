@@ -18,7 +18,7 @@ namespace J3AMS.UI
             if (Session["usuario"] == null)
             {
                 Session.Add("error", "No estás logueado");
-                Response.Redirect("Default.aspx");
+                Response.Redirect("Default.aspx", false);
             }
 
             if (!IsPostBack)

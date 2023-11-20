@@ -29,7 +29,7 @@
                 <td>
                     
                     <asp:Button ID="btnInformeCliente" CssClass="btn btn-primary" runat="server" Text="Informes" />
-                    <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
+                    <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN) { %>
                         <asp:Button ID="btnEditarCliente" OnClick="btnEditarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
                         <asp:Button ID="btnEliminarCliente" OnClick="btnEliminarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
                     <% } %>
@@ -39,7 +39,7 @@
     </asp:Repeater>
 </table>
 
-<% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).NombreUsuario.ToString() == "Admin") { %>
+<% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN) { %>
 <asp:Button ID="btnNuevoCliente" OnClick="btnNuevoCliente_Click" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
 <% } %>
 <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Volver al Menu" />
