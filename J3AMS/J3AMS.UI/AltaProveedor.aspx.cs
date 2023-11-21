@@ -1,12 +1,16 @@
-﻿using J3AMS.Dominio;
+﻿using J3.AMS.Common;
+using J3AMS.Dominio;
 using J3AMS.Negocio;
 using System;
+using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
     public partial class AltaProveedor : System.Web.UI.Page
     {
         private ProveedorNegocio _proveedores;
+        private CategoriaIvaNegocio _categoriaIva;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["usuario"] == null)
@@ -20,9 +24,38 @@ namespace J3AMS.UI
                 Response.Redirect("PaginaPrincipal.aspx", false);
             }
             _proveedores = new ProveedorNegocio();
+            _categoriaIva = new CategoriaIvaNegocio();
 
             if (!IsPostBack)
             {
+                _proveedores = new ProveedorNegocio();
+                _categoriaIva = new CategoriaIvaNegocio();
+                List<CategoriaIva> categorias = _categoriaIva.Listar();
+
+                ddlCategoriaIva.DataSource = categorias;
+                ddlCategoriaIva.DataValueField = "Id";
+                ddlCategoriaIva.DataTextField = "Descripcion";
+                ddlCategoriaIva.DataBind();
+                ddlCategoriaIva.Items.Insert(0, new ListItem("-- Seleccione IVA --", string.Empty));
+
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
+                
+                if (id != "")
+                {
+                    int.TryParse(id, out int idVal);
+                    Proveedor aux = _proveedores.Get(idVal);
+
+                    txtRazonSocial.Text = aux.RazonSocial;
+                    txtNombre.Text = aux.NombreFantasia;
+                    txtCuit.Text = aux.CUIT;
+                    txtDomicilio.Text = aux.Domicilio;
+                    txtTelefono.Text = aux.Telefono;
+                    txtCelular.Text = aux.Celular;
+                    txtEmail.Text = aux.Email;
+                    txtPlazo.Text = aux.PlazoPago.ToString();
+                    ddlCategoriaIva.SelectedValue = aux.CategoriaIva.Id.ToString();
+                }
+
                 // Verifica si existe un parámetro "id" en la URL
                 if (!string.IsNullOrEmpty(Request.QueryString["id"]))
                 {
@@ -44,8 +77,15 @@ namespace J3AMS.UI
 
         protected void btnAgregarProveedor_Click(object sender, EventArgs e)
         {
-            ProveedorNegocio negocio = new ProveedorNegocio();
             Proveedor aux = new Proveedor();
+
+            if(ddlCategoriaIva.SelectedValue != "")
+            {
+                CategoriaIva iva = new CategoriaIva();
+                iva.Id = byte.Parse(ddlCategoriaIva.SelectedValue);
+                aux.IdCategoriaIva = iva.Id;
+                aux.CategoriaIva = iva;
+            }
 
             aux.RazonSocial = txtRazonSocial.Text;
             aux.NombreFantasia = txtNombre.Text;
@@ -57,7 +97,14 @@ namespace J3AMS.UI
             byte.TryParse(txtPlazo.Text, out byte PlazoValidator);
             aux.PlazoPago = PlazoValidator;
 
-            negocio.Add(aux);
+            string id = Request.QueryString["id"];
+            if (id != null)
+            {
+                aux.Id = int.Parse(id);
+                _proveedores.Update(aux);
+            }
+            else
+                _proveedores.Add(aux);
 
             Response.Redirect("BuscarProveedor.aspx");
         }

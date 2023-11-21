@@ -60,7 +60,7 @@ namespace J3AMS.UI
             aux.Nombres = txtNombreCliente.Text;
             aux.DNI = txtDni.Text;
             CategoriaIva categoriaIva = new CategoriaIva();
-            categoriaIva.Id = int.Parse(ddlIva.SelectedValue);
+            categoriaIva.Id = byte.Parse(ddlIva.SelectedValue);
             aux.categoriaIva = categoriaIva;
             aux.Plazo = byte.Parse(txtPlazo.Text);
 

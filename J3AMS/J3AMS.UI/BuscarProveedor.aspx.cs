@@ -86,7 +86,7 @@ namespace J3AMS.UI
 
             if (proveedor != null)
             {
-                lblInforme.Text = proveedor.NombreFantasia;
+                lblInforme.Text = proveedor.RazonSocial;
                 txtRazonSocial.Text = proveedor.RazonSocial;
                 txtCuit.Text = proveedor.CUIT;
                 txtDomicilio.Text = proveedor.Domicilio;

@@ -41,7 +41,7 @@ namespace J3AMS.Negocio
                         Id = (int)_datos.Lector["Id"],
                         RazonSocial = _datos.Lector["RazonSocial"] as string ?? string.Empty,
                         NombreFantasia = _datos.Lector["NombreFantasia"] as string ?? string.Empty,
-                        CUIT = _datos.Lector["NombreFantasia"] as string ?? string.Empty,
+                        CUIT = _datos.Lector["CUIT"] as string ?? string.Empty,
                         Domicilio = _datos.Lector["Domicilio"] as string ?? string.Empty,
                         Telefono = _datos.Lector["Telefono"] as string ?? string.Empty,
                         Celular = _datos.Lector["Celular"] as string ?? string.Empty,
@@ -70,13 +70,17 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, IdCategoriaIva, PlazoPago, Activo)\r\n" +
-                    "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, 1, 1, 1)");
+                _datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo) " +
+                                   "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, @Celular, @Email, @Iva, @Plazo, 1)");
                 _datos.SetParametro("@Razon", newEntity.RazonSocial);
                 _datos.SetParametro("@Nombre", newEntity.NombreFantasia);
                 _datos.SetParametro("@CUIT", newEntity.CUIT);
                 _datos.SetParametro("@Domicilio", newEntity.Domicilio);
                 _datos.SetParametro("@Telefono", newEntity.Telefono);
+                _datos.SetParametro("@Celular", newEntity.Telefono);
+                _datos.SetParametro("@Email", newEntity.Telefono);
+                _datos.SetParametro("@Iva", newEntity.CategoriaIva.Id);
+                _datos.SetParametro("@Plazo", newEntity.PlazoPago);
                 _datos.SetParametro("@Activo", true);
                 _datos.EjecutarLectura();
 
@@ -128,12 +132,13 @@ namespace J3AMS.Negocio
 
         public Proveedor Get(int id)
         {
-            var aux = new Proveedor();
+            
 
             try
             {
-                _datos.SetConsulta("SELECT Id, RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, " +
-                                   "Email, IdCategoriaIva, PlazoPago, Activo From Proveedores where Id = @Id");
+                Proveedor aux = null;
+                _datos.SetConsulta("SELECT P.Id, RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, C.Id IdCategoriaIva, C.Descripcion Iva, C.PorcentajeIva, PlazoPago, Activo " +
+                                   "FROM Proveedores P LEFT JOIN CategoriasIva C ON P.IdCategoriaIva = C.Id WHERE P.Id = @ID");
 
                 _datos.SetParametro("ID", id);
 
@@ -141,17 +146,26 @@ namespace J3AMS.Negocio
 
                 while (_datos.Lector.Read())
                 {
-                    aux.Id = (int)_datos.Lector["Id"];
-                        aux.RazonSocial = _datos.Lector["RazonSocial"] as string ?? string.Empty;
-                        aux.NombreFantasia = _datos.Lector["NombreFantasia"] as string ?? string.Empty;
-                        aux.CUIT = _datos.Lector["CUIT"] as string ?? string.Empty;
-                        aux.Domicilio = _datos.Lector["Domicilio"] as string ?? string.Empty;
-                        aux.Telefono = _datos.Lector["Telefono"] as string ?? string.Empty;
-                        aux.Celular = _datos.Lector["Celular"] as string ?? string.Empty;
-                        aux.Email = _datos.Lector["Email"] as string ?? string.Empty;
-                        aux.IdCategoriaIva = (byte)_datos.Lector["IdCategoriaIva"];
-                        aux.PlazoPago = (byte)_datos.Lector["PlazoPago"];
-                        aux.Activo = (bool)_datos.Lector["Activo"];
+                    aux = new Proveedor()
+                    {
+                        Id = (int)_datos.Lector["Id"],
+                        RazonSocial = _datos.Lector["RazonSocial"] as string ?? string.Empty,
+                        NombreFantasia = _datos.Lector["NombreFantasia"] as string ?? string.Empty,
+                        CUIT = _datos.Lector["CUIT"] as string ?? string.Empty,
+                        Domicilio = _datos.Lector["Domicilio"] as string ?? string.Empty,
+                        Telefono = _datos.Lector["Telefono"] as string ?? string.Empty,
+                        Celular = _datos.Lector["Celular"] as string ?? string.Empty,
+                        Email = _datos.Lector["Email"] as string ?? string.Empty,
+                        CategoriaIva = new CategoriaIva()
+                        {
+                            Id = (byte)_datos.Lector["IdCategoriaIva"],
+                            Descripcion = _datos.Lector["Iva"] as string ?? string.Empty,
+                            PorcentajeIva = (decimal)_datos.Lector["PorcentajeIva"],
+                        },
+                        PlazoPago = (byte)_datos.Lector["PlazoPago"],
+                        Activo = (bool)_datos.Lector["Activo"],
+                    };
+                    
                 }
                 return aux;
             }
@@ -165,30 +179,21 @@ namespace J3AMS.Negocio
         {
             try
             {
-                var query = "UPDATE Proveedores " +
-                            "SET RazonSocial = '@RazonSocial', " +
-                            "NombreFantasia = '@Nombre', " +
-                            "CUIT = '@CUIT', " +
-                            "Domicilio = '@Domicilio', " +
-                            "Telefono = '@Telefono', " +
-                            "Celular = '@Celular', " +
-                            "Email = '@Email', " +
-                            "IdCategoriaIva = @IdIva, " +
-                            "PlazoPago = PlazoPago, " +
-                            "WHERE ID = @ID";
+                _datos.SetConsulta("UPDATE Proveedores SET RazonSocial = @RazonSocial, NombreFantasia = @Nombre, " +
+                            "CUIT = @CUIT, Domicilio = @Domicilio, Telefono = @Telefono, " +
+                            "Celular = @Celular, Email = @Email, IdCategoriaIva = @IdIva, PlazoPago = @PlazoPago " +
+                            "WHERE Id = @ID");
 
-                _datos.SetConsulta(query);
-
-                _datos.SetParametro("ID", entity.Id);
-                _datos.SetParametro("RazonSocial", entity.RazonSocial);
-                _datos.SetParametro("Nombre", entity.NombreFantasia);
-                _datos.SetParametro("CUIT", entity.CUIT);
-                _datos.SetParametro("Domicilio", entity.Domicilio);
-                _datos.SetParametro("Telefono", entity.Telefono);
-                _datos.SetParametro("Celular", entity.Celular);
-                _datos.SetParametro("Email", entity.Email);
-                _datos.SetParametro("IdIva", entity.IdCategoriaIva);
-                _datos.SetParametro("PlazoPago", entity.PlazoPago);
+                _datos.SetParametro("@ID", entity.Id);
+                _datos.SetParametro("@RazonSocial", entity.RazonSocial);
+                _datos.SetParametro("@Nombre", entity.NombreFantasia);
+                _datos.SetParametro("@CUIT", entity.CUIT);
+                _datos.SetParametro("@Domicilio", entity.Domicilio);
+                _datos.SetParametro("@Telefono", entity.Telefono);
+                _datos.SetParametro("@Celular", entity.Celular);
+                _datos.SetParametro("@Email", entity.Email);
+                _datos.SetParametro("@IdIva", entity.CategoriaIva.Id);
+                _datos.SetParametro("@PlazoPago", entity.PlazoPago);
 
                 _datos.EjecutarLectura();
             }

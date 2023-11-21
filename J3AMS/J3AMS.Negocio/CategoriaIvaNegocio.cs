@@ -1,9 +1,6 @@
-﻿using System;
+﻿using J3AMS.Dominio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using J3AMS.Dominio;
 
 namespace J3AMS.Negocio
 {
@@ -21,20 +18,21 @@ namespace J3AMS.Negocio
             var listIva = new List<CategoriaIva>();
             try
             {
-                _datos.SetConsulta("SELECT Id, Descripcion FROM CategoriasIva");
+                _datos.SetConsulta("SELECT Id, Descripcion, PorcentajeIva FROM CategoriasIva");
                 _datos.EjecutarLectura();
 
-                while(_datos.Lector.Read())
+                while (_datos.Lector.Read())
                 {
                     listIva.Add(new CategoriaIva()
                     {
-                        Id = (int)_datos.Lector["Id"],
+                        Id = (byte)_datos.Lector["Id"],
 
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
-                    });
+                        PorcentajeIva = (decimal)_datos.Lector["PorcentajeIva"]
+                    }) ;
                 }
 
-            return listIva;
+                return listIva;
             }
             catch (Exception ex)
             {
