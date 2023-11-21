@@ -1,11 +1,6 @@
 ﻿using J3AMS.Dominio;
 using J3AMS.Negocio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
@@ -57,6 +52,10 @@ namespace J3AMS.UI
             aux.CUIT = txtCuit.Text;
             aux.Domicilio = txtDomicilio.Text;
             aux.Telefono = txtTelefono.Text;
+            aux.Celular = txtCelular.Text;
+            aux.Email = txtEmail.Text;
+            byte.TryParse(txtPlazo.Text, out byte PlazoValidator);
+            aux.PlazoPago = PlazoValidator;
 
             negocio.Add(aux);
 

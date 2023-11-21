@@ -20,15 +20,11 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <label for="ddlTipo" class="form-label">Tipo</label>
-                <asp:DropDownList ID="ddlTipo" CssClass="form-select" runat="server">
-                    <asp:ListItem Text="-- Seleccione Tipo --" Value="" />
-                </asp:DropDownList>
+                <asp:DropDownList ID="ddlTipo" CssClass="form-select" runat="server"></asp:DropDownList>
             </div>
             <div class="col-md-6">
                 <label for="ddlMarca" class="form-label">Marca</label>
-                <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server">
-                    <asp:ListItem Text="-- Seleccione Marca --" Value="" />
-                </asp:DropDownList>
+                <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server"> </asp:DropDownList>
             </div>
         </div>
         <div class="row mb-3">
