@@ -130,9 +130,9 @@ VALUES ('Proveedor 4 Razón Social', 'Proveedor 4 Nombre Fantasía', '34567890123'
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Proveedor 5 Razón Social', 'Proveedor 5 Nombre Fantasía', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45, 1);
 --Usuarios
-INSERT INTO Usuarios (NombreUsuario, Contraseña)
-VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f');
-INSERT INTO Usuarios (NombreUsuario, Contraseña)
+INSERT INTO Usuarios (UserName, Password, IdRol)
+VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f',1);
+INSERT INTO Usuarios (UserName, Password)
 VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08');
 --PARA ALTA PRODUCTO
 INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)
