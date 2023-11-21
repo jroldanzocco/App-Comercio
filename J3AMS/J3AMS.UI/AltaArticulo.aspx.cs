@@ -3,6 +3,7 @@ using J3AMS.Dominio;
 using J3AMS.Negocio;
 using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
@@ -35,16 +36,19 @@ namespace J3AMS.UI
                     ddlTipo.DataValueField = "Id";
                     ddlTipo.DataTextField = "Descripcion";
                     ddlTipo.DataBind();
+                    ddlTipo.Items.Insert(0, new ListItem("-- Seleccione Tipo --", string.Empty));
 
                     ddlMarca.DataSource = marcas;
                     ddlMarca.DataValueField = "Id";
                     ddlMarca.DataTextField = "Descripcion";
                     ddlMarca.DataBind();
+                    ddlMarca.Items.Insert(0, new ListItem("-- Seleccione Marca --", string.Empty));
 
                     ddlProveedor.DataSource = proveedores;
                     ddlProveedor.DataValueField = "Id";
                     ddlProveedor.DataTextField = "NombreFantasia";
                     ddlProveedor.DataBind();
+                    ddlProveedor.Items.Insert(0, new ListItem("-- Seleccione Proveedor --", string.Empty));
 
                     string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
 
@@ -63,6 +67,11 @@ namespace J3AMS.UI
                         ddlMarca.SelectedValue = aux.Marca.Id.ToString();
                         ddlProveedor.SelectedValue = aux.Proveedor.Id.ToString();
                     }
+                    
+                    if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+                        btnAgregarArticulo.Text = "Editar";
+                    else
+                        btnAgregarArticulo.Text = "Agregar";
                 }
 
 
@@ -78,28 +87,37 @@ namespace J3AMS.UI
         }
         protected void btnAgregarArticulo_Click(object sender, EventArgs e)
         {
+            var tipoSelectedValue = ddlTipo.SelectedValue;
+            var marcaSelectedValue = ddlMarca.SelectedValue;
+            var proveedorSelectedValue = ddlProveedor.SelectedValue;
             ProductoNegocio negocio = new ProductoNegocio();
             Producto aux = new Producto();
 
             aux.Descripcion = txtDescripcion.Text;
 
-            Tipo tipo = new Tipo();
-            tipo.Id = byte.Parse(ddlTipo.SelectedValue);
-            aux.Tipo = tipo;
+            if(ddlTipo.SelectedValue != "" && ddlMarca.SelectedValue != "" && ddlProveedor.SelectedValue != "" )
+            {
+                Tipo tipo = new Tipo();
+                tipo.Id = byte.Parse(ddlTipo.SelectedValue);
+                aux.Tipo = tipo;
 
-            Marca marca = new Marca();
-            marca.Id = byte.Parse(ddlMarca.SelectedValue);
-            aux.Marca = marca;
+                Marca marca = new Marca();
+                marca.Id = byte.Parse(ddlMarca.SelectedValue);
+                aux.Marca = marca;
 
-            Proveedor proveedor = new Proveedor();
-            proveedor.Id = int.Parse(ddlProveedor.SelectedValue);
-            aux.Proveedor = proveedor;
+                Proveedor proveedor = new Proveedor();
+                proveedor.Id = int.Parse(ddlProveedor.SelectedValue);
+                aux.Proveedor = proveedor;
+            }
 
-            aux.PrecioCosto = Convert.ToDecimal(txtPrecioCosto.Text);
+            decimal.TryParse(txtPrecioCosto.Text, out decimal PCValidator);
+            aux.PrecioCosto = PCValidator;
 
-            aux.PrecioVenta = Convert.ToDecimal(txtPrecioVenta.Text);
+            decimal.TryParse(txtPrecioVenta.Text, out decimal PVValidator);
+            aux.PrecioVenta = PVValidator;
 
-            aux.StockMinimo = int.Parse(txtStockMinimo.Text);
+            int.TryParse(txtStockMinimo.Text, out int StockMinValidator);
+            aux.StockMinimo = StockMinValidator;
 
             string id = Request.QueryString["id"];
             if (ValidatorsDA.TryValidateModel(aux, this, out var validationResults))
