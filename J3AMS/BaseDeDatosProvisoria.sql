@@ -88,8 +88,8 @@ CREATE TABLE Ventas (
 CREATE TABLE Usuarios (
     Id INT PRIMARY KEY IDENTITY (1, 1),
     UserName NVARCHAR(255) NOT NULL UNIQUE,
-    Password NVARCHAR(255) NOT NULL
-	IdRol TINYINT DEFAULT 2;
+    Password NVARCHAR(255) NOT NULL,
+	IdRol TINYINT DEFAULT 2
 )
 --Marcas
 INSERT INTO Marcas (Descripcion, Activo)
