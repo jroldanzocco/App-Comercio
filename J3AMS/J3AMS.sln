@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "J3AMS.Negocio", "J3AMS.Nego
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "J3AMS.Dominio", "J3AMS.Dominio\J3AMS.Dominio.csproj", "{5F54CED0-142D-4FDB-8DA1-6E14FBF90A5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "J3.AMS.Common", "J3.AMS.Common\J3.AMS.Common.csproj", "{BB205EDD-CC9D-40F1-957D-785B1D09CC6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5F54CED0-142D-4FDB-8DA1-6E14FBF90A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F54CED0-142D-4FDB-8DA1-6E14FBF90A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F54CED0-142D-4FDB-8DA1-6E14FBF90A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB205EDD-CC9D-40F1-957D-785B1D09CC6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB205EDD-CC9D-40F1-957D-785B1D09CC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB205EDD-CC9D-40F1-957D-785B1D09CC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB205EDD-CC9D-40F1-957D-785B1D09CC6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

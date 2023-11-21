@@ -331,6 +331,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\J3.AMS.Common\J3.AMS.Common.csproj">
+      <Project>{BB205EDD-CC9D-40F1-957D-785B1D09CC6A}</Project>
+      <Name>J3.AMS.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\J3AMS.Dominio\J3AMS.Dominio.csproj">
       <Project>{5f54ced0-142d-4fdb-8da1-6e14fbf90a5c}</Project>
       <Name>J3AMS.Dominio</Name>

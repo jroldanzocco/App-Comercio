@@ -1,8 +1,8 @@
-﻿using J3AMS.Dominio;
+﻿using J3.AMS.Common;
+using J3AMS.Dominio;
 using J3AMS.Negocio;
 using System;
 using System.Collections.Generic;
-using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
@@ -20,49 +20,49 @@ namespace J3AMS.UI
                 Session.Add("error", "Necesitas permisos. Contactar al administrador");
                 Response.Redirect("PaginaPrincipal.aspx", false);
             }
-                try
+            try
             {
-                if(!IsPostBack)
+                if (!IsPostBack)
                 {
-                        TipoNegocio tipoNegocio = new TipoNegocio();
-                        List<Tipo> tipos = tipoNegocio.Listar();
-                        ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
-                        List<Proveedor> proveedores = proveedorNegocio.Listar();
-                        MarcaNegocio marcaNegocio = new MarcaNegocio();
-                        List<Marca> marcas = marcaNegocio.Listar();
+                    TipoNegocio tipoNegocio = new TipoNegocio();
+                    List<Tipo> tipos = tipoNegocio.Listar();
+                    ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+                    List<Proveedor> proveedores = proveedorNegocio.Listar();
+                    MarcaNegocio marcaNegocio = new MarcaNegocio();
+                    List<Marca> marcas = marcaNegocio.Listar();
 
-                        ddlTipo.DataSource = tipos;
-                        ddlTipo.DataValueField = "Id";
-                        ddlTipo.DataTextField = "Descripcion";
-                        ddlTipo.DataBind();
+                    ddlTipo.DataSource = tipos;
+                    ddlTipo.DataValueField = "Id";
+                    ddlTipo.DataTextField = "Descripcion";
+                    ddlTipo.DataBind();
 
-                        ddlMarca.DataSource = marcas;
-                        ddlMarca.DataValueField = "Id";
-                        ddlMarca.DataTextField = "Descripcion";
-                        ddlMarca.DataBind();
+                    ddlMarca.DataSource = marcas;
+                    ddlMarca.DataValueField = "Id";
+                    ddlMarca.DataTextField = "Descripcion";
+                    ddlMarca.DataBind();
 
-                        ddlProveedor.DataSource = proveedores;
-                        ddlProveedor.DataValueField = "Id";
-                        ddlProveedor.DataTextField = "NombreFantasia";
-                        ddlProveedor.DataBind();
+                    ddlProveedor.DataSource = proveedores;
+                    ddlProveedor.DataValueField = "Id";
+                    ddlProveedor.DataTextField = "NombreFantasia";
+                    ddlProveedor.DataBind();
 
-                        string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
+                    string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
 
-                        if (id != "")
-                        {
-                            ProductoNegocio negocio = new ProductoNegocio();
-                            Producto aux = (negocio.Listar(id))[0];
+                    if (id != "")
+                    {
+                        ProductoNegocio negocio = new ProductoNegocio();
+                        Producto aux = (negocio.Listar(id))[0];
 
-                            txtNombre.Text = "Campo a resolver";
-                            txtDescripcion.Text = aux.Descripcion;
-                            txtStockMinimo.Text = aux.StockMinimo.ToString();
-                            txtPrecioVenta.Text = aux.PrecioVenta.ToString();
-                            txtPrecioCosto.Text = aux.PrecioCosto.ToString();
+                        txtNombre.Text = "Campo a resolver";
+                        txtDescripcion.Text = aux.Descripcion;
+                        txtStockMinimo.Text = aux.StockMinimo.ToString();
+                        txtPrecioVenta.Text = aux.PrecioVenta.ToString();
+                        txtPrecioCosto.Text = aux.PrecioCosto.ToString();
 
-                            ddlTipo.SelectedValue = aux.Tipo.Id.ToString();
-                            ddlMarca.SelectedValue = aux.Marca.Id.ToString();
-                            ddlProveedor.SelectedValue = aux.Proveedor.Id.ToString();
-                        }
+                        ddlTipo.SelectedValue = aux.Tipo.Id.ToString();
+                        ddlMarca.SelectedValue = aux.Marca.Id.ToString();
+                        ddlProveedor.SelectedValue = aux.Proveedor.Id.ToString();
+                    }
                 }
 
 
@@ -102,15 +102,19 @@ namespace J3AMS.UI
             aux.StockMinimo = int.Parse(txtStockMinimo.Text);
 
             string id = Request.QueryString["id"];
-            if (id != null)
+            if (ValidatorsDA.TryValidateModel(aux, this, out var validationResults))
             {
-                aux.Id = int.Parse(id);
-                negocio.Update(aux);
+            
+                if (id != null)
+                {
+                    aux.Id = int.Parse(id);
+                    negocio.Update(aux);
+                }
+                else
+                    negocio.Add(aux);
+            
+                Response.Redirect("BuscarArticulo.aspx");
             }
-            else
-                negocio.Add(aux);
-
-            Response.Redirect("BuscarArticulo.aspx");
         }
         protected void btnVolver_Click(object sender, EventArgs e)
         {

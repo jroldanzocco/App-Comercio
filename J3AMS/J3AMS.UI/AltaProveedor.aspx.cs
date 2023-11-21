@@ -25,6 +25,21 @@ namespace J3AMS.UI
                 Response.Redirect("PaginaPrincipal.aspx", false);
             }
             _proveedores = new ProveedorNegocio();
+
+            if (!IsPostBack)
+            {
+                // Verifica si existe un parámetro "id" en la URL
+                if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+                {
+                    // Si existe, significa que estás editando, cambia el texto del botón a "Editar"
+                    btnAgregarProveedor.Text = "Editar";
+                }
+                else
+                {
+                    // Si no existe, significa que estás agregando, deja el texto del botón como "Agregar"
+                    btnAgregarProveedor.Text = "Agregar";
+                }
+            }
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
