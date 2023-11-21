@@ -87,8 +87,9 @@ CREATE TABLE Ventas (
 )
 CREATE TABLE Usuarios (
     Id INT PRIMARY KEY IDENTITY (1, 1),
-    NombreUsuario NVARCHAR(255) NOT NULL UNIQUE,
-    Contraseña NVARCHAR(255) NOT NULL
+    UserName NVARCHAR(255) NOT NULL UNIQUE,
+    Password NVARCHAR(255) NOT NULL
+	IdRol TINYINT DEFAULT 2;
 )
 --Marcas
 INSERT INTO Marcas (Descripcion, Activo)
@@ -130,7 +131,9 @@ INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono,
 VALUES ('Proveedor 5 Razón Social', 'Proveedor 5 Nombre Fantasía', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45, 1);
 --Usuarios
 INSERT INTO Usuarios (NombreUsuario, Contraseña)
-VALUES ('Admin', 'Admin');
+VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f');
+INSERT INTO Usuarios (NombreUsuario, Contraseña)
+VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08');
 --PARA ALTA PRODUCTO
 INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo)
 VALUES ('Pera', 1, 1, 1, 1, 2, 10, 0, 1)
