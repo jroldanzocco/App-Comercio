@@ -79,6 +79,8 @@ namespace J3AMS.UI
             string script = "$(document).ready(function () { $('#modalProveedor').modal('show'); });";
             ClientScript.RegisterStartupScript(this.GetType(), "Popup", script, true);
         }
+
+
         private void CargarInformeProveedor(int idProveedor)
         {
             var proveedor = _proveedores.Get(idProveedor);

@@ -30,5 +30,10 @@ namespace J3AMS.Dominio
         [Range(0, 255, ErrorMessage = "El valor debe estar entre 0 y 255.")]
         public byte PlazoPago { get; set; }
         public bool Activo { get; set; }
+
+        public override string ToString()
+        {
+            return RazonSocial;
+        }
     }
 }
