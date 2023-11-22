@@ -166,21 +166,22 @@ namespace J3AMS.UI
             {
                 if (ListaVenta.Count > 0)
                 {
-                    ProductoNegocio negocio = new ProductoNegocio();
+                    ProductoNegocio negocioProducto = new ProductoNegocio();
+
                     foreach (var producto in ListaVenta)
                     {
-                        Producto productoEnBaseDeDatos = negocio.ObtenerPorId(producto.Id);
-                        if (productoEnBaseDeDatos.Stock >= producto.Cantidad)
+                        // Insertar compra en la tabla Compras
+                        Compra compra = new Compra
                         {
-                            negocio.ActualizarStock(producto, producto.Cantidad); // Suma la cantidad comprada
+                            IdArticulo = producto.Id,
+                            Cantidad = producto.Cantidad,
+                            Facturada = false,
+                            Activo = true
+                        };
+                        //Desarrollar
+                        //negocioCompra.Insertar(compra);
 
-                            // Puedes agregar aquí la lógica para generar la factura de compra, si es necesario
-                        }
-                        else
-                        {
-                            Response.Write($"No hay suficiente stock disponible para el producto {producto.Descripcion}.");
-                            return; 
-                        }
+                        negocioProducto.ActualizarStock(producto, producto.Cantidad);
                     }
                     ListaVenta.Clear();
 
@@ -196,5 +197,6 @@ namespace J3AMS.UI
                 Response.Write($"Error al confirmar y guardar la compra: {ex.Message}");
             }
         }
+
     }
 }
