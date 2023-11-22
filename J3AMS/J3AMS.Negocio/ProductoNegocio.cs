@@ -14,7 +14,6 @@ namespace J3AMS.Negocio
     public class ProductoNegocio : IABML<Producto>
     {
         private readonly AccesoADatos _datos;
-
         public ProductoNegocio()
         {
             _datos = new AccesoADatos();
@@ -131,7 +130,6 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-
         public Producto FiltrarPorId(int id)
         {
             AccesoADatos datos = new AccesoADatos();
@@ -175,7 +173,6 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-
         public void Update(Producto aux)
         {
             AccesoADatos datos = new AccesoADatos();
@@ -259,6 +256,24 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
+        public void ActualizarStock(Producto producto, int cantidad)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            try
+            {
+                {
+                    datos.SetConsulta("UPDATE Productos SET Stock = Stock + @Cantidad WHERE Id = @Id");
 
+                    datos.SetParametro("@Cantidad", cantidad);
+                    datos.SetParametro("@Id", producto.Id);
+
+                    datos.EjecutarLectura();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al actualizar el stock: {ex.Message}");
+            }
+        }
     }
 }

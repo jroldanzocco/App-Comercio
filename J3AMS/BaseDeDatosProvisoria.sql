@@ -129,6 +129,17 @@ INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono,
 VALUES ('Proveedor 4 Razón Social', 'Proveedor 4 Nombre Fantasía', '34567890123', 'Domicilio 4', '4444444444', '7777777777', 'proveedor4@email.com', 2, 30);
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago)
 VALUES ('Proveedor 5 Razón Social', 'Proveedor 5 Nombre Fantasía', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45);
+--Clientes
+INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
+VALUES ('López', 'Juan', '12345678', 'Calle 123', '555-1234', '999-5678', 'juan@email.com', 1, 30, 1);
+INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
+VALUES ('Martínez', 'Ana', '98765432', 'Avenida 456', '555-5678', '999-8765', 'ana@email.com', 2, 15, 1);
+INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
+VALUES ('Gómez', 'Carlos', '34567890', 'Calle 789', '555-9876', '999-4321', 'carlos@email.com', 2, 45, 1);
+INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
+VALUES ('Rodríguez', 'Laura', '56789012', 'Avenida 012', '555-3456', '999-1234', 'laura@email.com', 1, 60, 1);
+INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
+VALUES ('Pérez', 'Miguel', '09876543', 'Calle 234', '555-6789', '999-2345', 'miguel@email.com', 2, 30, 1);
 --Usuarios
 INSERT INTO Usuarios (UserName, Password, IdRol)
 VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f',1);
@@ -160,6 +171,7 @@ SELECT * FROM Tipos
 SELECT * FROM Proveedores
 SELECT * FROM Productos
 SELECT * FROM Clientes
+SELECT * FROM Usuarios
 --PARA ALTA USUARIO
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago)
 VALUES (@Descripcion, @Nombres, @DNI, @Domicilio, @Telefono, @Celular, @Email, @CategoriaIva, @PlazoPago)
