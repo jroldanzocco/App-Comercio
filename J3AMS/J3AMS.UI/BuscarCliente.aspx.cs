@@ -27,25 +27,34 @@ namespace J3AMS.UI
             if (!IsPostBack)
             {
                 CargarClientes();
+                DeshabilitarTxtClientes();
             }
         }
+
+
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
             Response.Redirect("PaginaPrincipal.aspx");
         }
+
+
         protected void btnNuevoCliente_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaCliente.aspx");
         }
+
+
         protected void btnEditarCliente_Click(object sender, EventArgs e)
         {
             string id = ((Button)sender).CommandArgument;
 
             Response.Redirect("AltaCliente.aspx?id=" + id);
         }
+
+
         protected void btnEliminarCliente_Click(object sender, EventArgs e)
         {
-            string id = Request.QueryString["Id"];
+            string id = ((Button)sender).CommandArgument;
 
             if (!string.IsNullOrEmpty(id))
             {
@@ -55,12 +64,13 @@ namespace J3AMS.UI
                 if (int.TryParse(id, out int Id))
                 {
                     aux.Id = Id;
-                    negocio.Delete(aux);
+                    negocio.LogicDelete(aux);
                 }
 
                 CargarClientes();
             }
         }
+
 
         private void CargarClientes()
         {
@@ -69,6 +79,7 @@ namespace J3AMS.UI
             repRepetidor.DataSource = ListaCliente;
             repRepetidor.DataBind();
         }
+
 
         protected void btnInformeCliente_Click(object sender, EventArgs e)
         {
@@ -80,6 +91,7 @@ namespace J3AMS.UI
 
 
         }
+
 
         private void CargarInformeCLientes(string id)
         {
@@ -99,5 +111,19 @@ namespace J3AMS.UI
                 txtPlazoPagoClientes.Text = aux.Plazo.ToString();
             }
         }
+
+
+        private void DeshabilitarTxtClientes()
+        {
+            txtApellido.ReadOnly = true;
+            txtNombre.ReadOnly = true;
+            txtDni.ReadOnly = true;
+            txtTelefonoCliente.ReadOnly = true;
+            txtCelularCliente.ReadOnly = true;
+            txtEmailCliente.ReadOnly = true;
+            txtCategoria.ReadOnly = true;
+            txtPlazoPagoClientes.ReadOnly = true;
+        }
+
     }
 }

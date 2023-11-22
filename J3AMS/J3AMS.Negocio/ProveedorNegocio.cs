@@ -116,8 +116,8 @@ namespace J3AMS.Negocio
         {
             try
             {
-                _datos.SetParametro("@idDelete", entity.Id);
                 _datos.SetConsulta("UPDATE Proveedores SET Activo = 0 WHERE id = @idDelete");
+                _datos.SetParametro("@idDelete", entity.Id);
                 _datos.EjecutarLectura();
             }
             catch (Exception ex)

@@ -72,7 +72,7 @@
 
             <asp:Repeater ID="repRepetidor" runat="server">
                 <ItemTemplate>
-                    <tr>
+                    <tr runat="server" visible='<%# Convert.ToBoolean(Eval("Activo")) == true %>'>
                         <td><%# Eval("Apellidos") %></td>
                         <td><%# Eval("Nombres") %></td>
                         <td><%# Eval("DNI") %></td>

@@ -21,12 +21,12 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT C.Id AS ClienteId, Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, PlazoPago, I.Id AS IvaId, I.PorcentajeIva AS Porcentaje, I.Descripcion AS CategoriaIva FROM Clientes C" +
+                _datos.SetConsulta("SELECT C.Id AS ClienteId, Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, Activo, PlazoPago, I.Id AS IvaId, I.PorcentajeIva AS Porcentaje, I.Descripcion AS CategoriaIva FROM Clientes C" +
                     "\r\nINNER JOIN CategoriasIva I ON IdCategoriaIva = I.Id");
 
                 if(id != "" ) 
                     {
-                    _datos.SetConsulta("SELECT C.Id AS ClienteId, Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, PlazoPago, I.Id AS IvaId, I.PorcentajeIva AS Porcentaje, I.Descripcion AS CategoriaIva FROM Clientes C" +
+                    _datos.SetConsulta("SELECT C.Id AS ClienteId, Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, Activo, PlazoPago, I.Id AS IvaId, I.PorcentajeIva AS Porcentaje, I.Descripcion AS CategoriaIva FROM Clientes C" +
                     "\r\nINNER JOIN CategoriasIva I ON IdCategoriaIva = I.Id " +
                     "WHERE C.Id = @Id");
                     _datos.SetParametro("@Id", id);
@@ -47,6 +47,7 @@ namespace J3AMS.Negocio
                         Celular = _datos.Lector["Celular"] as string ?? string.Empty,
                         Email = _datos.Lector["Email"] as string ?? string.Empty,
                         Plazo = (byte)_datos.Lector["PlazoPago"],
+                        Activo = (bool)_datos.Lector["Activo"],
                         categoriaIva = new CategoriaIva()
                         {
                             Id = (byte)_datos.Lector["IvaId"],
@@ -74,10 +75,15 @@ namespace J3AMS.Negocio
 
             try
             { 
-                datos.SetConsulta("INSERT INTO Clientes(Apellidos, Nombres, DNI, IdCategoriaIva, PlazoPago, Activo)\r\nVALUES(@Apellido, @Nombre, @DNI, @IdIva, @Plazo, 1)");
+                datos.SetConsulta("INSERT INTO Clientes(Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)" +
+                    "\r\nVALUES(@Apellido, @Nombre, @DNI, @Domicilio, @Telefono, @Celular, @Email, @IdIva, @Plazo, 1)");
                 datos.SetParametro("@Apellido", newEntity.Apellidos);
                 datos.SetParametro("@Nombre", newEntity.Nombres);
                 datos.SetParametro("@DNI", newEntity.DNI);
+                datos.SetParametro("@Domicilio", newEntity.Domicilio);
+                datos.SetParametro("@Telefono", newEntity.Telefono);
+                datos.SetParametro("@Celular", newEntity.Celular);
+                datos.SetParametro("@Email", newEntity.Email);
                 datos.SetParametro("@IdIva", newEntity.categoriaIva.Id);
                 datos.SetParametro("@Plazo", newEntity.Plazo);
 
@@ -93,19 +99,41 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-        public void Delete(Cliente newEntity)
+        public void Delete(Cliente Entity)
         {
             AccesoADatos datos = new AccesoADatos();
             try
             {
-                datos.SetParametro("@id", newEntity.Id);
+                datos.SetParametro("@id", Entity.Id);
                 datos.SetConsulta("DELETE FROM Clientes WHERE Id = @id");
+                datos.EjecutarLectura();
 
                 Console.WriteLine("Cliente eliminado con éxito.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error al eliminar el cliente.");
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void LogicDelete(Cliente Entity)
+        {
+            AccesoADatos datos = new AccesoADatos();
+
+            try
+            {
+                datos.SetConsulta("UPDATE Clientes SET Activo = 0 WHERE id = @id");
+                datos.SetParametro("@id", Entity.Id);
+                datos.EjecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
                 throw ex;
             }
             finally

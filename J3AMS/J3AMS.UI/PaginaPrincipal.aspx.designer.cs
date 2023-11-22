@@ -51,6 +51,24 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.Button btnProductos;
 
         /// <summary>
+        /// Control btnMarcas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMarcas;
+
+        /// <summary>
+        /// Control btnTipos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTipos;
+
+        /// <summary>
         /// Control btnVentas.
         /// </summary>
         /// <remarks>
