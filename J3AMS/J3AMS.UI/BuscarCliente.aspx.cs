@@ -12,6 +12,7 @@ namespace J3AMS.UI
     public partial class BuscarCliente : System.Web.UI.Page
     {
         public List<Cliente> ListaCliente { get; set; }
+        private ClienteNegocio _negocio;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,6 +21,8 @@ namespace J3AMS.UI
                 Session.Add("error", "No estás logueado");
                 Response.Redirect("Default.aspx", false);
             }
+
+            _negocio = new ClienteNegocio();
 
             if (!IsPostBack)
             {
@@ -63,6 +66,36 @@ namespace J3AMS.UI
             ListaCliente = negocio.Listar();
             repRepetidor.DataSource = ListaCliente;
             repRepetidor.DataBind();
+        }
+
+        protected void btnInformeCliente_Click(object sender, EventArgs e)
+        {
+            string id = ((Button)sender).CommandArgument;
+            CargarInformeCLientes(id);
+
+            string script = "$(document).ready(function () { $('#modalCliente').modal('show'); });";
+            ClientScript.RegisterStartupScript(this.GetType(), "Popup", script, true);
+
+
+        }
+
+        private void CargarInformeCLientes(string id)
+        {
+            List<Cliente> clientes = _negocio.Listar(id);
+            Cliente aux = clientes[0];
+
+            if(aux != null)
+            {
+                lblInformeCliente.Text = aux.Apellidos + " " + aux.Nombres;
+                txtApellido.Text = aux.Apellidos;
+                txtNombre.Text = aux.Nombres;
+                txtDni.Text = aux.DNI;
+                txtTelefonoCliente.Text = aux.Telefono;
+                txtCelularCliente.Text = aux.Celular;
+                txtEmailCliente.Text = aux.Email;
+                //txtCategoria.Text = aux.categoriaIva.Descripcion;
+                txtPlazoPagoClientes.Text = aux.Plazo.ToString();
+            }
         }
     }
 }
