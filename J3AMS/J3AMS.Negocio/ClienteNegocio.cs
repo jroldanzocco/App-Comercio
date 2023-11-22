@@ -113,5 +113,37 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public void Update(Cliente aux)
+        {
+            AccesoADatos datos = new AccesoADatos();
+
+            try
+            {
+                datos.SetConsulta("UPDATE Clientes SET Apellidos = @Apellido, Nombres = @Nombre, DNI = @Dni, Domicilio = @Domicilio, Telefono = @Telefono, Celular = @Celular, Email = @Email, IdCategoriaIva = @CategoriaIva, PlazoPago = @PlazoPago" +
+                    "\r\nWHERE Id = @Id");
+                datos.SetParametro("@Apellido", aux.Apellidos);
+                datos.SetParametro("@Nombre", aux.Nombres);
+                datos.SetParametro("@Dni", aux.DNI);
+                datos.SetParametro("@Domicilio", aux.Domicilio);
+                datos.SetParametro("@Telefono", aux.Telefono);
+                datos.SetParametro("@Celular", aux.Celular);
+                datos.SetParametro("@Email", aux.Email);
+                datos.SetParametro("@CategoriaIva", aux.categoriaIva.Id);
+                datos.SetParametro("@PlazoPago", aux.Plazo);
+                datos.SetParametro("@Id", aux.Id);
+
+                datos.EjecutarLectura();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }

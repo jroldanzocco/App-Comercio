@@ -85,8 +85,8 @@
                             <asp:Button ID="btnInformeCliente" OnClick="btnInformeCliente_Click" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" CssClass="btn btn-info w-100" runat="server" Text="Informes" />
                             <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN)
                                 { %>
-                            <asp:Button ID="btnEditarCliente" OnClick="btnEditarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
-                            <asp:Button ID="btnEliminarCliente" OnClick="btnEliminarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
+                            <asp:Button ID="btnEditarCliente" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEditarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
+                            <asp:Button ID="btnEliminarCliente" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
                             <% } %>
                         </td>
                     </tr>

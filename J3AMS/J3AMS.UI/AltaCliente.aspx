@@ -33,6 +33,26 @@
                 <asp:TextBox ID="txtPlazo" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="txtDomicilio" class="form-label">Domicilio</label>
+                <asp:TextBox ID="txtDomicilio" CssClass="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="col-md-6">
+                <label for="txtEmail" class="form-label">Email</label>
+                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server"></asp:TextBox>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="txtTelefono" class="form-label">Teléfono</label>
+                <asp:TextBox ID="txtTelefono" CssClass="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="col-md-6">
+                <label for="txtCelular" class="form-label">Celular</label>
+                <asp:TextBox ID="txtCelular" CssClass="form-control" runat="server"></asp:TextBox>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <asp:Button ID="btnAgregarCliente" OnClick="btnAgregarCliente_Click" CssClass="btn btn-primary" runat="server" Text="Agregar" />

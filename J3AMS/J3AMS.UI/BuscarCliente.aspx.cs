@@ -39,7 +39,9 @@ namespace J3AMS.UI
         }
         protected void btnEditarCliente_Click(object sender, EventArgs e)
         {
+            string id = ((Button)sender).CommandArgument;
 
+            Response.Redirect("AltaCliente.aspx?id=" + id);
         }
         protected void btnEliminarCliente_Click(object sender, EventArgs e)
         {
@@ -93,7 +95,7 @@ namespace J3AMS.UI
                 txtTelefonoCliente.Text = aux.Telefono;
                 txtCelularCliente.Text = aux.Celular;
                 txtEmailCliente.Text = aux.Email;
-                //txtCategoria.Text = aux.categoriaIva.Descripcion;
+                txtCategoria.Text = aux.categoriaIva.Descripcion;
                 txtPlazoPagoClientes.Text = aux.Plazo.ToString();
             }
         }
