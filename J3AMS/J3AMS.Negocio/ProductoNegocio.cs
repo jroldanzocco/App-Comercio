@@ -1,13 +1,6 @@
 ﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace J3AMS.Negocio
 {
@@ -69,7 +62,7 @@ namespace J3AMS.Negocio
                             Id = (int)_datos.Lector["IdProv"],
                             NombreFantasia = _datos.Lector["Proveedor"] as string ?? string.Empty,
                         }
-                    }) ;
+                    });
                 }
                 return listProductos;
             }
@@ -144,7 +137,7 @@ namespace J3AMS.Negocio
 
                 while (_datos.Lector.Read())
                 {
-                    
+
                     aux.Descripcion = _datos.Lector["P.Descripcion"] as string ?? string.Empty;
                     aux.PrecioCosto = (decimal)_datos.Lector["P.PrecioCosto"];
                     aux.PrecioVenta = (decimal)_datos.Lector["P.PrecioVenta"];
@@ -159,7 +152,7 @@ namespace J3AMS.Negocio
                         Id = (byte)_datos.Lector["M.Id"],
                         Descripcion = _datos.Lector["M.Descripcion"] as string ?? string.Empty
                     };
-                        // Nos falta agregar la propiedad Proveedor                 
+                    // Nos falta agregar la propiedad Proveedor                 
                 }
 
                 return aux;
@@ -178,19 +171,19 @@ namespace J3AMS.Negocio
             AccesoADatos datos = new AccesoADatos();
             try
             {
-            datos.SetConsulta("UPDATE Productos SET Descripcion = @Descripcion, IdTipo = @Tipo, IdMarca= @Marca, IdProveedor = @Proveedor, PrecioCosto = @PCosto, PrecioVenta = @PVenta, Stock = @Stock, StockMinimo = @StockMin" +
-                "\r\nWHERE Id = @Id");
-            datos.SetParametro("@Descripcion", aux.Descripcion);
-            datos.SetParametro("@Tipo", aux.Tipo.Id);
-            datos.SetParametro("@Marca", aux.Marca.Id);
-            datos.SetParametro("@Proveedor", aux.Marca.Id);
-            datos.SetParametro("@PCosto", aux.PrecioCosto);
-            datos.SetParametro("@PVenta", aux.PrecioVenta);
-            datos.SetParametro("@Stock", aux.Stock);
-            datos.SetParametro("@StockMin", aux.StockMinimo);
-            datos.SetParametro("Id", aux.Id);
+                datos.SetConsulta("UPDATE Productos SET Descripcion = @Descripcion, IdTipo = @Tipo, IdMarca= @Marca, IdProveedor = @Proveedor, PrecioCosto = @PCosto, PrecioVenta = @PVenta, Stock = @Stock, StockMinimo = @StockMin" +
+                    "\r\nWHERE Id = @Id");
+                datos.SetParametro("@Descripcion", aux.Descripcion);
+                datos.SetParametro("@Tipo", aux.Tipo.Id);
+                datos.SetParametro("@Marca", aux.Marca.Id);
+                datos.SetParametro("@Proveedor", aux.Marca.Id);
+                datos.SetParametro("@PCosto", aux.PrecioCosto);
+                datos.SetParametro("@PVenta", aux.PrecioVenta);
+                datos.SetParametro("@Stock", aux.Stock);
+                datos.SetParametro("@StockMin", aux.StockMinimo);
+                datos.SetParametro("Id", aux.Id);
 
-            datos.EjecutarLectura();
+                datos.EjecutarLectura();
             }
             catch (Exception ex)
             {

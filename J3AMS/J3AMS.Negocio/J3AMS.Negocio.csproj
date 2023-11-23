@@ -55,6 +55,10 @@
     <Compile Include="VentaNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\J3.AMS.Common\J3.AMS.Common.csproj">
+      <Project>{bb205edd-cc9d-40f1-957d-785b1d09cc6a}</Project>
+      <Name>J3.AMS.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\J3AMS.Data\J3AMS.Data.csproj">
       <Project>{1b1d1024-d2d5-4430-99fe-e5f19b345561}</Project>
       <Name>J3AMS.Data</Name>

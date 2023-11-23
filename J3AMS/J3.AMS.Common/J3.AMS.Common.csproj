@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidatorsDA.cs" />
   </ItemGroup>
@@ -50,10 +51,6 @@
     <ProjectReference Include="..\J3AMS.Dominio\J3AMS.Dominio.csproj">
       <Project>{5f54ced0-142d-4fdb-8da1-6e14fbf90a5c}</Project>
       <Name>J3AMS.Dominio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\J3AMS.Negocio\J3AMS.Negocio.csproj">
-      <Project>{5e7cdfe1-9f9f-40ed-92da-b11c75cfbdf7}</Project>
-      <Name>J3AMS.Negocio</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
