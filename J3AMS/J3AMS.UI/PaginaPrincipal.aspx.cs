@@ -53,5 +53,7 @@ namespace J3AMS.UI
         {
             Response.Redirect("BuscarTipo.aspx");
         }
+
+       
     }
 }
