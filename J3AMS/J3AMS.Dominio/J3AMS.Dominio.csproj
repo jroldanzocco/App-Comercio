@@ -44,12 +44,14 @@
   <ItemGroup>
     <Compile Include="CategoriaIva.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="Compra.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="Tipo.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="Venta.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\J3AMS.Data\J3AMS.Data.csproj">
