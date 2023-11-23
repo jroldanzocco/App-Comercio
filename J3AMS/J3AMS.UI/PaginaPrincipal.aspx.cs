@@ -17,12 +17,10 @@ namespace J3AMS.UI
                 Response.Redirect("Default.aspx");
             }
         }
-
         protected void btnProductos_Click(object sender, EventArgs e)
         {
             Response.Redirect("BuscarArticulo.aspx");
         }
-
         protected void btnClientes_Click(object sender, EventArgs e)
         {
             Response.Redirect("BuscarCliente.aspx");
@@ -43,17 +41,21 @@ namespace J3AMS.UI
         {
             Response.Redirect("BuscarFacturaVenta.aspx");
         }
-
         protected void btnMarcas_Click(object sender, EventArgs e)
         {
             Response.Redirect("BuscarMarca.aspx");
         }
-
         protected void btnTipos_Click(object sender, EventArgs e)
         {
             Response.Redirect("BuscarTipo.aspx");
         }
-
-       
+        protected void btnListarVentas_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("BuscarVentas.aspx");
+        }
+        protected void btnListarCompras_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("BuscarCompras.aspx");
+        }
     }
 }

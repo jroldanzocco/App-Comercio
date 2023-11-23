@@ -167,25 +167,29 @@ namespace J3AMS.UI
                 if (ListaVenta.Count > 0)
                 {
                     ProductoNegocio negocioProducto = new ProductoNegocio();
-                    CompraNegocio compraNegocio = new CompraNegocio();
+                    VentaNegocio ventaNegocio = new VentaNegocio();
+
+                    Venta venta = new Venta
+                    {
+                        NumeroFactura = 0,
+                        Facturada = false,
+                        Activo = true
+                    };
 
                     foreach (var producto in ListaVenta)
                     {
-                        Compra compra = new Compra
+                        DetalleVenta detalle = new DetalleVenta
                         {
                             IdArticulo = producto.Id,
-                            Cantidad = producto.Cantidad,
-                            NumeroFactura = 0,
-                            Facturada = false,
-                            Activo = true
+                            Cantidad = producto.Cantidad
                         };
 
-                        compraNegocio.Add(compra);
-
+                        venta.DetallesVenta.Add(detalle);
                         negocioProducto.ActualizarStock(producto, producto.Cantidad);
                     }
-                    ListaVenta.Clear();
 
+                    ventaNegocio.Add(venta);
+                    ListaVenta.Clear();
                     Response.Redirect("PaginaPrincipal.aspx");
                 }
                 else
@@ -195,7 +199,7 @@ namespace J3AMS.UI
             }
             catch (Exception ex)
             {
-                Response.Write($"Error al confirmar y guardar la compra: {ex.Message}");
+                Response.Write($"Error al confirmar y guardar la venta: {ex.Message}");
             }
         }
     }

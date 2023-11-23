@@ -8,8 +8,10 @@
          <asp:Button ID="btnProductos" CssClass="btn btn-primary" OnClick="btnProductos_Click" runat="server" Text="Productos" />
          <asp:Button ID="btnMarcas" CssClass="btn btn-primary" OnClick="btnMarcas_Click" runat="server" Text="Marcas" />
          <asp:Button ID="btnTipos" CssClass="btn btn-primary" OnClick="btnTipos_Click" runat="server" Text="Tipos" />
-         <asp:Button ID="btnVentas" CssClass="btn btn-primary" OnClick="btnNuevaVenta_Click" runat="server" Text="Ventas" />
-         <asp:Button ID="btnCompras" CssClass="btn btn-primary" OnClick="btnNuevaCompra_Click" runat="server" Text="Compras" />
+         <asp:Button ID="btnVentas" CssClass="btn btn-primary" OnClick="btnNuevaVenta_Click" runat="server" Text="Vender" />
+         <asp:Button ID="btnListarVentas" CssClass="btn btn-primary" OnClick="btnListarVentas_Click" runat="server" Text="Listar Ventas" />
+         <asp:Button ID="btnCompras" CssClass="btn btn-primary" OnClick="btnNuevaCompra_Click" runat="server" Text="Comprar" />
+         <asp:Button ID="btnListarCompras" CssClass="btn btn-primary" OnClick="btnListarCompras_Click" runat="server" Text="Listar Compras" />
          <asp:Button ID="btnFacturas" CssClass="btn btn-primary" OnClick="btnFacturas_Click" runat="server" Text="Facturas" />
      </div>
  </main>

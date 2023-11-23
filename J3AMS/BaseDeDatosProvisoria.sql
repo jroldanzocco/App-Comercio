@@ -71,20 +71,28 @@ CREATE TABLE FacturasVentas (
 )
 CREATE TABLE Compras (
 	Id INT PRIMARY KEY IDENTITY (1, 1),
-	IdArticulo INT NOT NULL foreign key references Productos(Id),
-	Cantidad INT NOT NULL,
 	NumeroFactura INT NOT NULL,
 	Facturada BIT NOT NULL,
 	Activo BIT NOT NULL
-)
+);
+CREATE TABLE DetallesCompras (
+    Id INT PRIMARY KEY IDENTITY (1, 1),
+    IdVenta INT NOT NULL FOREIGN KEY REFERENCES Compras(Id),
+    IdArticulo INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
+    Cantidad INT NOT NULL,
+);
 CREATE TABLE Ventas (
-	Id INT PRIMARY KEY IDENTITY (1, 1),
-	Articulo INT NOT NULL foreign key references Productos(Id),
-	Cantidad INT NOT NULL,
-	NumeroFactura INT NOT NULL,
-	Facturada BIT NOT NULL,
-	Activo BIT NOT NULL DEFAULT 1
-)
+    Id INT PRIMARY KEY IDENTITY (1, 1),
+    NumeroFactura INT NOT NULL,
+    Facturada BIT NOT NULL,
+    Activo BIT NOT NULL DEFAULT 1
+);
+CREATE TABLE DetallesVentas (
+    Id INT PRIMARY KEY IDENTITY (1, 1),
+    IdVenta INT NOT NULL FOREIGN KEY REFERENCES Ventas(Id),
+    IdArticulo INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
+    Cantidad INT NOT NULL,
+);
 CREATE TABLE Usuarios (
     Id INT PRIMARY KEY IDENTITY (1, 1),
     UserName NVARCHAR(255) NOT NULL UNIQUE,
@@ -150,6 +158,9 @@ INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, P
 VALUES ('Pera', 1, 1, 1, 1, 2, 10, 0)
 INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo)
 VALUES ('Durazno', 1, 1, 1, 1, 2, 10, 0)
+
+-----------------------------------------------------------------------------------------------------------------
+
 --PARA CONSULTA PRODUCTO
 SELECT 
 	A.Id,
@@ -174,6 +185,7 @@ SELECT * FROM Clientes
 SELECT * FROM Usuarios
 SELECT * FROM Compras
 SELECT * FROM Ventas
+SELECT * FROM DetallesVentas
 --PARA ALTA USUARIO
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago)
 VALUES (@Descripcion, @Nombres, @DNI, @Domicilio, @Telefono, @Celular, @Email, @CategoriaIva, @PlazoPago)

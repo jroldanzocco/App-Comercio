@@ -24,11 +24,11 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("DESARROLLAR");
+                _datos.SetConsulta("SELECT Id, NumeroFactura FROM Ventas");
 
-                if (id != "")
+                if (!string.IsNullOrEmpty(id))
                 {
-                    _datos.SetConsulta("DESARROLLAR");
+                    _datos.SetConsulta("SELECT Id, NumeroFactura FROM Ventas WHERE Id = @Id");
                     _datos.SetParametro("@Id", id);
                 }
 
@@ -39,13 +39,11 @@ namespace J3AMS.Negocio
                     listVentas.Add(new Venta
                     {
                         Id = (int)_datos.Lector["Id"],
-                        Articulo = (int)_datos.Lector["Articulo"],
-                        Cantidad = (int)_datos.Lector["Cantidad"],
                         NumeroFactura = (int)_datos.Lector["NumeroFactura"],
-                        //Facturada - Hay que ponerlo en la BD como "cero" por default
-                        //Facturado - Hay que ponerlo en la BD como "uno" por default
+                        //Activo = (int)_datos.Lector["Activo"],
                     });
                 }
+
                 return listVentas;
             }
             catch (Exception ex)
@@ -60,17 +58,36 @@ namespace J3AMS.Negocio
         public void Add(Venta newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
+
             try
             {
-                datos.SetConsulta("INSERT INTO Ventas (Articulo, Cantidad, NumeroFactura, Facturada, Activo)\r\nVALUES (@Articulo, @Cantidad, 0, 0, 1)");
-
-                datos.SetParametro("@Articulo", newEntity.Articulo);
-                datos.SetParametro("@Cantidad", newEntity.Cantidad);
-                //datos.SetParametro("@NumeroFactura", newEntity.NumeroFactura);
-                //datos.SetParametro("@Facturada", newEntity.Facturada);
-                datos.SetParametro("@Activo", newEntity.Activo);
+                datos.SetConsulta("INSERT INTO Ventas (NumeroFactura, Facturada, Activo) OUTPUT INSERTED.Id VALUES (0, 0, 1)");
 
                 datos.EjecutarLectura();
+
+                int IdVenta = 0;
+
+                if (datos.Lector.Read())
+                {
+                    IdVenta = Convert.ToInt32(datos.Lector["Id"]);
+                }
+
+                if (IdVenta > 0)
+                {
+                    foreach (var detalle in newEntity.DetallesVenta)
+                    {
+                        AccesoADatos datosDetalle = new AccesoADatos();
+
+                        datosDetalle.SetConsulta("INSERT INTO DetallesVentas (IdVenta, IdArticulo, Cantidad) VALUES (@IdVenta, @IdArticulo, @Cantidad)");
+
+                        datosDetalle.SetParametro("@IdVenta", IdVenta);
+                        datosDetalle.SetParametro("@IdArticulo", detalle.IdArticulo);
+                        datosDetalle.SetParametro("@Cantidad", detalle.Cantidad);
+
+                        datosDetalle.EjecutarLectura();
+                        datosDetalle.CerrarConexion();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -83,4 +100,3 @@ namespace J3AMS.Negocio
         }
     }
 }
-

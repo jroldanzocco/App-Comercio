@@ -24,11 +24,11 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("DESARROLLAR");
+                _datos.SetConsulta("SELECT Id, NumeroFactura FROM Compras");
 
-                if (id != "")
+                if (!string.IsNullOrEmpty(id))
                 {
-                    _datos.SetConsulta("DESARROLLAR");
+                    _datos.SetConsulta("SELECT Id, NumeroFactura FROM Compras WHERE Id = @Id");
                     _datos.SetParametro("@Id", id);
                 }
 
@@ -39,13 +39,11 @@ namespace J3AMS.Negocio
                     listCompras.Add(new Compra
                     {
                         Id = (int)_datos.Lector["Id"],
-                        IdArticulo = (int)_datos.Lector["IdArticulo"],
-                        Cantidad = (int)_datos.Lector["Cantidad"],
                         NumeroFactura = (int)_datos.Lector["NumeroFactura"],
-                        //Facturada - Hay que ponerlo en la BD como "cero" por default
-                        //Facturado - Hay que ponerlo en la BD como "uno" por default
+                        //Activo = (int)_datos.Lector["Activo"],
                     });
                 }
+
                 return listCompras;
             }
             catch (Exception ex)
@@ -60,17 +58,36 @@ namespace J3AMS.Negocio
         public void Add(Compra newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
+
             try
             {
-                datos.SetConsulta("INSERT INTO Compras (IdArticulo, Cantidad, NumeroFactura, Facturada, Activo)\r\nVALUES (@IdArticulo, @Cantidad, 0, 0, 1)");
-
-                datos.SetParametro("@IdArticulo", newEntity.IdArticulo);
-                datos.SetParametro("@Cantidad", newEntity.Cantidad);
-                //datos.SetParametro("@NumeroFactura", newEntity.NumeroFactura);
-                //datos.SetParametro("@Facturada", newEntity.Facturada);
-                //datos.SetParametro("@Activo", newEntity.Activo);
+                datos.SetConsulta("INSERT INTO Compras (NumeroFactura, Facturada, Activo) OUTPUT INSERTED.Id VALUES (0, 0, 1)");
 
                 datos.EjecutarLectura();
+
+                int IdCompra = 0;
+
+                if (datos.Lector.Read())
+                {
+                    IdCompra = Convert.ToInt32(datos.Lector["Id"]);
+                }
+
+                if (IdCompra > 0)
+                {
+                    foreach (var detalle in newEntity.DetallesCompra)
+                    {
+                        AccesoADatos datosDetalle = new AccesoADatos();
+
+                        datosDetalle.SetConsulta("INSERT INTO DetallesCompras (IdCompra, IdArticulo, Cantidad) VALUES (@IdCompra, @IdArticulo, @Cantidad)");
+
+                        datosDetalle.SetParametro("@IdCompra", IdCompra);
+                        datosDetalle.SetParametro("@IdArticulo", detalle.IdArticulo);
+                        datosDetalle.SetParametro("@Cantidad", detalle.Cantidad);
+
+                        datosDetalle.EjecutarLectura();
+                        datosDetalle.CerrarConexion();
+                    }
+                }
             }
             catch (Exception ex)
             {
