@@ -131,21 +131,23 @@ namespace J3AMS.UI
             {
                 if (ListaProductosVendidos.Count > 0)
                 {
-                    ProductoNegocio negocio = new ProductoNegocio();
+                    ProductoNegocio negocioProducto = new ProductoNegocio();
+                    VentaNegocio ventaNegocio = new VentaNegocio();
+
                     foreach (var producto in ListaProductosVendidos)
                     {
-                        Producto productoEnBaseDeDatos = negocio.ObtenerPorId(producto.Id);
-                        if (productoEnBaseDeDatos.Stock >= producto.Cantidad)
+                        Venta venta = new Venta
                         {
-                            negocio.ActualizarStock(producto, -producto.Cantidad); // Resta la cantidad comprada
+                            Articulo = producto.Id,
+                            Cantidad = producto.Cantidad,
+                            NumeroFactura = 0,
+                            Facturada = false,
+                            Activo = true
+                        };
 
-                            // Puedes agregar aquí la lógica para generar la factura de venta, si es necesario
-                        }
-                        else
-                        {
-                            Response.Write($"No hay suficiente stock disponible para el producto {producto.Descripcion}.");
-                            return;
-                        }
+                        ventaNegocio.Add(venta);
+
+                        negocioProducto.ActualizarStock(producto, -producto.Cantidad);
                     }
                     ListaProductosVendidos.Clear();
 

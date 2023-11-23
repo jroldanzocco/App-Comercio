@@ -175,11 +175,12 @@ namespace J3AMS.UI
                         {
                             IdArticulo = producto.Id,
                             Cantidad = producto.Cantidad,
+                            NumeroFactura = 0,
                             Facturada = false,
                             Activo = true
                         };
 
-                        CompraNegocio.Add(compra);
+                        compraNegocio.Add(compra);
 
                         negocioProducto.ActualizarStock(producto, producto.Cantidad);
                     }

@@ -11,16 +11,16 @@ using System.Threading;
 
 namespace J3AMS.Negocio
 {
-    public class CompraNegocio : IABML<Compra>
+    public class VentaNegocio : IABML<Venta>
     {
         private readonly AccesoADatos _datos;
-        public CompraNegocio()
+        public VentaNegocio()
         {
             _datos = new AccesoADatos();
         }
-        public List<Compra> Listar(string id = "")
+        public List<Venta> Listar(string id = "")
         {
-            var listCompras = new List<Compra>();
+            var listVentas = new List<Venta>();
 
             try
             {
@@ -36,17 +36,17 @@ namespace J3AMS.Negocio
 
                 while (_datos.Lector.Read())
                 {
-                    listCompras.Add(new Compra
+                    listVentas.Add(new Venta
                     {
                         Id = (int)_datos.Lector["Id"],
-                        IdArticulo = (int)_datos.Lector["IdArticulo"],
+                        Articulo = (int)_datos.Lector["Articulo"],
                         Cantidad = (int)_datos.Lector["Cantidad"],
                         NumeroFactura = (int)_datos.Lector["NumeroFactura"],
                         //Facturada - Hay que ponerlo en la BD como "cero" por default
                         //Facturado - Hay que ponerlo en la BD como "uno" por default
                     });
                 }
-                return listCompras;
+                return listVentas;
             }
             catch (Exception ex)
             {
@@ -57,18 +57,18 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
-        public void Add(Compra newEntity)
+        public void Add(Venta newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
             try
             {
-                datos.SetConsulta("INSERT INTO Compras (IdArticulo, Cantidad, NumeroFactura, Facturada, Activo)\r\nVALUES (@IdArticulo, @Cantidad, 0, 0, 1)");
+                datos.SetConsulta("INSERT INTO Ventas (Articulo, Cantidad, NumeroFactura, Facturada, Activo)\r\nVALUES (@Articulo, @Cantidad, 0, 0, 1)");
 
-                datos.SetParametro("@IdArticulo", newEntity.IdArticulo);
+                datos.SetParametro("@Articulo", newEntity.Articulo);
                 datos.SetParametro("@Cantidad", newEntity.Cantidad);
                 //datos.SetParametro("@NumeroFactura", newEntity.NumeroFactura);
                 //datos.SetParametro("@Facturada", newEntity.Facturada);
-                //datos.SetParametro("@Activo", newEntity.Activo);
+                datos.SetParametro("@Activo", newEntity.Activo);
 
                 datos.EjecutarLectura();
             }
@@ -83,3 +83,4 @@ namespace J3AMS.Negocio
         }
     }
 }
+

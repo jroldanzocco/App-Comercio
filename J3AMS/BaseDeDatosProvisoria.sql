@@ -73,7 +73,7 @@ CREATE TABLE Compras (
 	Id INT PRIMARY KEY IDENTITY (1, 1),
 	IdArticulo INT NOT NULL foreign key references Productos(Id),
 	Cantidad INT NOT NULL,
-	NumeroFactura INT NOT NULL foreign key references FacturasCompras(Numero),
+	NumeroFactura INT NOT NULL,
 	Facturada BIT NOT NULL,
 	Activo BIT NOT NULL
 )
@@ -81,7 +81,7 @@ CREATE TABLE Ventas (
 	Id INT PRIMARY KEY IDENTITY (1, 1),
 	Articulo INT NOT NULL foreign key references Productos(Id),
 	Cantidad INT NOT NULL,
-	NumeroFactura INT NOT NULL foreign key references FacturasVentas(Numero),
+	NumeroFactura INT NOT NULL,
 	Facturada BIT NOT NULL,
 	Activo BIT NOT NULL DEFAULT 1
 )

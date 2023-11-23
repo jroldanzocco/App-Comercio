@@ -52,6 +52,7 @@
     <Compile Include="ProveedorNegocio.cs" />
     <Compile Include="TipoNegocio.cs" />
     <Compile Include="UsuarioNegocio.cs" />
+    <Compile Include="VentaNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\J3AMS.Data\J3AMS.Data.csproj">
