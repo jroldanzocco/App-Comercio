@@ -105,11 +105,15 @@
     <Content Include="About.aspx" />
     <Content Include="AltaArticulo.aspx" />
     <Content Include="AltaCliente.aspx" />
+    <Content Include="AltaMarca.aspx" />
     <Content Include="AltaProveedor.aspx" />
+    <Content Include="AltaTipo.aspx" />
     <Content Include="BuscarArticulo.aspx" />
     <Content Include="BuscarCliente.aspx" />
     <Content Include="BuscarFacturaVenta.aspx" />
+    <Content Include="BuscarMarca.aspx" />
     <Content Include="BuscarProveedor.aspx" />
+    <Content Include="BuscarTipo.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -211,12 +215,26 @@
     <Compile Include="AltaCliente.aspx.designer.cs">
       <DependentUpon>AltaCliente.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AltaMarca.aspx.cs">
+      <DependentUpon>AltaMarca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaMarca.aspx.designer.cs">
+      <DependentUpon>AltaMarca.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AltaProveedor.aspx.cs">
       <DependentUpon>AltaProveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AltaProveedor.aspx.designer.cs">
       <DependentUpon>AltaProveedor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AltaTipo.aspx.cs">
+      <DependentUpon>AltaTipo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaTipo.aspx.designer.cs">
+      <DependentUpon>AltaTipo.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
@@ -248,12 +266,26 @@
     <Compile Include="BuscarFacturaVenta.aspx.designer.cs">
       <DependentUpon>BuscarFacturaVenta.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BuscarMarca.aspx.cs">
+      <DependentUpon>BuscarMarca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscarMarca.aspx.designer.cs">
+      <DependentUpon>BuscarMarca.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BuscarProveedor.aspx.cs">
       <DependentUpon>BuscarProveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BuscarProveedor.aspx.designer.cs">
       <DependentUpon>BuscarProveedor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BuscarTipo.aspx.cs">
+      <DependentUpon>BuscarTipo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscarTipo.aspx.designer.cs">
+      <DependentUpon>BuscarTipo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

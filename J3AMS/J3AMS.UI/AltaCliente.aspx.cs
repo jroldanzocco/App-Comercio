@@ -29,9 +29,7 @@ namespace J3AMS.UI
                 {
                     CategoriaIvaNegocio categoriaIvaNegocio = new CategoriaIvaNegocio();
                     List<CategoriaIva> categoriaIvas = categoriaIvaNegocio.Listar();
-                    //ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
-                    //List<Proveedor> proveedores = proveedorNegocio.Listar();
-
+                   
                     ddlIva.DataSource = categoriaIvas;
                     ddlIva.DataValueField = "Id";
                     ddlIva.DataTextField = "Descripcion";
@@ -92,15 +90,10 @@ namespace J3AMS.UI
             aux.Email = txtEmail.Text;
             aux.Celular = txtCelular.Text;
             aux.Telefono = txtTelefono.Text;
-            /*
-            aux.Domicilio = "Lacroze 1480";
-            aux.Telefono = "47489617";
-            aux.Celular = "1538747336";
-            aux.Email = "asp@gmail.com";
-            */
-            string id = Request.QueryString["id"];
 
-            if(id != "")
+            string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
+
+            if (id != "")
             {
                 aux.Id = int.Parse(id);
                 clienteNegocio.Update(aux);

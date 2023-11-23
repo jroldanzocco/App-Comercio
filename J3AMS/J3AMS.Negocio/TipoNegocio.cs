@@ -25,6 +25,7 @@ namespace J3AMS.Negocio
 
                 _datos.SetConsulta(query);
                 _datos.SetParametro("Descripcion", newEntity.Descripcion);
+                _datos.EjecutarLectura();
 
             }
             catch (Exception ex)
@@ -44,6 +45,7 @@ namespace J3AMS.Negocio
             {
                 _datos.SetParametro("@id", newEntity.Id);
                 _datos.SetConsulta("DELETE FROM Tipos WHERE Id = @id");
+                _datos.EjecutarLectura();
             }
             catch (Exception ex)
             {
@@ -69,6 +71,7 @@ namespace J3AMS.Negocio
 
                 _datos.SetConsulta(query);
                 _datos.SetParametro("id", id);
+                _datos.EjecutarLectura();
 
                 while (_datos.Lector.Read())
                 {
@@ -109,7 +112,7 @@ namespace J3AMS.Negocio
                     {
                         Id = (byte)_datos.Lector["Id"],
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
-                        Activo = Convert.ToBoolean(_datos.Lector["Id"]),
+                        Activo = Convert.ToBoolean(_datos.Lector["Activo"]),
                     });
                 }
                 return listTipos;
@@ -153,14 +156,12 @@ namespace J3AMS.Negocio
             try
             {
                 var query = "UPDATE Tipos " +
-                            "SET Descripcion = '@Descripcion', " +
-                            "Activo = '@Activo' " +
+                            "SET Descripcion = @Descripcion " +
                             "WHERE ID = @ID";
 
                 _datos.SetConsulta(query);
-                _datos.SetParametro("ID", entity.Id);
-                _datos.SetParametro("Descripcion", entity.Descripcion);
-                _datos.SetParametro("Activo", entity.Activo);
+                _datos.SetParametro("@Descripcion", entity.Descripcion);
+                _datos.SetParametro("@ID", entity.Id);
 
                 _datos.EjecutarLectura();
             }
