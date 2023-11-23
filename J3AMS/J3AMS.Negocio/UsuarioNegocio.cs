@@ -29,8 +29,7 @@ namespace J3AMS.Negocio
                 _datos.SetConsulta("SELECT Id, IdRol FROM Usuarios WHERE UserName = @user AND Password = @pass");
 
                 _datos.SetParametro("@user", usuario.UserName);
-                //_datos.SetParametro("@pass", HashPassword(usuario.Password));
-                _datos.SetParametro("@pass", usuario.Password);
+                _datos.SetParametro("@pass", HashPassword(usuario.Password));
                 _datos.EjecutarLectura();
                 while (_datos.Lector.Read())
                 {
