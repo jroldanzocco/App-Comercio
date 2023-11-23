@@ -44,6 +44,7 @@
     <Compile Include="AccesoADatos.cs" />
     <Compile Include="CategoriaIvaNegocio.cs" />
     <Compile Include="ClienteNegocio.cs" />
+    <Compile Include="CompraNegocio.cs" />
     <Compile Include="Interface\IABML.cs" />
     <Compile Include="MarcaNegocio.cs" />
     <Compile Include="ProductoNegocio.cs" />

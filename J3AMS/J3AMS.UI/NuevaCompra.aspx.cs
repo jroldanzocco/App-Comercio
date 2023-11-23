@@ -167,10 +167,10 @@ namespace J3AMS.UI
                 if (ListaVenta.Count > 0)
                 {
                     ProductoNegocio negocioProducto = new ProductoNegocio();
+                    CompraNegocio compraNegocio = new CompraNegocio();
 
                     foreach (var producto in ListaVenta)
                     {
-                        // Insertar compra en la tabla Compras
                         Compra compra = new Compra
                         {
                             IdArticulo = producto.Id,
@@ -178,8 +178,8 @@ namespace J3AMS.UI
                             Facturada = false,
                             Activo = true
                         };
-                        //Desarrollar
-                        //negocioCompra.Insertar(compra);
+
+                        CompraNegocio.Add(compra);
 
                         negocioProducto.ActualizarStock(producto, producto.Cantidad);
                     }
@@ -197,6 +197,5 @@ namespace J3AMS.UI
                 Response.Write($"Error al confirmar y guardar la compra: {ex.Message}");
             }
         }
-
     }
 }

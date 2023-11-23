@@ -172,9 +172,14 @@ SELECT * FROM Proveedores
 SELECT * FROM Productos
 SELECT * FROM Clientes
 SELECT * FROM Usuarios
+SELECT * FROM Compras
+SELECT * FROM Ventas
 --PARA ALTA USUARIO
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago)
 VALUES (@Descripcion, @Nombres, @DNI, @Domicilio, @Telefono, @Celular, @Email, @CategoriaIva, @PlazoPago)
 --PARA ALTA USUARIO
 INSERT INTO Usuarios (UserName,Password)
 VALUES (@user, @pass)
+--PARA ALTA COMPRA
+INSERT INTO Compras (IdArticulo, Cantidad, NumeroFactura, Facturada, Activo)
+VALUES (@IdArticulo, @Cantidad, @NumeroFactura, @Facturada, @Activo)
