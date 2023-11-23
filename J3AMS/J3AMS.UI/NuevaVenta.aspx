@@ -48,6 +48,9 @@
     </table>
 
     <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Cancelar y Volver al Menú" />
+
+    <asp:Button ID="btnConfirmarGuardarVenta" OnClick="btnConfirmarGuardarVenta_Click" CssClass="btn btn-success" runat="server" Text="Confirmar y Guardar Venta" />
+
 </asp:Content>
 
 

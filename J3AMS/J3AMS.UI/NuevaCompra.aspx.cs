@@ -36,7 +36,23 @@ namespace J3AMS.UI
 
             if (!IsPostBack)
             {
+                CargarProductosDisponibles();
                 CargarProductos();
+            }
+        }
+        private void CargarProductosDisponibles()
+        {
+            try
+            {
+                ProductoNegocio negocio = new ProductoNegocio();
+                List<Producto> listaProductos = negocio.Listar();
+
+                repArticulosDisponibles.DataSource = listaProductos;
+                repArticulosDisponibles.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"Error al cargar los productos disponibles: {ex.Message}");
             }
         }
         protected void btnAgregarArticulo_Click(object sender, EventArgs e)
@@ -45,35 +61,30 @@ namespace J3AMS.UI
 
             if (idProducto > 0)
             {
-                ProductoNegocio negocio = new ProductoNegocio();
-                //DESARROLLAR
-                //Producto producto = negocio.FiltrarPorId(idProducto);
+                Producto producto = ObtenerProductoPorId(idProducto);
+                Producto productoEnLista = ListaVenta.FirstOrDefault(p => p.Id == idProducto);
 
-                //if (producto != null)
-                //{
-                // Agregar el producto a la lista de venta
-                //DESARROLLAR
-
-                // Almacenar la lista actualizada en la sesión
-                //Session["ListaVenta"] = ListaVenta;
-
-                // Actualizar la interfaz de usuario
-                //}
-                //else
-                //{
-
-                //}
+                if (productoEnLista != null)
+                {
+                    productoEnLista.Cantidad++;
+                }
+                else
+                {
+                    producto.Cantidad = 1;
+                    ListaVenta.Add(producto);
+                }
+                CargarProductosCompradoss();
             }
         }
-
-        protected void btnEliminarArticulo_Click(object sender, EventArgs e)
+        private void CargarProductosCompradoss()
         {
-            int idProductoEliminar = ObtenerIdProductoSeleccionado(sender);
-
-            if (idProductoEliminar > 0)
-            {
-                ListaVenta.RemoveAll(p => p.Id == idProductoEliminar);
-            }
+            repProductosComprados.DataSource = ListaVenta;
+            repProductosComprados.DataBind();
+        }
+        private Producto ObtenerProductoPorId(int id)
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            return negocio.ObtenerPorId(id);
         }
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
@@ -87,13 +98,40 @@ namespace J3AMS.UI
                 ProductoNegocio negocio = new ProductoNegocio();
                 List<Producto> listaProductos = negocio.Listar();
 
-                repRepetidor.DataSource = listaProductos;
-                repRepetidor.DataBind();
+                repArticulosDisponibles.DataSource = listaProductos;
+                repArticulosDisponibles.DataBind();
             }
             catch (Exception ex)
             {
                 Response.Write($"Error al cargar los productos: {ex.Message}");
             }
+        }
+        protected void btnEliminarArticulo_Click(object sender, EventArgs e)
+        {
+            int idProductoEliminar = ObtenerIdProductoSeleccionado(sender);
+
+            if (idProductoEliminar > 0)
+            {
+                Producto productoEnLista = ListaVenta.FirstOrDefault(p => p.Id == idProductoEliminar);
+
+                if (productoEnLista != null)
+                {
+                    if (productoEnLista.Cantidad > 1)
+                    {
+                        productoEnLista.Cantidad--;
+                    }
+                    else
+                    {
+                        ListaVenta.Remove(productoEnLista);
+                    }
+                    CargarProductosComprados(); // Cambiar a CargarProductosComprados
+                }
+            }
+        }
+        private void CargarProductosComprados()
+        {
+            repProductosComprados.DataSource = ListaVenta;
+            repProductosComprados.DataBind();
         }
         private void ActualizarInterfazUsuario()
         {
@@ -118,11 +156,47 @@ namespace J3AMS.UI
 
             return -1;
         }
-
-
         private int ObtenerIdProductoAEliminar()
         {
             return 1;
         }
+        protected void btnConfirmarGuardarCompra_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ListaVenta.Count > 0)
+                {
+                    ProductoNegocio negocioProducto = new ProductoNegocio();
+
+                    foreach (var producto in ListaVenta)
+                    {
+                        // Insertar compra en la tabla Compras
+                        Compra compra = new Compra
+                        {
+                            IdArticulo = producto.Id,
+                            Cantidad = producto.Cantidad,
+                            Facturada = false,
+                            Activo = true
+                        };
+                        //Desarrollar
+                        //negocioCompra.Insertar(compra);
+
+                        negocioProducto.ActualizarStock(producto, producto.Cantidad);
+                    }
+                    ListaVenta.Clear();
+
+                    Response.Redirect("PaginaPrincipal.aspx");
+                }
+                else
+                {
+                    Response.Write("No hay productos para confirmar y guardar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"Error al confirmar y guardar la compra: {ex.Message}");
+            }
+        }
+
     }
 }

@@ -26,7 +26,6 @@ namespace J3AMS.UI
                 Session["ListaProductosVendidos"] = value;
             }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["usuario"] == null)
@@ -84,19 +83,16 @@ namespace J3AMS.UI
                 }
             }
         }
-
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
             // Restaurarar Stock
             Response.Redirect("PaginaPrincipal.aspx");
         }
-
         private void CargarProductosVendidos()
         {
             repProductosVendidos.DataSource = ListaProductosVendidos;
             repProductosVendidos.DataBind();
         }
-
         private void CargarProductosDisponibles()
         {
             try
@@ -112,13 +108,11 @@ namespace J3AMS.UI
                 Response.Write($"Error al cargar los productos disponibles: {ex.Message}");
             }
         }
-
         private Producto ObtenerProductoPorId(int id)
         {
             ProductoNegocio negocio = new ProductoNegocio();
             return negocio.ObtenerPorId(id);
         }
-
         private int ObtenerIdProductoSeleccionado(object sender)
         {
             Button btn = (Button)sender;
@@ -130,6 +124,42 @@ namespace J3AMS.UI
             }
 
             return -1;
+        }
+        protected void btnConfirmarGuardarVenta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ListaProductosVendidos.Count > 0)
+                {
+                    ProductoNegocio negocio = new ProductoNegocio();
+                    foreach (var producto in ListaProductosVendidos)
+                    {
+                        Producto productoEnBaseDeDatos = negocio.ObtenerPorId(producto.Id);
+                        if (productoEnBaseDeDatos.Stock >= producto.Cantidad)
+                        {
+                            negocio.ActualizarStock(producto, -producto.Cantidad); // Resta la cantidad comprada
+
+                            // Puedes agregar aquí la lógica para generar la factura de venta, si es necesario
+                        }
+                        else
+                        {
+                            Response.Write($"No hay suficiente stock disponible para el producto {producto.Descripcion}.");
+                            return;
+                        }
+                    }
+                    ListaProductosVendidos.Clear();
+
+                    Response.Redirect("PaginaPrincipal.aspx");
+                }
+                else
+                {
+                    Response.Write("No hay productos para confirmar y guardar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"Error al confirmar y guardar la compra: {ex.Message}");
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <table class="table">
-        <h1>Lista de Artículos</h1>
+        <h1>Lista de Artículos Disponibles</h1>
         <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -14,7 +14,7 @@
             </tr>
         </thead>
 
-        <asp:Repeater ID="repRepetidor" runat="server">
+        <asp:Repeater ID="repArticulosDisponibles" runat="server">
             <ItemTemplate>
                 <tr>
                     <td><%# Eval("Id") %></td>
@@ -29,9 +29,30 @@
                 </tr>
             </ItemTemplate>
         </asp:Repeater>
-
     </table>
 
+        <h1>Lista de Productos Comprados</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <asp:Repeater ID="repProductosComprados" runat="server">
+            <ItemTemplate>
+                <tr>
+                    <td><%# Eval("Descripcion") %></td>
+                    <td><%# Eval("Cantidad") %></td>
+                    <td>
+                        <asp:Button ID="btnEliminarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
+                    </td>
+                </tr>
+            </ItemTemplate>
+        </asp:Repeater>
+    </table>
     <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Cancelar y Volver al Menú" />
 
+    <asp:Button ID="btnConfirmarGuardarCompra" OnClick="btnConfirmarGuardarCompra_Click" CssClass="btn btn-success" runat="server" Text="Confirmar y Guardar Compra" />
 </asp:Content>

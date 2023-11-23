@@ -55,10 +55,7 @@
     </div>
     <div class="container-fluid">
     <div class="d-flex justify-content-between">
-    <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-secondary" runat="server" Text="Volver al Menu" />
-        <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN) { %>
-    <asp:Button ID="btnNuevoProveedor" OnClick="btnNuevoProveedor_Click" CssClass="btn btn-success" runat="server" Text="Nuevo Proveedor" />
-    <% } %>
+
     </div>
         <div class="d-flex flex-column">
         <div class="table-responsive">
@@ -91,9 +88,12 @@
                 </ItemTemplate>
             </asp:Repeater>
         </table>
-            </div>
-            </div>
+        <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-secondary" runat="server" Text="Volver al Menu" />
+        <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN) { %>
+    <asp:Button ID="btnNuevoProveedor" OnClick="btnNuevoProveedor_Click" CssClass="btn btn-success" runat="server" Text="Nuevo Proveedor" />
+    <% } %>
         </div>
+
 
 
 </asp:Content>
