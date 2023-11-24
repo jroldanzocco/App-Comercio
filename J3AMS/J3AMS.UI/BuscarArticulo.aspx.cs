@@ -67,8 +67,8 @@ namespace J3AMS.UI
         private void CargarProductos()
         {
             ProductoNegocio negocio = new ProductoNegocio();
-            ListaProducto = negocio.Listar();
-            repRepetidor.DataSource = ListaProducto;
+            Session.Add("ListaProductos", negocio.Listar());
+            repRepetidor.DataSource = Session["ListaProductos"];
             repRepetidor.DataBind();
         }
 
@@ -110,6 +110,14 @@ namespace J3AMS.UI
             txtPrecioVenta.ReadOnly = true;
             txtStock.ReadOnly = true;
             txtStockMinimo.ReadOnly = true;
+        }
+
+        protected void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            List<Producto> lista = (List<Producto>)Session["ListaProductos"];
+            List<Producto> listaFiltrada = lista.FindAll(x => x.Descripcion.ToUpper().Contains(txtBusqueda.Text.ToUpper()));
+            repRepetidor.DataSource = listaFiltrada;
+            repRepetidor.DataBind();
         }
     }
 }
