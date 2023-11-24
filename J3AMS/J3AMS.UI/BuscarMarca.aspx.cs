@@ -32,8 +32,8 @@ namespace J3AMS.UI
 
         private void CargarMarcas()
         {
-            ListaMarcas = _negocio.Listar();
-            repMarcas.DataSource = ListaMarcas;
+            Session.Add("ListaMarcas", _negocio.Listar());
+            repMarcas.DataSource = Session["ListaMarcas"];
             repMarcas.DataBind();
         }
 
@@ -68,6 +68,14 @@ namespace J3AMS.UI
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
             Response.Redirect("PaginaPrincipal.aspx");
+        }
+
+        protected void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            List<Marca> lista = (List<Marca>)Session["ListaMarcas"];
+            List<Marca> listaFiltrada = lista.FindAll(x => x.Descripcion.ToUpper().Contains(txtBusqueda.Text.ToUpper()));
+            repMarcas.DataSource = listaFiltrada;
+            repMarcas.DataBind();
         }
     }
 }

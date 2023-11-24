@@ -55,7 +55,10 @@
     </div>
     <div class="container-fluid">
     <div class="d-flex justify-content-between">
-
+        <div>
+            <label for="txtBusqueda" class="form-label">Búsqueda</label>
+            <asp:TextBox ID="txtBusqueda" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBusqueda_TextChanged" runat="server"></asp:TextBox>
+        </div>
     </div>
         <div class="d-flex flex-column">
         <div class="table-responsive">
@@ -93,7 +96,6 @@
     <asp:Button ID="btnNuevoProveedor" OnClick="btnNuevoProveedor_Click" CssClass="btn btn-success" runat="server" Text="Nuevo Proveedor" />
     <% } %>
         </div>
-
-
-
+      </div>
+    </div>
 </asp:Content>

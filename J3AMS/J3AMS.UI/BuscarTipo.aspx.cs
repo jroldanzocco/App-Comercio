@@ -32,8 +32,8 @@ namespace J3AMS.UI
 
         private void CargarTipos()
         {
-            ListaTipos = _negocio.Listar();
-            repTipos.DataSource = ListaTipos;
+            Session.Add("ListaTipos", _negocio.Listar());
+            repTipos.DataSource = Session["ListaTipos"];
             repTipos.DataBind();
         }
 
@@ -68,6 +68,14 @@ namespace J3AMS.UI
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
             Response.Redirect("PaginaPrincipal.aspx");
+        }
+
+        protected void txtbusqueda_TextChanged(object sender, EventArgs e)
+        {
+            List<Tipo> lista = (List<Tipo>)Session["ListaTipos"];
+            List<Tipo> listaFiltrada = lista.FindAll(x => x.Descripcion.ToUpper().Contains(txtbusqueda.Text.ToUpper()));
+            repTipos.DataSource = listaFiltrada;
+            repTipos.DataBind();
         }
     }
 }

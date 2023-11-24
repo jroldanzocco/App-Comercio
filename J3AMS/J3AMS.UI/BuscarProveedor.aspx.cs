@@ -65,8 +65,8 @@ namespace J3AMS.UI
 
         private void CargarProveedores()
         {
-            _listaProveedor = _proveedores.Listar();
-            repRepetidor.DataSource = _listaProveedor;
+            Session.Add("ListaProveedores", _proveedores.Listar());
+            repRepetidor.DataSource = Session["ListaProveedores"];
             repRepetidor.DataBind();
         }
 
@@ -108,6 +108,14 @@ namespace J3AMS.UI
             txtCelular.ReadOnly = true;
             txtEmail.ReadOnly = true;
             txtPlazoPago.ReadOnly = true;
+        }
+
+        protected void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            List<Proveedor> lista = (List<Proveedor>)Session["ListaProveedores"];
+            List<Proveedor> listaFiltrada = lista.FindAll(x => x.RazonSocial.ToUpper().Contains(txtBusqueda.Text.ToUpper()));
+            repRepetidor.DataSource = listaFiltrada;
+            repRepetidor.DataBind();
         }
     }
 }
