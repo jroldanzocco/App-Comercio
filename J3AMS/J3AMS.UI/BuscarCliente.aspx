@@ -56,6 +56,10 @@
     </div>
 
     <div class="container-fluid">
+        <div>
+            <label for="txtBusqueda" class="form-label">Búsqueda</label>
+            <asp:TextBox ID="txtBusqueda" AutoPostBack="true" OnTextChanged="txtBusqueda_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
+        </div>
         <table class="table">
             <thead>
                 <tr>

@@ -30,20 +30,28 @@ namespace J3AMS.UI
                 DeshabilitarTxtClientes();
             }
         }
+
+
         protected void btnVolverAlMenu_Click(object sender, EventArgs e)
         {
             Response.Redirect("PaginaPrincipal.aspx");
         }
+
+
         protected void btnNuevoCliente_Click(object sender, EventArgs e)
         {
             Response.Redirect("AltaCliente.aspx");
         }
+
+
         protected void btnEditarCliente_Click(object sender, EventArgs e)
         {
             string id = ((Button)sender).CommandArgument;
 
             Response.Redirect("AltaCliente.aspx?id=" + id);
         }
+
+
         protected void btnEliminarCliente_Click(object sender, EventArgs e)
         {
             string id = ((Button)sender).CommandArgument;
@@ -62,13 +70,17 @@ namespace J3AMS.UI
                 CargarClientes();
             }
         }
+
+
         private void CargarClientes()
         {
             ClienteNegocio negocio = new ClienteNegocio();
-            ListaCliente = negocio.Listar();
-            repRepetidor.DataSource = ListaCliente;
+            Session.Add("ListaClientes", negocio.Listar());
+            repRepetidor.DataSource = Session["ListaClientes"];
             repRepetidor.DataBind();
         }
+
+
         protected void btnInformeCliente_Click(object sender, EventArgs e)
         {
             string id = ((Button)sender).CommandArgument;
@@ -76,9 +88,9 @@ namespace J3AMS.UI
 
             string script = "$(document).ready(function () { $('#modalCliente').modal('show'); });";
             ClientScript.RegisterStartupScript(this.GetType(), "Popup", script, true);
-
-
         }
+
+
         private void CargarInformeCLientes(string id)
         {
             List<Cliente> clientes = _negocio.Listar(id);
@@ -97,6 +109,8 @@ namespace J3AMS.UI
                 txtPlazoPagoClientes.Text = aux.Plazo.ToString();
             }
         }
+
+
         private void DeshabilitarTxtClientes()
         {
             txtApellido.ReadOnly = true;
@@ -107,6 +121,15 @@ namespace J3AMS.UI
             txtEmailCliente.ReadOnly = true;
             txtCategoria.ReadOnly = true;
             txtPlazoPagoClientes.ReadOnly = true;
+        }
+
+
+        protected void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            List<Cliente> lista = (List<Cliente>)Session["ListaClientes"];
+            List<Cliente> listaFiltrada = lista.FindAll(x => x.Apellidos.ToUpper().Contains(txtBusqueda.Text.ToUpper()));
+            repRepetidor.DataSource = listaFiltrada;
+            repRepetidor.DataBind();
         }
     }
 }
