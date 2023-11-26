@@ -16,7 +16,6 @@
                     <tr runat="server" visible='<%# Convert.ToBoolean(Eval("Activo")) == true %>'>
                         <td><%# Eval("Id") %></td>
                         <td><%# Eval("NumeroFactura") %></td>
-                        <td><%# Eval("Facturada") %></td>
                         <td>
                             <asp:Button ID="btnDetallesCompra" OnClick="btnDetallesCompra_Click" CommandArgument='<%#Eval("Id") %>' CommandName="CompraId" CssClass="btn btn-info w-100" runat="server" Text="Detalles" />
 

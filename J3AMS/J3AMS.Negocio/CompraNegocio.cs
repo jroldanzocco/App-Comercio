@@ -40,7 +40,6 @@ namespace J3AMS.Negocio
                     {
                         Id = (int)_datos.Lector["Id"],
                         NumeroFactura = (int)_datos.Lector["NumeroFactura"],
-                        //Activo = (int)_datos.Lector["Activo"],
                     });
                 }
 

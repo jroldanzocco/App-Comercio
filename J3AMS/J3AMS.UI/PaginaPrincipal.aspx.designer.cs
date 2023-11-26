@@ -60,24 +60,6 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.Button btnTipos;
 
         /// <summary>
-        /// Control btnVentas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVentas;
-
-        /// <summary>
-        /// Control btnListarVentas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnListarVentas;
-
-        /// <summary>
         /// Control btnCompras.
         /// </summary>
         /// <remarks>
@@ -103,5 +85,23 @@ namespace J3AMS.UI
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnFacturas;
+
+        /// <summary>
+        /// Control btnVentas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVentas;
+
+        /// <summary>
+        /// Control btnListarVentas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnListarVentas;
     }
 }
