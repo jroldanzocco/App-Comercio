@@ -61,6 +61,8 @@
             <label for="txtBusqueda" class="form-label">Búsqueda</label>
             <asp:TextBox ID="txtBusqueda" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBusqueda_TextChanged" runat="server"></asp:TextBox>
         </div>
+        <div class="d-flex flex-column">
+<div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
@@ -81,15 +83,15 @@
                         <td><%# Eval("Tipo") %></td>
                         <td><%# Eval("Marca") %></td>
                         <td><%# Eval("Stock") %></td>
-                        <td>
+                        <td class="d-flex gap-2">
 
-                            <asp:Button ID="btnInformeArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnInformeArticulo_Click" CssClass="btn btn-info w-100" runat="server" Text="Informes" />
+                            <asp:Button ID="btnInformeArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnInformeArticulo_Click" CssClass="btn btn-info w-auto " runat="server" Text="Informes" />
 
                             <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN)
                                 { %>
 
-                            <asp:Button ID="btnEditarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEditarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Editar" />
-                            <asp:Button ID="btnEliminarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
+                            <asp:Button ID="btnEditarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEditarArticulo_Click" CssClass="btn btn-primary w-auto" runat="server" Text="Editar" />
+                            <asp:Button ID="btnEliminarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarArticulo_Click" CssClass="btn btn-primary w-auto" runat="server" Text="Eliminar" />
 
                             <% } %>
                         </td>
@@ -106,6 +108,8 @@
         <% } %>
         <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Volver al Menu" />
     </div>
+              </div>
+</div>
 
 </asp:Content>
 

@@ -76,15 +76,15 @@
             <asp:Repeater ID="repRepetidor" runat="server">
                 <ItemTemplate>
                     <tr runat="server" visible='<%# Convert.ToBoolean(Eval("Activo")) == true %>'>
-                        <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%# Eval("RazonSocial") %></td>
+                        <td><%# Eval("RazonSocial") %></td>
                         <td><%# Eval("CUIT") %></td>
                         <td><%# Eval("Telefono") %></td>
                         <td><%# Eval("Email") %></td>
                         <td class="d-flex gap-2">
-                            <asp:Button ID="btnInformeProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" CssClass="btn btn-info w-100 " runat="server" Text="Informes" OnClick="btnInformeProveedor_Click" />
+                            <asp:Button ID="btnInformeProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" CssClass="btn btn-info w-auto " runat="server" Text="Informes" OnClick="btnInformeProveedor_Click" />
                             <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN) { %>
-                            <asp:Button ID="btnEditarProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" OnClick="btnEditarProveedor_Click" CssClass="btn btn-primary w-100" runat="server" Text="Editar" />
-                            <asp:Button ID="btnEliminarProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" OnClick="btnEliminarProveedor_Click" CssClass="btn btn-danger w-100" runat="server" Text="Eliminar" />
+                            <asp:Button ID="btnEditarProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" OnClick="btnEditarProveedor_Click" CssClass="btn btn-primary w-auto" runat="server" Text="Editar" />
+                            <asp:Button ID="btnEliminarProveedor" CommandArgument='<%#Eval("Id") %>' CommandName="ProveedorId" OnClick="btnEliminarProveedor_Click" CssClass="btn btn-danger w-auto" runat="server" Text="Eliminar" />
                             <% } %>
                         </td>
                     </tr>
