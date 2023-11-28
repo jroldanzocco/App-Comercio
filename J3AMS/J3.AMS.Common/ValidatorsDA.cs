@@ -9,31 +9,14 @@ namespace J3.AMS.Common
 {
     public static class ValidatorsDA
     {
-        public static bool TryValidateModel<T>(T model, Control parentControl, out List<ValidationResult> results)
+        public static bool TryValidateModel<T>(T model)
         {
-            var validationContext = new ValidationContext(model, null, null);
-            results = new List<ValidationResult>();
+            ValidationContext vc = new ValidationContext(model);
+            ICollection<ValidationResult> results = new List<ValidationResult>(); // Will contain the results of the validation
+            bool isValid = Validator.TryValidateObject(model, vc, results, true);
 
-            if (!Validator.TryValidateObject(model, validationContext, results, true))
-            {
-                foreach (var result in results)
-                {
-                    var propertyName = result.MemberNames.FirstOrDefault();
-                    if (!string.IsNullOrEmpty(propertyName))
-                    {
-                        var validationControl = parentControl.FindControl(propertyName) as BaseValidator;
-                        if (validationControl != null)
-                        {
-                            validationControl.IsValid = false;
-                            validationControl.ErrorMessage = result.ErrorMessage;
-                        }
-                    }
-                }
+            return isValid;
 
-                return false;
-            }
-
-            return true;
         }
     }
 }

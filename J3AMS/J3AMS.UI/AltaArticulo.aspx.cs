@@ -120,7 +120,7 @@ namespace J3AMS.UI
             aux.StockMinimo = StockMinValidator;
 
             string id = Request.QueryString["id"];
-            if (ValidatorsDA.TryValidateModel(aux, this, out var validationResults))
+            if (ValidatorsDA.TryValidateModel(aux))
             {
             
                 if (id != null)
