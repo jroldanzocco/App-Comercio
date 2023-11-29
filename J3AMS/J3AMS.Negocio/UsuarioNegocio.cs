@@ -2,7 +2,6 @@
 using J3AMS.Dominio;
 using J3AMS.Dominio.DTOs.Usuario;
 using System;
-using System.Management.Instrumentation;
 
 namespace J3AMS.Negocio
 {
@@ -17,26 +16,29 @@ namespace J3AMS.Negocio
 
         public void Registrar(RegisterUsuarioDto registerUserDto)
         {
-            if(ValidatorsDA.TryValidateModel(registerUserDto))
+            if (!CheckExistingUser(registerUserDto))
             {
-                try
+                if (ValidatorsDA.TryValidateModel(registerUserDto))
                 {
-                    _datos.SetConsulta("INSERT INTO Usuarios(UserName, Password) VALUES(@user, @pass)");
-                    _datos.SetParametro("@user", registerUserDto.UserName);
-                    _datos.SetParametro("@pass", Helper.HashPassword(registerUserDto.Password));
+                    try
+                    {
+                        _datos.SetConsulta("INSERT INTO Usuarios(UserName, Password, Email) VALUES(@userName, @password, @email)");
+                        _datos.SetParametro("@userName", registerUserDto.UserName);
+                        _datos.SetParametro("@password", Helper.HashPassword(registerUserDto.Password));
+                        _datos.SetParametro("@email", Helper.HashPassword(registerUserDto.Email));
 
-                    _datos.EjecutarLectura();
-                }
-                catch (Exception ex)
-                {
+                        _datos.EjecutarLectura();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        _datos.CerrarConexion();
+                    }
 
-                    throw ex;
                 }
-                finally
-                {
-                    _datos.CerrarConexion();
-                }
-
             }
         }
 
@@ -60,6 +62,31 @@ namespace J3AMS.Negocio
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                _datos.CerrarConexion();
+            }
+        }
+
+        public bool CheckExistingUser(RegisterUsuarioDto usuario)
+        {
+            try
+            {
+                bool result = false;
+                _datos.SetConsulta("Select count('UserName') from Usuarios where UserName = @user");
+                _datos.SetParametro("@user", usuario.UserName);
+
+                var count = (int)_datos.EjecutarLecturaEscalar();
+
+                if (count > 0)
+                    result = true;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {

@@ -31,6 +31,7 @@ namespace J3AMS.UI
             {
                 UserName = nombreUsuario,
                 Password = password,
+                Email = email
             };
 
             if(password == repetirPassword)

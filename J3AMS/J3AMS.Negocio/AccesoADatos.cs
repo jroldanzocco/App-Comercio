@@ -44,6 +44,23 @@ namespace J3AMS.Negocio
                 throw ex;
             }
         }
+
+        public object EjecutarLecturaEscalar()
+        {
+            _comando.Connection = _conexion;
+
+            try
+            {
+                _conexion.Open();
+                var resultado = _comando.ExecuteScalar();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public void SetParametro(string parametro, object valor)
         {
             _comando.Parameters.AddWithValue(parametro, valor);
