@@ -150,10 +150,10 @@ VALUES ('Rodríguez', 'Laura', '56789012', 'Avenida 012', '555-3456', '999-1234',
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Pérez', 'Miguel', '09876543', 'Calle 234', '555-6789', '999-2345', 'miguel@email.com', 2, 30, 1);
 --Usuarios
-INSERT INTO Usuarios (UserName, Password, IdRol)
-VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f',1);
-INSERT INTO Usuarios (UserName, Password)
-VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08');
+INSERT INTO Usuarios (UserName, Password, Email IdRol)
+VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f','admin@admin.com',1);
+INSERT INTO Usuarios (UserName, Password, Email)
+VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com');
 --PARA ALTA PRODUCTO
 INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo)
 VALUES ('Pera', 1, 1, 1, 1, 2, 10, 0)
