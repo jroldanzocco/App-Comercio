@@ -25,13 +25,13 @@ namespace J3AMS.UI
             string nombreUsuario = txtNombreUsuario.Text;
             string password = txtPassword.Text;
             string repetirPassword = txtRepetirPassword.Text;
-            string email = txtEmail.Text;
+            //string email = txtEmail.Text;
 
             var registro = new RegisterUsuarioDto()
             {
                 UserName = nombreUsuario,
-                Password = password,
-                Email = email
+                Password = password
+                //Email = email
             };
 
             if(password == repetirPassword)

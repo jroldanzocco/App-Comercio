@@ -26,7 +26,7 @@ namespace J3AMS.Negocio
                         _datos.SetConsulta("INSERT INTO Usuarios(UserName, Password, Email) VALUES(@userName, @password, @email)");
                         _datos.SetParametro("@userName", registerUserDto.UserName);
                         _datos.SetParametro("@password", Helper.HashPassword(registerUserDto.Password));
-                        _datos.SetParametro("@email", registerUserDto.Email);
+                        //_datos.SetParametro("@email", registerUserDto.Email);
 
                         _datos.EjecutarLectura();
                         result = true;

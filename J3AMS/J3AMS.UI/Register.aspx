@@ -30,7 +30,7 @@
                 <asp:TextBox ID="txtRepetirPassword" TextMode="Password" CssClass="form-control" runat="server"></asp:TextBox>
                 <asp:Label ID="lblPassword" runat="server"></asp:Label>
             </div>
-            <div class="form-group">
+<%--            <div class="form-group">
                 <label for="txtEmail">Correo Electrónico:</label>
                 <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" />
                 <asp:RequiredFieldValidator runat="server"
@@ -39,7 +39,7 @@
                     ErrorMessage="Email es requerido."
                     Display="Dynamic"
                     ValidationGroup="RegisterGroup" />
-            </div>
+            </div>--%>
 
             <asp:Button ID="btnRegistrar" CssClass="btn btn-primary" runat="server" Text="Registrarse" OnClick="btnRegistrar_Click" ValidationGroup="RegisterGroup" />
         </div>
