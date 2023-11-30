@@ -46,5 +46,10 @@ namespace J3AMS.UI
             }
             
         }
+
+        protected void bntRegister_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Register.aspx");
+        }
     }
 }
