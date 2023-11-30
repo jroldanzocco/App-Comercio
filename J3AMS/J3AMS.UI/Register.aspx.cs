@@ -21,17 +21,17 @@ namespace J3AMS.UI
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            // Aquí puedes acceder a los campos del formulario usando las propiedades .Text de los controles de servidor.
+            
             string nombreUsuario = txtNombreUsuario.Text;
             string password = txtPassword.Text;
             string repetirPassword = txtRepetirPassword.Text;
-            //string email = txtEmail.Text;
+            string email = txtEmail.Text;
 
             var registro = new RegisterUsuarioDto()
             {
                 UserName = nombreUsuario,
-                Password = password
-                //Email = email
+                Password = password,
+                Email = email
             };
 
             if(password == repetirPassword)
@@ -48,8 +48,6 @@ namespace J3AMS.UI
                 lblPassword.Style["color"] = "red";
                 lblPassword.Text = "Las contraseñas deben coincidir"; 
             }
-            // Aquí puedes agregar la lógica para el registro.
-            // Puedes validar los campos y realizar el proceso de registro según tus necesidades.
         }
     }
 }
