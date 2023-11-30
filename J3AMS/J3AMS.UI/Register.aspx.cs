@@ -38,8 +38,8 @@ namespace J3AMS.UI
             {
                
                     if(_usuario.Registrar(registro))
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "UsuarioRegistrado", "swal({ title: 'Muy bien!', text: 'Usuario registrado con éxito.', type: 'success', closeOnClickOutside: false, closeOnEsc: false, }).then(function() { window.location.href = 'tu_pagina_de_redireccion'; });", true);
-                    else
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "UsuarioRegistrado", "swal('Muy bien!', 'Usuario registrado con éxito.', 'success').then(function() { window.location.href = 'Default.aspx'; });", true);
+                else
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "UsuarioExistente", "swal('Error!', 'El usuario ya se encuentra registrado.', 'error');", true);
 
             }
