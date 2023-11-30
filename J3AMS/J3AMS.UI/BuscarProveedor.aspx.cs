@@ -12,7 +12,7 @@ namespace J3AMS.UI
    
     public partial class BuscarProveedor : System.Web.UI.Page
     {
-        private List<Proveedor> _listaProveedor;
+        //private List<Proveedor> _listaProveedor;
         private ProveedorNegocio _proveedores;
 
         protected void Page_Load(object sender, EventArgs e)

@@ -16,10 +16,10 @@
             <div class="col-md-6">
                 <div class="text-center">
                     <asp:Button ID="btnCompras" CssClass="btn btn-primary btn-block mb-2" OnClick="btnNuevaCompra_Click" runat="server" Text="Comprar" /><br />
-                    <asp:Button ID="btnListarCompras" CssClass="btn btn-primary btn-block mb-2" OnClick="btnListarCompras_Click" runat="server" Text="Listar Compras" /><br />
-                    <asp:Button ID="btnFacturas" CssClass="btn btn-primary btn-block mb-2" OnClick="btnFacturas_Click" runat="server" Text="Facturas" /><br />
                     <asp:Button ID="btnVentas" CssClass="btn btn-primary btn-block mb-2" OnClick="btnNuevaVenta_Click" runat="server" Text="Vender" /><br />
+                    <asp:Button ID="btnListarCompras" CssClass="btn btn-primary btn-block mb-2" OnClick="btnListarCompras_Click" runat="server" Text="Listar Compras" /><br />
                     <asp:Button ID="btnListarVentas" CssClass="btn btn-primary btn-block mb-2" OnClick="btnListarVentas_Click" runat="server" Text="Listar Ventas" /><br />
+                    <asp:Button ID="btnFacturas" CssClass="btn btn-primary btn-block mb-2" OnClick="btnFacturas_Click" runat="server" Text="Facturas" /><br />
                 </div>
             </div>
         </div>

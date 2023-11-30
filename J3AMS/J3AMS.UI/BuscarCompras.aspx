@@ -7,13 +7,12 @@
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">NumeroFactura</th>
-                    <th scope="col">Facturada</th>
                 </tr>
             </thead>
 
             <asp:Repeater ID="repRepetidorCompras" runat="server">
                 <ItemTemplate>
-                    <tr runat="server" visible='<%# Convert.ToBoolean(Eval("Activo")) == true %>'>
+                    <tr runat="server">
                         <td><%# Eval("Id") %></td>
                         <td><%# Eval("NumeroFactura") %></td>
                         <td>

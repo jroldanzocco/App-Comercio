@@ -11,19 +11,19 @@ namespace J3AMS.UI
 {
     public partial class NuevaCompra : System.Web.UI.Page
     {
-        public List<Producto> ListaVenta
+        private List<Producto> ListaProductosComprados
         {
             get
             {
-                if (Session["ListaVenta"] == null)
+                if (Session["ListaProductosComprados"] == null)
                 {
-                    Session["ListaVenta"] = new List<Producto>();
+                    Session["ListaProductosComprados"] = new List<Producto>();
                 }
-                return (List<Producto>)Session["ListaVenta"];
+                return (List<Producto>)Session["ListaProductosComprados"];
             }
             set
             {
-                Session["ListaVenta"] = value;
+                Session["ListaProductosComprados"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -37,8 +37,60 @@ namespace J3AMS.UI
             if (!IsPostBack)
             {
                 CargarProductosDisponibles();
-                CargarProductos();
+                CargarProductosComprados();
             }
+        }
+        protected void btnAgregarArticulo_Click(object sender, EventArgs e)
+        {
+            int idProducto = ObtenerIdProductoSeleccionado(sender);
+
+            if (idProducto > 0)
+            {
+                Producto producto = ObtenerProductoPorId(idProducto);
+                Producto productoEnLista = ListaProductosComprados.FirstOrDefault(p => p.Id == idProducto);
+
+                if (productoEnLista != null)
+                {
+                    productoEnLista.Cantidad++;
+                }
+                else
+                {
+                    producto.Cantidad = 1;
+                    ListaProductosComprados.Add(producto);
+                }
+                CargarProductosComprados();
+            }
+        }
+        protected void btnEliminarArticulo_Click(object sender, EventArgs e)
+        {
+            int idProductoEliminar = ObtenerIdProductoSeleccionado(sender);
+
+            if (idProductoEliminar > 0)
+            {
+                Producto productoEnLista = ListaProductosComprados.FirstOrDefault(p => p.Id == idProductoEliminar);
+
+                if (productoEnLista != null)
+                {
+                    if (productoEnLista.Cantidad > 1)
+                    {
+                        productoEnLista.Cantidad--;
+                    }
+                    else
+                    {
+                        ListaProductosComprados.Remove(productoEnLista);
+                    }
+                    CargarProductosComprados();
+                }
+            }
+        }
+        protected void btnVolverAlMenu_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PaginaPrincipal.aspx");
+        }
+        private void CargarProductosComprados()
+        {
+            repProductosComprados.DataSource = ListaProductosComprados;
+            repProductosComprados.DataBind();
         }
         private void CargarProductosDisponibles()
         {
@@ -55,94 +107,10 @@ namespace J3AMS.UI
                 Response.Write($"Error al cargar los productos disponibles: {ex.Message}");
             }
         }
-        protected void btnAgregarArticulo_Click(object sender, EventArgs e)
-        {
-            int idProducto = ObtenerIdProductoSeleccionado(sender);
-
-            if (idProducto > 0)
-            {
-                Producto producto = ObtenerProductoPorId(idProducto);
-                Producto productoEnLista = ListaVenta.FirstOrDefault(p => p.Id == idProducto);
-
-                if (productoEnLista != null)
-                {
-                    productoEnLista.Cantidad++;
-                }
-                else
-                {
-                    producto.Cantidad = 1;
-                    ListaVenta.Add(producto);
-                }
-                CargarProductosCompradoss();
-            }
-        }
-        private void CargarProductosCompradoss()
-        {
-            repProductosComprados.DataSource = ListaVenta;
-            repProductosComprados.DataBind();
-        }
         private Producto ObtenerProductoPorId(int id)
         {
             ProductoNegocio negocio = new ProductoNegocio();
             return negocio.ObtenerPorId(id);
-        }
-        protected void btnVolverAlMenu_Click(object sender, EventArgs e)
-        {
-            //Restaurarar Stock
-            Response.Redirect("PaginaPrincipal.aspx");
-        }
-        private void CargarProductos()
-        {
-            try
-            {
-                ProductoNegocio negocio = new ProductoNegocio();
-                List<Producto> listaProductos = negocio.Listar();
-
-                repArticulosDisponibles.DataSource = listaProductos;
-                repArticulosDisponibles.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"Error al cargar los productos: {ex.Message}");
-            }
-        }
-        protected void btnEliminarArticulo_Click(object sender, EventArgs e)
-        {
-            int idProductoEliminar = ObtenerIdProductoSeleccionado(sender);
-
-            if (idProductoEliminar > 0)
-            {
-                Producto productoEnLista = ListaVenta.FirstOrDefault(p => p.Id == idProductoEliminar);
-
-                if (productoEnLista != null)
-                {
-                    if (productoEnLista.Cantidad > 1)
-                    {
-                        productoEnLista.Cantidad--;
-                    }
-                    else
-                    {
-                        ListaVenta.Remove(productoEnLista);
-                    }
-                    CargarProductosComprados(); // Cambiar a CargarProductosComprados
-                }
-            }
-        }
-        private void CargarProductosComprados()
-        {
-            repProductosComprados.DataSource = ListaVenta;
-            repProductosComprados.DataBind();
-        }
-        private void ActualizarInterfazUsuario()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"Error al actualizar la interfaz de usuario: {ex.Message}");
-            }
         }
         private int ObtenerIdProductoSeleccionado(object sender)
         {
@@ -156,40 +124,36 @@ namespace J3AMS.UI
 
             return -1;
         }
-        private int ObtenerIdProductoAEliminar()
-        {
-            return 1;
-        }
         protected void btnConfirmarGuardarCompra_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ListaVenta.Count > 0)
+                if (ListaProductosComprados.Count > 0)
                 {
                     ProductoNegocio negocioProducto = new ProductoNegocio();
-                    VentaNegocio ventaNegocio = new VentaNegocio();
+                    CompraNegocio compraNegocio = new CompraNegocio();
 
-                    Venta venta = new Venta
+                    Compra compra = new Compra
                     {
                         NumeroFactura = 0,
                         Facturada = false,
                         Activo = true
                     };
 
-                    foreach (var producto in ListaVenta)
+                    foreach (var producto in ListaProductosComprados)
                     {
-                        DetalleVenta detalle = new DetalleVenta
+                        DetalleCompra detalle = new DetalleCompra
                         {
                             IdArticulo = producto.Id,
                             Cantidad = producto.Cantidad
                         };
 
-                        venta.DetallesVenta.Add(detalle);
-                        negocioProducto.ActualizarStock(producto, producto.Cantidad);
+                        compra.DetalleCompra.Add(detalle);
+                        negocioProducto.ActualizarStock(producto, -producto.Cantidad);
                     }
 
-                    ventaNegocio.Add(venta);
-                    ListaVenta.Clear();
+                    compraNegocio.Add(compra);
+                    ListaProductosComprados.Clear();
                     Response.Redirect("PaginaPrincipal.aspx");
                 }
                 else
@@ -199,7 +163,7 @@ namespace J3AMS.UI
             }
             catch (Exception ex)
             {
-                Response.Write($"Error al confirmar y guardar la venta: {ex.Message}");
+                Response.Write($"Error al confirmar y guardar la compra: {ex.Message}");
             }
         }
     }

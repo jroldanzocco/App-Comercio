@@ -135,6 +135,7 @@
     <Content Include="Content\estilos.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="DetallesVenta.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="NuevaCompra.aspx" />
@@ -310,6 +311,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetallesVenta.aspx.cs">
+      <DependentUpon>DetallesVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetallesVenta.aspx.designer.cs">
+      <DependentUpon>DetallesVenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="FacturasVentas.master.cs">
       <DependentUpon>FacturasVentas.master</DependentUpon>

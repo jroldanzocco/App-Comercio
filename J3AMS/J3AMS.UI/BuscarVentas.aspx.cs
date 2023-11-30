@@ -42,7 +42,9 @@ namespace J3AMS.UI
         }
         protected void btnDetallesVenta_Click(object sender, EventArgs e)
         {
-            //A DESARROLLAR
+            Button btnDetallesVenta = (Button)sender;
+            int Id = Convert.ToInt32(btnDetallesVenta.CommandArgument);
+            Response.Redirect($"DetallesVenta.aspx?Id={Id}");
         }
     }
 }

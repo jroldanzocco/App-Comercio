@@ -24,11 +24,16 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT Id, NumeroFactura FROM Ventas");
+                _datos.SetConsulta("SELECT V.Id, V.NumeroFactura, DV.IdArticulo, DV.Cantidad, V.Activo " +
+                                   "FROM Ventas V " +
+                                   "INNER JOIN DetallesVentas DV ON V.Id = DV.IdVenta");
 
                 if (!string.IsNullOrEmpty(id))
                 {
-                    _datos.SetConsulta("SELECT Id, NumeroFactura FROM Ventas WHERE Id = @Id");
+                    _datos.SetConsulta("SELECT V.Id, V.NumeroFactura, DV.IdArticulo, DV.Cantidad, V.Activo " +
+                                       "FROM Ventas V " +
+                                       "INNER JOIN DetallesVentas DV ON V.Id = DV.IdVenta " +
+                                       "WHERE V.Id = @Id");
                     _datos.SetParametro("@Id", id);
                 }
 
@@ -36,19 +41,28 @@ namespace J3AMS.Negocio
 
                 while (_datos.Lector.Read())
                 {
-                    listVentas.Add(new Venta
+                    var venta = new Venta
                     {
                         Id = (int)_datos.Lector["Id"],
                         NumeroFactura = (int)_datos.Lector["NumeroFactura"],
-                        //Activo = (int)_datos.Lector["Activo"],
-                    });
+                        Activo = (bool)_datos.Lector["Activo"]
+                    };
+
+                    var detalleVenta = new DetalleVenta
+                    {
+                        IdArticulo = (int)_datos.Lector["IdArticulo"],
+                        Cantidad = (int)_datos.Lector["Cantidad"]
+                    };
+                    venta.DetallesVenta.Add(detalleVenta);
+
+                    listVentas.Add(venta);
                 }
 
                 return listVentas;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al listar ventas con detalles", ex);
             }
             finally
             {

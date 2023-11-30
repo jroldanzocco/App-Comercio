@@ -24,11 +24,16 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT Id, NumeroFactura FROM Compras");
+                _datos.SetConsulta("SELECT C.Id, C.NumeroFactura, DC.IdArticulo, DC.Cantidad, C.Activo " +
+                                   "FROM Compras C " +
+                                   "INNER JOIN DetallesCompras DC ON C.Id = DC.IdCompra");
 
                 if (!string.IsNullOrEmpty(id))
                 {
-                    _datos.SetConsulta("SELECT Id, NumeroFactura FROM Compras WHERE Id = @Id");
+                    _datos.SetConsulta("SELECT C.Id, C.NumeroFactura, DC.IdArticulo, DC.Cantidad, C.Activo " +
+                                       "FROM Compras C " +
+                                       "INNER JOIN DetallesCompras DC ON C.Id = DC.IdCompra " +
+                                       "WHERE C.Id = @Id");
                     _datos.SetParametro("@Id", id);
                 }
 
@@ -36,18 +41,28 @@ namespace J3AMS.Negocio
 
                 while (_datos.Lector.Read())
                 {
-                    listCompras.Add(new Compra
+                    var Compra = new Compra
                     {
                         Id = (int)_datos.Lector["Id"],
                         NumeroFactura = (int)_datos.Lector["NumeroFactura"],
-                    });
+                        Activo = (bool)_datos.Lector["Activo"]
+                    };
+
+                    var detalleCompra = new DetalleCompra
+                    {
+                        IdArticulo = (int)_datos.Lector["IdArticulo"],
+                        Cantidad = (int)_datos.Lector["Cantidad"]
+                    };
+                    Compra.DetalleCompra.Add(detalleCompra);
+
+                    listCompras.Add(Compra);
                 }
 
                 return listCompras;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al listar compras con detalles", ex);
             }
             finally
             {
@@ -73,7 +88,7 @@ namespace J3AMS.Negocio
 
                 if (IdCompra > 0)
                 {
-                    foreach (var detalle in newEntity.DetallesCompra)
+                    foreach (var detalle in newEntity.DetalleCompra)
                     {
                         AccesoADatos datosDetalle = new AccesoADatos();
 
