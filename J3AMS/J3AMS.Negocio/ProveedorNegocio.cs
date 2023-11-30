@@ -1,4 +1,5 @@
-﻿using J3AMS.Dominio;
+﻿using J3.AMS.Common;
+using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
 
@@ -70,20 +71,22 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo) " +
-                                   "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, @Celular, @Email, @Iva, @Plazo, 1)");
-                _datos.SetParametro("@Razon", newEntity.RazonSocial);
-                _datos.SetParametro("@Nombre", newEntity.NombreFantasia);
-                _datos.SetParametro("@CUIT", newEntity.CUIT);
-                _datos.SetParametro("@Domicilio", newEntity.Domicilio);
-                _datos.SetParametro("@Telefono", newEntity.Telefono);
-                _datos.SetParametro("@Celular", newEntity.Telefono);
-                _datos.SetParametro("@Email", newEntity.Telefono);
-                _datos.SetParametro("@Iva", newEntity.CategoriaIva.Id);
-                _datos.SetParametro("@Plazo", newEntity.PlazoPago);
-                _datos.SetParametro("@Activo", true);
-                _datos.EjecutarLectura();
-
+                if (ValidatorsDA.TryValidateModel(newEntity))
+                {
+                    _datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo) " +
+                                       "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, @Celular, @Email, @Iva, @Plazo, 1)");
+                    _datos.SetParametro("@Razon", newEntity.RazonSocial);
+                    _datos.SetParametro("@Nombre", newEntity.NombreFantasia);
+                    _datos.SetParametro("@CUIT", newEntity.CUIT);
+                    _datos.SetParametro("@Domicilio", newEntity.Domicilio);
+                    _datos.SetParametro("@Telefono", newEntity.Telefono);
+                    _datos.SetParametro("@Celular", newEntity.Telefono);
+                    _datos.SetParametro("@Email", newEntity.Telefono);
+                    _datos.SetParametro("@Iva", newEntity.CategoriaIva.Id);
+                    _datos.SetParametro("@Plazo", newEntity.PlazoPago);
+                    _datos.SetParametro("@Activo", true);
+                    _datos.EjecutarLectura();
+                }
             }
             catch (Exception ex)
             {
@@ -132,7 +135,7 @@ namespace J3AMS.Negocio
 
         public Proveedor Get(int id)
         {
-            
+
 
             try
             {
@@ -165,7 +168,7 @@ namespace J3AMS.Negocio
                         PlazoPago = (byte)_datos.Lector["PlazoPago"],
                         Activo = (bool)_datos.Lector["Activo"],
                     };
-                    
+
                 }
                 return aux;
             }
