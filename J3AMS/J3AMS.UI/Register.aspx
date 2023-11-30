@@ -18,9 +18,16 @@
             </div>
             <div class="form-group">
                 <label for="txtEmail">Correo Electrónico:</label>
-                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" />
+                <asp:RequiredFieldValidator runat="server" 
+                                            ID="RequiredFieldValidator4" 
+                                            ControlToValidate="txtEmail"
+                                            ErrorMessage="Email es requerido." 
+                                            Display="Dynamic" 
+                                            ValidationGroup="RegisterGroup" />
             </div>
-            <asp:Button ID="btnRegistrar" CssClass="btn btn-primary" runat="server" Text="Registrarse" OnClick="btnRegistrar_Click" />
+            
+            <asp:Button ID="btnRegistrar" CssClass="btn btn-primary" runat="server" Text="Registrarse" OnClick="btnRegistrar_Click" ValidationGroup="RegisterGroup"/>
         </div>
     </div>
 
