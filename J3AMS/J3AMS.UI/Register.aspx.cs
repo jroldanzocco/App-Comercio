@@ -36,12 +36,17 @@ namespace J3AMS.UI
 
             if(password == repetirPassword)
             {
-                _usuario.Registrar(registro);
-                
+               
+                    if(_usuario.Registrar(registro))
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "UsuarioRegistrado", "swal({ title: 'Muy bien!', text: 'Usuario registrado con éxito.', type: 'success', closeOnClickOutside: false, closeOnEsc: false, }).then(function() { window.location.href = 'tu_pagina_de_redireccion'; });", true);
+                    else
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "UsuarioExistente", "swal('Error!', 'El usuario ya se encuentra registrado.', 'error');", true);
+
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ContraseñasNoCoinciden", "swal('Error', 'Las contraseñas no coinciden.', 'error');", true);
+                lblPassword.Style["color"] = "red";
+                lblPassword.Text = "Las contraseñas deben coincidir"; 
             }
             // Aquí puedes agregar la lógica para el registro.
             // Puedes validar los campos y realizar el proceso de registro según tus necesidades.

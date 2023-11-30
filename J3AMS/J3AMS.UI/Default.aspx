@@ -13,6 +13,10 @@
             </div>
             <div class="mb-3">
                 <asp:Button ID="btnLoggin" CssClass="btn btn-primary btn-block" OnClick="btnLoggin_Click" runat="server" Text="Ingresar" />
+                
+            </div>
+            <div class="mb-3">
+                <asp:Button ID="btnRegister" CssClass="btn btn-danger btn-block" OnClick="bntRegister_Click" runat="server" Text="Registrarse" />
             </div>
         </div>
     </main>

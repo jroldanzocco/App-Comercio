@@ -14,8 +14,9 @@ namespace J3AMS.Negocio
             _datos = new AccesoADatos();
         }
 
-        public void Registrar(RegisterUsuarioDto registerUserDto)
+        public bool Registrar(RegisterUsuarioDto registerUserDto)
         {
+            bool result = false;
             if (!CheckExistingUser(registerUserDto))
             {
                 if (ValidatorsDA.TryValidateModel(registerUserDto))
@@ -25,9 +26,10 @@ namespace J3AMS.Negocio
                         _datos.SetConsulta("INSERT INTO Usuarios(UserName, Password, Email) VALUES(@userName, @password, @email)");
                         _datos.SetParametro("@userName", registerUserDto.UserName);
                         _datos.SetParametro("@password", Helper.HashPassword(registerUserDto.Password));
-                        _datos.SetParametro("@email", Helper.HashPassword(registerUserDto.Email));
+                        _datos.SetParametro("@email", registerUserDto.Email);
 
                         _datos.EjecutarLectura();
+                        result = true;
                     }
                     catch (Exception ex)
                     {
@@ -40,6 +42,7 @@ namespace J3AMS.Negocio
 
                 }
             }
+            return result;
         }
 
         public bool Loguear(Usuario usuario)
@@ -69,7 +72,7 @@ namespace J3AMS.Negocio
             }
         }
 
-        public bool CheckExistingUser(RegisterUsuarioDto usuario)
+        private bool CheckExistingUser(RegisterUsuarioDto usuario)
         {
             try
             {
