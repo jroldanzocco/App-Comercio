@@ -98,11 +98,11 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
-        public void Delete(Proveedor newEntity)
+        public void Delete(int id)
         {
             try
             {
-                _datos.SetParametro("@id", newEntity.Id);
+                _datos.SetParametro("@id", id);
                 _datos.SetConsulta("DELETE FROM Proveedores WHERE Id = @id");
             }
             catch (Exception ex)
@@ -115,12 +115,12 @@ namespace J3AMS.Negocio
             }
         }
 
-        public void LogicDelete(Proveedor entity)
+        public void LogicDelete(int id)
         {
             try
             {
                 _datos.SetConsulta("UPDATE Proveedores SET Activo = 0 WHERE id = @idDelete");
-                _datos.SetParametro("@idDelete", entity.Id);
+                _datos.SetParametro("@idDelete", id);
                 _datos.EjecutarLectura();
             }
             catch (Exception ex)
@@ -175,6 +175,10 @@ namespace J3AMS.Negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                _datos.CerrarConexion();
             }
         }
 

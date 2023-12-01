@@ -51,11 +51,12 @@ namespace J3AMS.UI
                     ddlProveedor.Items.Insert(0, new ListItem("-- Seleccione Proveedor --", string.Empty));
 
                     string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
-
-                    if (id != "")
+                    int.TryParse(id, out int idNum);
+                    if (id != "" && idNum.ToString() == id)
                     {
+                        
                         ProductoNegocio negocio = new ProductoNegocio();
-                        Producto aux = (negocio.Listar(id))[0];
+                        Producto aux = (negocio.Get(idNum));
 
                         txtDescripcion.Text = aux.Descripcion;
                         txtStock.Text = aux.Stock.ToString();

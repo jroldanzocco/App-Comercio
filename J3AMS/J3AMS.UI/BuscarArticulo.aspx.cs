@@ -11,8 +11,8 @@ namespace J3AMS.UI
 {
     public partial class BuscarArticulo : System.Web.UI.Page
     {
-        public List<Producto> ListaProducto { get; set; }
-        private ProductoNegocio _negocios;
+        private ProductoNegocio _productos;
+        private List<Producto> _listProductos;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,8 +22,7 @@ namespace J3AMS.UI
                 Response.Redirect("Default.aspx", false);
             }
 
-            _negocios = new ProductoNegocio();
-
+            _productos = new ProductoNegocio();
             if (!IsPostBack)
             {
                 CargarProductos();
@@ -57,7 +56,7 @@ namespace J3AMS.UI
                 if (int.TryParse(id, out int Id))
                 {
                     aux.Id = Id;
-                    negocio.Delete(aux);
+                    negocio.LogicDelete(aux.Id);
                 }
 
                 CargarProductos();
@@ -66,10 +65,12 @@ namespace J3AMS.UI
 
         private void CargarProductos()
         {
-            ProductoNegocio negocio = new ProductoNegocio();
-            Session.Add("ListaProductos", negocio.Listar());
-            repRepetidor.DataSource = Session["ListaProductos"];
-            repRepetidor.DataBind();
+            _listProductos = _productos.Listar();
+            if (_listProductos != null)
+            {
+                repRepetidor.DataSource = _listProductos;
+                repRepetidor.DataBind();
+            }
         }
 
         protected void btnInformeArticulo_Click(object sender, EventArgs e)
@@ -83,7 +84,7 @@ namespace J3AMS.UI
 
         private void CargarInformeProductos(string id)
         {
-            List<Producto> productos = _negocios.Listar(id);
+            List<Producto> productos = _productos.Listar(id);
             Producto aux = productos[0];
 
             if(aux != null)
@@ -110,12 +111,26 @@ namespace J3AMS.UI
             txtStock.ReadOnly = true;
         }
 
+        protected void BuscarProductos(string terminoBusqueda)
+        {
+            if (_listProductos != null)
+            {
+                // Lógica de búsqueda y obtención de resultados
+                // Ejemplo de consulta a la base de datos utilizando Entity Framework:
+                List<Producto> resultados = _listProductos
+                    .Where(p => p.Descripcion.Contains(terminoBusqueda) || p.Marca.Descripcion.Contains(terminoBusqueda))
+                    .ToList();
+
+                // Asignar resultados al Repeater para que se muestren en la tabla
+                repRepetidor.DataSource = resultados;
+                repRepetidor.DataBind();
+            }
+        }
+
         protected void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
-            List<Producto> lista = (List<Producto>)Session["ListaProductos"];
-            List<Producto> listaFiltrada = lista.FindAll(x => x.Descripcion.ToUpper().Contains(txtBusqueda.Text.ToUpper()));
-            repRepetidor.DataSource = listaFiltrada;
-            repRepetidor.DataBind();
+            string terminoBusqueda = txtBusqueda.Text.Trim();
+            BuscarProductos(terminoBusqueda);
         }
     }
 }

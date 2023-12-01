@@ -56,7 +56,7 @@ namespace J3AMS.UI
                 if (int.TryParse(id, out int Id))
                 {
                     aux.Id = Id;
-                    negocio.LogicDelete(aux);
+                    negocio.LogicDelete(aux.Id);
                 }
 
                 CargarProveedores();

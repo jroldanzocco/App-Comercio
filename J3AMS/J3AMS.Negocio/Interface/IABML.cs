@@ -13,7 +13,7 @@ namespace J3AMS.Negocio
         //T Get(int id);
         //void Add(T newEntity);
         //void Update(T entity);
-        //void Delete(T newEntity);
-        //void LogicDelete(T entity);
+        //void Delete(int id);
+        //void LogicDelete(int id);
     }
 }

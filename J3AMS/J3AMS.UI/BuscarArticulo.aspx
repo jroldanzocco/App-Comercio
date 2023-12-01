@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Artículos" Language="C#" MasterPageFile="Site.Master" AutoEventWireup="true" CodeBehind="BuscarArticulo.aspx.cs" Inherits="J3AMS.UI.BuscarArticulo" %>
+﻿<%@ Page Title="Artículos" Language="C#" MasterPageFile="Site.Master" AutoEventWireup="true" CodeBehind="BuscarArticulo.aspx.cs" Inherits="J3AMS.UI.BuscarArticulo" EnableViewState="true" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <%--Modal--%>
