@@ -18,7 +18,7 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto AS PCosto, A.PrecioVenta AS PVenta, A.Stock AS Stock, A.StockMinimo AS StMin " +
+                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto AS PCosto, A.PrecioVenta AS PVenta, A.Stock AS Stock, A.StockMinimo AS StMin, A.Activo " +
                                  "FROM Productos A " +
                                  "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
                                  "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
@@ -62,8 +62,9 @@ namespace J3AMS.Negocio
                         {
                             Id = (int)_datos.Lector["IdProv"],
                             NombreFantasia = _datos.Lector["Proveedor"] as string ?? string.Empty,
-                        }
-                    });
+                        },
+                        Activo = (bool)_datos.Lector["Activo"]
+                    }); ;
                 }
                 return listProductos;
             }
