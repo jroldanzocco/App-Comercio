@@ -17,6 +17,7 @@ namespace J3AMS.Dominio
         [Required(ErrorMessage = "El campo es requerido")]
         [StringLength(9, ErrorMessage = "Maximo 9 digitos")]
         [RegularExpression(@"^[A-Za-z]+(?: [A-Za-z]+)*$", ErrorMessage = "El DNI solo debe tener numeros.")]
+        public string NombreCompleto => $"{Nombres} {Apellidos}";
         public string DNI { get; set; }
         [StringLength(255, ErrorMessage = "Maximo 255 caracteres")]
         public string Domicilio { get; set; }

@@ -1,56 +1,31 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NuevaVenta.aspx.cs" Inherits="J3AMS.UI.NuevaVenta" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>Lista de Artículos Disponibles</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Descripcion</th>
-                <th scope="col">PrecioVenta</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <asp:Repeater ID="repArticulosDisponibles" runat="server">
+    <h1>Nueva Venta</h1>
+    
+    <div class="form-group">
+        <label for="ddlClientes">Cliente:</label>
+        <asp:DropDownList ID="ddlClientes" runat="server"></asp:DropDownList>
+    </div>
+
+    <div class="form-group">
+        <label for="ddlProductos">Productos:</label>
+        <asp:DropDownList ID="ddlProductos" runat="server"></asp:DropDownList>
+        <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" placeholder="Cantidad"></asp:TextBox>
+        <asp:Button ID="btnAgregarProducto" runat="server" Text="Agregar Producto" OnClick="btnAgregarProducto_Click" CssClass="btn btn-primary" />
+    </div>
+
+    <h2>Productos Seleccionados</h2>
+    <ul>
+        <asp:Repeater ID="repProductosSeleccionados" runat="server">
             <ItemTemplate>
-                <tr>
-                    <td><%# Eval("Descripcion") %></td>
-                    <td><%# Eval("PrecioVenta") %></td>
-                    <td><%# Eval("Stock") %></td>
-                    <td>
-                        <asp:Button ID="btnAgregarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnAgregarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Agregar" />
-                    </td>
-                </tr>
+                <li>
+                    <%# Eval("Descripcion") %> - Cantidad: <%# Eval("Cantidad") %>
+                </li>
             </ItemTemplate>
         </asp:Repeater>
-    </table>
+    </ul>
 
-    <h1>Lista de Productos Vendidos</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <asp:Repeater ID="repProductosVendidos" runat="server">
-            <ItemTemplate>
-                <tr>
-                    <td><%# Eval("Descripcion") %></td>
-                    <td><%# Eval("Cantidad") %></td>
-                    <td>
-                        <asp:Button ID="btnEliminarArticulo" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarArticulo_Click" CssClass="btn btn-primary" runat="server" Text="Eliminar" />
-                    </td>
-                </tr>
-            </ItemTemplate>
-        </asp:Repeater>
-    </table>
-
-    <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Cancelar y Volver al Menú" />
-
-    <asp:Button ID="btnConfirmarGuardarVenta" OnClick="btnConfirmarGuardarVenta_Click" CssClass="btn btn-success" runat="server" Text="Confirmar y Guardar Venta" />
-
+    <asp:Button ID="btnGenerarFactura" runat="server" Text="Generar Factura" OnClick="btnGenerarFactura_Click" CssClass="btn btn-success" />
+    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" CssClass="btn btn-success" />
 </asp:Content>
-
-

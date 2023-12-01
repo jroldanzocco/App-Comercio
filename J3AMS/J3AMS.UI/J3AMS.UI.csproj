@@ -110,12 +110,9 @@
     <Content Include="AltaTipo.aspx" />
     <Content Include="BuscarArticulo.aspx" />
     <Content Include="BuscarCliente.aspx" />
-    <Content Include="BuscarCompras.aspx" />
-    <Content Include="BuscarFacturaVenta.aspx" />
     <Content Include="BuscarMarca.aspx" />
     <Content Include="BuscarProveedor.aspx" />
     <Content Include="BuscarTipo.aspx" />
-    <Content Include="BuscarVentas.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -135,10 +132,8 @@
     <Content Include="Content\estilos.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
-    <Content Include="DetallesVenta.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="NuevaCompra.aspx" />
     <Content Include="NuevaVenta.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -168,7 +163,6 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="FacturasVentas.master" />
     <Content Include="PaginaPrincipal.aspx" />
     <Content Include="Register.aspx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -263,20 +257,6 @@
     <Compile Include="BuscarCliente.aspx.designer.cs">
       <DependentUpon>BuscarCliente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BuscarCompras.aspx.cs">
-      <DependentUpon>BuscarCompras.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BuscarCompras.aspx.designer.cs">
-      <DependentUpon>BuscarCompras.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BuscarFacturaVenta.aspx.cs">
-      <DependentUpon>BuscarFacturaVenta.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BuscarFacturaVenta.aspx.designer.cs">
-      <DependentUpon>BuscarFacturaVenta.aspx</DependentUpon>
-    </Compile>
     <Compile Include="BuscarMarca.aspx.cs">
       <DependentUpon>BuscarMarca.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -298,13 +278,6 @@
     <Compile Include="BuscarTipo.aspx.designer.cs">
       <DependentUpon>BuscarTipo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BuscarVentas.aspx.cs">
-      <DependentUpon>BuscarVentas.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BuscarVentas.aspx.designer.cs">
-      <DependentUpon>BuscarVentas.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -312,29 +285,8 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DetallesVenta.aspx.cs">
-      <DependentUpon>DetallesVenta.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DetallesVenta.aspx.designer.cs">
-      <DependentUpon>DetallesVenta.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="FacturasVentas.master.cs">
-      <DependentUpon>FacturasVentas.master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FacturasVentas.master.designer.cs">
-      <DependentUpon>FacturasVentas.master</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="NuevaCompra.aspx.cs">
-      <DependentUpon>NuevaCompra.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NuevaCompra.aspx.designer.cs">
-      <DependentUpon>NuevaCompra.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevaVenta.aspx.cs">
       <DependentUpon>NuevaVenta.aspx</DependentUpon>

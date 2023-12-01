@@ -2,6 +2,7 @@
 using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace J3AMS.Negocio
 {
