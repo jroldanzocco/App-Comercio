@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AltaArticulo.aspx.cs" Inherits="J3AMS.UI.Alta" MasterPageFile="Site.Master" %>
 
 <asp:Content ID="ContentMain" ContentPlaceHolderID="MainContent" runat="server">
-    <form id="frmAltaArticulo" class="container mt-5">
+    <div id="frmAltaArticulo" class="container mt-5">
         <h2 class="text-center mb-4">Nuevo Artículo</h2>
         <div class="row mb-3">
 
@@ -9,7 +9,7 @@
                 <label for="txtDescripcion" class="form-label">Descripción</label>
                 <asp:TextBox ID="txtDescripcion" CssClass="form-control" runat="server" />
                 <asp:RequiredFieldValidator runat="server" ID="txtDescripcionReq" ControlToValidate="txtDescripcion" ForeColor="Red"
-                    ErrorMessage="El nombre es requerido." Display="Dynamic" ValidationGroup="AgregarGroup" />
+                    ErrorMessage="La descripcion es requerida." Display="Dynamic" ValidationGroup="AgregarGroup" />
                 <asp:RegularExpressionValidator runat="server" ID="txtDescripcionRegex" ControlToValidate="txtDescripcion" ForeColor="Red"
                     ValidationExpression="^[a-zA-Z0-9]+$" ErrorMessage="Ingrese solo letras y números." ValidationGroup="AgregarGroup" />
             </div>
@@ -40,14 +40,14 @@
                     ValidationExpression="^\d+(\,\d+)?$" ErrorMessage="Ingrese un número válido." ValidationGroup="AgregarGroup" />
             </div>
             <div class="col-md-6">
-                <label for="txtPrecioVenta" class="form-label">Precio Venta</label>
-                <asp:TextBox ID="txtPrecioVenta" CssClass="form-control" runat="server" />
-                <asp:RegularExpressionValidator runat="server" ID="revPrecioVenta" ControlToValidate="txtPrecioVenta" ForeColor="Red"
-                    ValidationExpression="^\d+(\,\d+)?$" ErrorMessage="Ingrese un número válido." ValidationGroup="AgregarGroup" />
-                    <asp:Label runat="server" ID="lblErrorVenta" ForeColor="Red"/>
-
-
-            </div>
+    <label for="txtPrecioVenta" class="form-label">Precio Venta</label>
+    <div class="d-flex align-items-start">
+        <asp:TextBox ID="txtPrecioVenta" CssClass="form-control" runat="server" />
+        <asp:RegularExpressionValidator runat="server" ID="revPrecioVenta" ControlToValidate="txtPrecioVenta" ForeColor="Red"
+            ValidationExpression="^\d+(\,\d+)?$" ErrorMessage="Ingrese un número válido." ValidationGroup="AgregarGroup" />
+    </div>
+    <asp:Label runat="server" ID="lblErrorVenta" ForeColor="Red"/>
+</div>
         </div>
         <div class="row mb-3">
 
@@ -66,7 +66,7 @@
                 <asp:Button ID="btnVolver" OnClick="btnVolver_Click" CssClass="btn btn-secondary" runat="server" Text="Volver" />
             </div>
         </div>
-    </form>
+    </div>
 </asp:Content>
 
 
