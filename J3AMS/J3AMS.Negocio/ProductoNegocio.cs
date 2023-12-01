@@ -1,6 +1,7 @@
 ﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace J3AMS.Negocio
 {
@@ -267,6 +268,41 @@ namespace J3AMS.Negocio
             {
                 throw new Exception($"Error al actualizar el stock: {ex.Message}");
             }
+        }
+        private string cadenaConexion = "server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true";
+        public List<Producto> ObtenerProductos()
+        {
+            var listaProductos = new List<Producto>();
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+
+                    string consultaSql = "Select Id, Descripcion From Productos";
+
+                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                    {
+                        using (SqlDataReader lector = comando.ExecuteReader())
+                        {
+                            while (lector.Read())
+                            {
+                                var producto = new Producto
+                                {
+                                    Id = (int)lector["Id"],
+                                    Descripcion = lector["Descripcion"].ToString()
+                                };
+                                listaProductos.Add(producto);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener productos desde la base de datos", ex);
+            }
+            return listaProductos;
         }
     }
 }

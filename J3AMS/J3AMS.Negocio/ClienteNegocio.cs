@@ -1,6 +1,7 @@
 ﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ namespace J3AMS.Negocio
     public class ClienteNegocio : IABML<Cliente>
     {
         private readonly AccesoADatos _datos;
-
         public ClienteNegocio()
         {
             _datos = new AccesoADatos();
@@ -120,7 +120,6 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-
         public void LogicDelete(Cliente Entity)
         {
             AccesoADatos datos = new AccesoADatos();
@@ -141,7 +140,6 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-
         public void Update(Cliente aux)
         {
             AccesoADatos datos = new AccesoADatos();
@@ -172,6 +170,42 @@ namespace J3AMS.Negocio
             {
                 datos.CerrarConexion();
             }
+        }
+        private string cadenaConexion = "server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true";
+        public List<Cliente> ObtenerClientes()
+        {
+            var listaClientes = new List<Cliente>();
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+
+                    string consultaSql = "Select Id, Apellidos, Nombres From Clientes";
+
+                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                    {
+                        using (SqlDataReader lector = comando.ExecuteReader())
+                        {
+                            while (lector.Read())
+                            {
+                                var cliente = new Cliente
+                                {
+                                    Id = (int)lector["Id"],
+                                    Apellidos = lector["Apellidos"].ToString(),
+                                    Nombres = lector["Nombres"].ToString()
+                                };
+                                listaClientes.Add(cliente);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener clientes desde la base de datos", ex);
+            }
+            return listaClientes;
         }
     }
 }

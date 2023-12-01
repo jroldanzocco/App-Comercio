@@ -2,170 +2,295 @@
 using J3AMS.Negocio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
-    public partial class NuevaVenta : System.Web.UI.Page
+    public partial class NuevaVenta : Page
     {
-        private List<Producto> ListaProductosVendidos
+        private bool productoAgregado = false;
+        private List<Producto> ListaProductosSeleccionados
         {
             get
             {
-                if (Session["ListaProductosVendidos"] == null)
+                if (Session["ListaProductosSeleccionados"] == null)
                 {
-                    Session["ListaProductosVendidos"] = new List<Producto>();
+                    Session["ListaProductosSeleccionados"] = new List<Producto>();
                 }
-                return (List<Producto>)Session["ListaProductosVendidos"];
+                return (List<Producto>)Session["ListaProductosSeleccionados"];
             }
             set
             {
-                Session["ListaProductosVendidos"] = value;
+                Session["ListaProductosSeleccionados"] = value;
+            }
+        }
+        private List<Producto> ProductosVendidos
+        {
+            get
+            {
+                if (Session["ProductosVendidos"] == null)
+                {
+                    Session["ProductosVendidos"] = new List<Producto>();
+                }
+                return (List<Producto>)Session["ProductosVendidos"];
+            }
+            set
+            {
+                Session["ProductosVendidos"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usuario"] == null)
-            {
-                Session.Add("error", "No estás logueado");
-                Response.Redirect("Default.aspx");
-            }
-
             if (!IsPostBack)
             {
-                CargarProductosDisponibles();
-                CargarProductosVendidos();
+                CargarClientes();
+                CargarProductos();
             }
         }
-        protected void btnAgregarArticulo_Click(object sender, EventArgs e)
-        {
-            int idProducto = ObtenerIdProductoSeleccionado(sender);
-
-            if (idProducto > 0)
-            {
-                Producto producto = ObtenerProductoPorId(idProducto);
-                Producto productoEnLista = ListaProductosVendidos.FirstOrDefault(p => p.Id == idProducto);
-
-                if (productoEnLista != null)
-                {
-                    productoEnLista.Cantidad++;
-                }
-                else
-                {
-                    producto.Cantidad = 1;
-                    ListaProductosVendidos.Add(producto);
-                }
-                CargarProductosVendidos();
-            }
-        }
-        protected void btnEliminarArticulo_Click(object sender, EventArgs e)
-        {
-            int idProductoEliminar = ObtenerIdProductoSeleccionado(sender);
-
-            if (idProductoEliminar > 0)
-            {
-                Producto productoEnLista = ListaProductosVendidos.FirstOrDefault(p => p.Id == idProductoEliminar);
-
-                if (productoEnLista != null)
-                {
-                    if (productoEnLista.Cantidad > 1)
-                    {
-                        productoEnLista.Cantidad--;
-                    }
-                    else
-                    {
-                        ListaProductosVendidos.Remove(productoEnLista);
-                    }
-                    CargarProductosVendidos();
-                }
-            }
-        }
-        protected void btnVolverAlMenu_Click(object sender, EventArgs e)
-        {
-            // Restaurarar Stock
-            Response.Redirect("PaginaPrincipal.aspx");
-        }
-        private void CargarProductosVendidos()
-        {
-            repProductosVendidos.DataSource = ListaProductosVendidos;
-            repProductosVendidos.DataBind();
-        }
-        private void CargarProductosDisponibles()
+        private void CargarClientes()
         {
             try
             {
-                ProductoNegocio negocio = new ProductoNegocio();
-                List<Producto> listaProductos = negocio.Listar();
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                List<Cliente> listaClientes = clienteNegocio.ObtenerClientes();
 
-                repArticulosDisponibles.DataSource = listaProductos;
-                repArticulosDisponibles.DataBind();
+                ddlClientes.DataSource = listaClientes;
+                ddlClientes.DataValueField = "Id";
+                ddlClientes.DataTextField = "NombreCompleto";
+                ddlClientes.DataBind();
+                ddlClientes.Items.Insert(0, new ListItem("Seleccione un cliente", "0"));
             }
             catch (Exception ex)
             {
-                Response.Write($"Error al cargar los productos disponibles: {ex.Message}");
+                Response.Write($"Error al cargar los clientes: {ex.Message}");
             }
+        }
+        private void CargarProductos()
+        {
+            try
+            {
+                ProductoNegocio productoNegocio = new ProductoNegocio();
+                List<Producto> listaProductos = productoNegocio.ObtenerProductos();
+
+                ddlProductos.DataSource = listaProductos;
+                ddlProductos.DataValueField = "Id";
+                ddlProductos.DataTextField = "Descripcion";
+                ddlProductos.DataBind();
+                ddlProductos.Items.Insert(0, new ListItem("Seleccione un producto", "0"));
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"Error al cargar los productos: {ex.Message}");
+            }
+        }
+        protected void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            int idProducto = ObtenerIdProductoSeleccionado();
+
+            if (!ProductosVendidos.Any(p => p.Id == idProducto))
+            {
+                Producto producto = ObtenerProductoPorId(idProducto);
+                ProductosVendidos.Add(producto);
+                ddlClientes.Enabled = false;
+            }
+            else
+            {
+                Response.Write("El producto ya ha sido vendido.");
+                return;
+            }
+
+            int cantidad = ObtenerCantidad();
+
+            if (cantidad > 0)
+            {
+                Producto producto = ObtenerProductoPorId(idProducto);
+                producto.Cantidad = cantidad;
+                ListaProductosSeleccionados.Add(producto);
+                CargarProductosSeleccionados();
+            }
+            productoAgregado = true;
+        }
+        protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (productoAgregado)
+            {
+                ddlClientes.Enabled = false;
+            }
+            else
+            {
+                ddlClientes.Enabled = true;
+            }
+        }
+        private void CargarProductosSeleccionados()
+        {
+            repProductosSeleccionados.DataSource = ListaProductosSeleccionados;
+            repProductosSeleccionados.DataBind();
+        }
+        private int ObtenerIdProductoSeleccionado()
+        {
+            if (int.TryParse(ddlProductos.SelectedValue, out int idProducto))
+            {
+                return idProducto;
+            }
+            return 0;
+        }
+        private int ObtenerCantidad()
+        {
+            if (int.TryParse(txtCantidad.Text, out int cantidad))
+            {
+                return cantidad;
+            }
+            return 0;
         }
         private Producto ObtenerProductoPorId(int id)
         {
             ProductoNegocio negocio = new ProductoNegocio();
             return negocio.ObtenerPorId(id);
         }
-        private int ObtenerIdProductoSeleccionado(object sender)
+        protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            string idProductoStr = btn.CommandArgument;
-
-            if (int.TryParse(idProductoStr, out int idProducto))
-            {
-                return idProducto;
-            }
-
-            return -1;
+            Response.Redirect("PaginaPrincipal.aspx");
         }
-        protected void btnConfirmarGuardarVenta_Click(object sender, EventArgs e)
+        protected void btnGenerarFactura_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ListaProductosVendidos.Count > 0)
+                Cliente clienteSeleccionado = ObtenerClienteSeleccionado();
+
+                if (clienteSeleccionado != null)
                 {
-                    ProductoNegocio negocioProducto = new ProductoNegocio();
-                    VentaNegocio ventaNegocio = new VentaNegocio();
+                    Venta venta = new Venta();
 
-                    Venta venta = new Venta
-                    {
-                        NumeroFactura = 0,
-                        Facturada = false,
-                        Activo = true
-                    };
-
-                    foreach (var producto in ListaProductosVendidos)
+                    foreach (Producto producto in ListaProductosSeleccionados)
                     {
                         DetalleVenta detalle = new DetalleVenta
                         {
                             IdArticulo = producto.Id,
-                            Cantidad = producto.Cantidad
+                            Cantidad = producto.Cantidad,
+                            PrecioUnitario = producto.PrecioVenta
                         };
 
                         venta.DetallesVenta.Add(detalle);
-                        negocioProducto.ActualizarStock(producto, -producto.Cantidad);
                     }
 
-                    ventaNegocio.Add(venta);
-                    ListaProductosVendidos.Clear();
-                    Response.Redirect("PaginaPrincipal.aspx");
+                    FacturaVenta facturaVenta = new FacturaVenta
+                    {
+                        IdCliente = clienteSeleccionado.Id,
+                        Importe = CalcularMontoTotal(venta.DetallesVenta)
+                    };
+
+                    GuardarVentaEnBaseDeDatos(venta);
+                    GuardarFacturaVentaEnBaseDeDatos(facturaVenta);
+
+                    LimpiarControles();
+                    ProductosVendidos.Clear();
+                    ListaProductosSeleccionados.Clear();
+
+                    ddlClientes.Enabled = true;
                 }
                 else
                 {
-                    Response.Write("No hay productos para confirmar y guardar.");
+                    Response.Write("Seleccione un cliente antes de generar la factura.");
                 }
             }
             catch (Exception ex)
             {
-                Response.Write($"Error al confirmar y guardar la venta: {ex.Message}");
+                Response.Write($"Error al generar la factura: {ex.Message}");
             }
+        }
+        private Cliente ObtenerClienteSeleccionado()
+        {
+            Cliente clienteSeleccionado = null;
+
+            if (ddlClientes.SelectedIndex > 0)
+            {
+                int idClienteSeleccionado = Convert.ToInt32(ddlClientes.SelectedValue);
+                clienteSeleccionado = ObtenerClientePorId(idClienteSeleccionado);
+            }
+
+            return clienteSeleccionado;
+        }
+        public decimal CalcularMontoTotal(List<DetalleVenta> detallesVenta)
+        {
+            decimal montoTotal = 0;
+            foreach (DetalleVenta detalle in detallesVenta)
+            {
+                montoTotal += detalle.Cantidad * detalle.PrecioUnitario;
+            }
+            return montoTotal;
+        }
+        private void LimpiarControles()
+        {
+            ddlClientes.SelectedIndex = 0;
+            ddlProductos.SelectedIndex = 0;
+            txtCantidad.Text = string.Empty;
+            repProductosSeleccionados.DataSource = null;
+            repProductosSeleccionados.DataBind();
+        }
+        public Cliente ObtenerClientePorId(int idCliente)
+        {
+            Cliente clienteEncontrado = null;
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
+                {
+                    conexion.Open();
+                    string consultaSql = "SELECT Id, Nombres, Apellidos FROM Clientes WHERE Id = @Id";
+                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                    {
+                        comando.Parameters.AddWithValue("@Id", idCliente);
+                        using (SqlDataReader lector = comando.ExecuteReader())
+                        {
+                            if (lector.Read())
+                            {
+                                clienteEncontrado = new Cliente
+                                {
+                                    Id = (int)lector["Id"],
+                                    Apellidos = lector["Apellidos"].ToString(),
+                                    Nombres = lector["Nombres"].ToString()
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener cliente por ID desde la base de datos", ex);
+            }
+            return clienteEncontrado;
+        }
+        public void GuardarFacturaVentaEnBaseDeDatos(FacturaVenta facturaVenta)
+        {
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
+                {
+                    conexion.Open();
+
+                    string consultaSql = "INSERT INTO FacturasVentas (IdCliente, Importe, FechaEmision) " +
+                                         "VALUES (@IdCliente, @Importe, GETDATE())";
+
+                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                    {
+                        comando.Parameters.AddWithValue("@IdCliente", facturaVenta.IdCliente);
+                        comando.Parameters.AddWithValue("@Importe", facturaVenta.Importe);
+
+                        comando.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al guardar la factura en la base de datos", ex);
+            }
+        }
+        public void GuardarVentaEnBaseDeDatos(Venta venta)
+        {
+            // Sin guardar x ahora
         }
     }
 }

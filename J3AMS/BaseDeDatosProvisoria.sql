@@ -57,41 +57,44 @@ CREATE TABLE Productos (
     StockMinimo INT NULL,
 	Activo BIT NOT NULL DEFAULT 1
 )
-CREATE TABLE FacturasCompras (
+CREATE TABLE FacturasCompras (--TIPO FACTURA (SI HAY TIEMPO)
 	Numero INT PRIMARY KEY IDENTITY (1, 1),
 	IdProveedor INT FOREIGN KEY REFERENCES Proveedores(Id),
 	Importe MONEY NOT NULL,
 	Activo BIT NOT NULL DEFAULT 1
 ) 
-CREATE TABLE FacturasVentas (
+CREATE TABLE FacturasVentas (--TIPO FACTURA (SI HAY TIEMPO)
 	Numero INT PRIMARY KEY IDENTITY (1, 1),
+	FechaEmision DATETIME NOT NULL,
 	IdCliente INT FOREIGN KEY REFERENCES Clientes(Id),
 	Importe MONEY NOT NULL,
 	Activo BIT NOT NULL DEFAULT 1
 )
-CREATE TABLE Compras (
+CREATE TABLE Compras (--AGREGAR DIA Y USUARIO
 	Id INT PRIMARY KEY IDENTITY (1, 1),
 	NumeroFactura INT NOT NULL,
 	Facturada BIT NOT NULL,
-	Activo BIT NOT NULL
+	Activo BIT NOT NULL --VER CONCEPTO (ANULADA O NO, POR QUE, POR QUE USUARIO, ...)
 );
 CREATE TABLE DetallesCompras (
     Id INT PRIMARY KEY IDENTITY (1, 1),
-    IdVenta INT NOT NULL FOREIGN KEY REFERENCES Compras(Id),
+    IdCompra INT NOT NULL FOREIGN KEY REFERENCES Compras(Id),
     IdArticulo INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
     Cantidad INT NOT NULL,
 );
-CREATE TABLE Ventas (
+CREATE TABLE Ventas ( --AGREGAR CLIENTE, DIA Y USUARIO
     Id INT PRIMARY KEY IDENTITY (1, 1),
     NumeroFactura INT NOT NULL,
-    Facturada BIT NOT NULL,
-    Activo BIT NOT NULL DEFAULT 1
+    Facturada BIT NOT NULL, 
+    Activo BIT NOT NULL DEFAULT 1 --VER CONCEPTO (ANULADA O NO, POR QUE, POR QUE USUARIO, ...)
 );
 CREATE TABLE DetallesVentas (
     Id INT PRIMARY KEY IDENTITY (1, 1),
-    IdVenta INT NOT NULL FOREIGN KEY REFERENCES Ventas(Id),
-    IdArticulo INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
+    IdVenta INT FOREIGN KEY REFERENCES Ventas(Id),
+    IdArticulo INT FOREIGN KEY REFERENCES Productos(Id),
     Cantidad INT NOT NULL,
+	PrecioUnitario MONEY NOT NULL
+
 );
 CREATE TABLE Usuarios (
     Id INT PRIMARY KEY IDENTITY (1, 1),
@@ -100,6 +103,9 @@ CREATE TABLE Usuarios (
 	Email NVARCHAR(255) NOT NULL,
 	IdRol TINYINT DEFAULT 2
 )
+
+--------------------------------------------------------------------------------------
+
 --Marcas
 INSERT INTO Marcas (Descripcion)
 VALUES ('Marca 1');
@@ -150,7 +156,7 @@ VALUES ('Rodríguez', 'Laura', '56789012', 'Avenida 012', '555-3456', '999-1234',
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
 VALUES ('Pérez', 'Miguel', '09876543', 'Calle 234', '555-6789', '999-2345', 'miguel@email.com', 2, 30, 1);
 --Usuarios
-INSERT INTO Usuarios (UserName, Password, Email IdRol)
+INSERT INTO Usuarios (UserName, Password, Email, IdRol)
 VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f','admin@admin.com',1);
 INSERT INTO Usuarios (UserName, Password, Email)
 VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com');
@@ -159,40 +165,3 @@ INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, P
 VALUES ('Pera', 1, 1, 1, 1, 2, 10, 0)
 INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo)
 VALUES ('Durazno', 1, 1, 1, 1, 2, 10, 0)
-
------------------------------------------------------------------------------------------------------------------
-
---PARA CONSULTA PRODUCTO
-SELECT 
-	A.Id,
-	A.Codigo,
-	A.Descripcion,
-	T.Descripcion AS Tipo,
-	M.Descripcion AS Marca,
-	P.NombreFantasia AS Proveedor,
-	A.PrecioCosto, 
-	A.Stock, 
-	A.StockMinimo
-FROM Productos A
-left join Marcas M on A.IdMarca = M.Id
-left join Tipos T on A.IdTipo = T.Id
-left join Proveedores P on A.IdProveedor = P.Id
---CONSULTAS
-SELECT * FROM Marcas
-SELECT * FROM Tipos
-SELECT * FROM Proveedores
-SELECT * FROM Productos
-SELECT * FROM Clientes
-SELECT * FROM Usuarios
-SELECT * FROM Compras
-SELECT * FROM Ventas
-SELECT * FROM DetallesVentas
---PARA ALTA USUARIO
-INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, CategoriaIva, PlazoPago)
-VALUES (@Descripcion, @Nombres, @DNI, @Domicilio, @Telefono, @Celular, @Email, @CategoriaIva, @PlazoPago)
---PARA ALTA USUARIO
-INSERT INTO Usuarios (UserName,Password)
-VALUES (@user, @pass)
---PARA ALTA COMPRA
-INSERT INTO Compras (IdArticulo, Cantidad, NumeroFactura, Facturada, Activo)
-VALUES (@IdArticulo, @Cantidad, @NumeroFactura, @Facturada, @Activo)
