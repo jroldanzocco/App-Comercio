@@ -1,4 +1,5 @@
-﻿using J3AMS.Dominio;
+﻿using J3.AMS.Common;
+using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,7 +19,7 @@ namespace J3AMS.Negocio
 
             try
             {
-                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto AS PCosto, A.PrecioVenta AS PVenta, A.Stock AS Stock, A.StockMinimo AS StMin " +
+                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto AS PCosto, A.PrecioVenta AS PVenta, A.Stock AS Stock, A.StockMinimo AS StMin, A.Activo " +
                                  "FROM Productos A " +
                                  "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
                                  "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
@@ -62,8 +63,9 @@ namespace J3AMS.Negocio
                         {
                             Id = (int)_datos.Lector["IdProv"],
                             NombreFantasia = _datos.Lector["Proveedor"] as string ?? string.Empty,
-                        }
-                    });
+                        },
+                        Activo = (bool)_datos.Lector["Activo"]
+                    }); ;
                 }
                 return listProductos;
             }
@@ -79,7 +81,7 @@ namespace J3AMS.Negocio
         public void Add(Producto newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
-            try
+                try
             {
                 datos.SetConsulta("INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo) " +
                                  "VALUES (@descripcion, @tipo, @marca, @proveedor, @precioCosto, @precioVenta, 0, @stockMinimo, 1)");
@@ -101,6 +103,7 @@ namespace J3AMS.Negocio
             finally
             {
                 datos.CerrarConexion();
+            
             }
         }
         public void Delete(Producto newEntity)

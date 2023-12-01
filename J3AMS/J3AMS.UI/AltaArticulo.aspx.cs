@@ -57,9 +57,8 @@ namespace J3AMS.UI
                         ProductoNegocio negocio = new ProductoNegocio();
                         Producto aux = (negocio.Listar(id))[0];
 
-                        txtNombre.Text = "Campo a resolver";
                         txtDescripcion.Text = aux.Descripcion;
-                        txtStockMinimo.Text = aux.StockMinimo.ToString();
+                        txtStock.Text = aux.Stock.ToString();
                         txtPrecioVenta.Text = aux.PrecioVenta.ToString();
                         txtPrecioCosto.Text = aux.PrecioCosto.ToString();
 
@@ -95,6 +94,10 @@ namespace J3AMS.UI
 
             aux.Descripcion = txtDescripcion.Text;
 
+            lblErrorTipo.Text = ddlTipo.SelectedIndex == 0 ? "Debes elegir un tipo" : "";
+            lblErrorMarca.Text = ddlMarca.SelectedIndex == 0 ? "Debes elegir una marca" : "";
+            lblErrorProveedor.Text = ddlProveedor.SelectedIndex == 0 ? "Debes elegir un proveedor" : "";
+
             if(ddlTipo.SelectedValue != "" && ddlMarca.SelectedValue != "" && ddlProveedor.SelectedValue != "" )
             {
                 Tipo tipo = new Tipo();
@@ -116,22 +119,31 @@ namespace J3AMS.UI
             decimal.TryParse(txtPrecioVenta.Text, out decimal PVValidator);
             aux.PrecioVenta = PVValidator;
 
-            int.TryParse(txtStockMinimo.Text, out int StockMinValidator);
-            aux.StockMinimo = StockMinValidator;
+            int.TryParse(txtStock.Text, out int StockValidator);
+            aux.Stock = StockValidator;
 
             string id = Request.QueryString["id"];
-            if (ValidatorsDA.TryValidateModel(aux))
+
+            lblErrorVenta.Text = PVValidator < PCValidator ? "El precio de venta no puede ser mayor al precio de costo" : "";
+
+
+            if (ValidatorsDA.TryValidateModel(aux) && PVValidator >= PCValidator)
             {
             
                 if (id != null)
                 {
                     aux.Id = int.Parse(id);
                     negocio.Update(aux);
+                    Response.Redirect("BuscarArticulo.aspx");
                 }
                 else
+                {
                     negocio.Add(aux);
-            
-                Response.Redirect("BuscarArticulo.aspx");
+                    Response.Redirect("BuscarArticulo.aspx");
+                }
+                    
+
+
             }
         }
         protected void btnVolver_Click(object sender, EventArgs e)

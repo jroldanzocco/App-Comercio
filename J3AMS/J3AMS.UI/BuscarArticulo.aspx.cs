@@ -96,7 +96,6 @@ namespace J3AMS.UI
                 txtPrecioCosto.Text = aux.PrecioCosto.ToString();
                 txtPrecioVenta.Text = aux.PrecioVenta.ToString();
                 txtStock.Text = aux.Stock.ToString();
-                txtStockMinimo.Text = aux.StockMinimo.ToString();
             }
         }
 
@@ -109,7 +108,6 @@ namespace J3AMS.UI
             txtPrecioCosto.ReadOnly = true;
             txtPrecioVenta.ReadOnly = true;
             txtStock.ReadOnly = true;
-            txtStockMinimo.ReadOnly = true;
         }
 
         protected void txtBusqueda_TextChanged(object sender, EventArgs e)
