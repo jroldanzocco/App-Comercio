@@ -65,12 +65,10 @@ namespace J3AMS.UI
 
         private void CargarProductos()
         {
-            _listProductos = _productos.Listar();
-            if (_listProductos != null)
-            {
-                repRepetidor.DataSource = _listProductos;
-                repRepetidor.DataBind();
-            }
+            Session.Add("ListaProductos", _productos.Listar());
+            repRepetidor.DataSource = Session["ListaProductos"];
+            repRepetidor.DataBind();
+            
         }
 
         protected void btnInformeArticulo_Click(object sender, EventArgs e)
@@ -111,26 +109,23 @@ namespace J3AMS.UI
             txtStock.ReadOnly = true;
         }
 
-        protected void BuscarProductos(string terminoBusqueda)
+        protected void BuscarProductos(List<Producto> lista, string terminoBusqueda)
         {
-            if (_listProductos != null)
-            {
-                // Lógica de búsqueda y obtención de resultados
-                // Ejemplo de consulta a la base de datos utilizando Entity Framework:
-                List<Producto> resultados = _listProductos
-                    .Where(p => p.Descripcion.Contains(terminoBusqueda) || p.Marca.Descripcion.Contains(terminoBusqueda))
+           
+                List<Producto> resultados = lista
+                    .Where(p => p.Descripcion.ToUpper().Contains(terminoBusqueda.ToUpper()) || p.Marca.Descripcion.ToUpper().Contains(terminoBusqueda.ToUpper()))
                     .ToList();
 
-                // Asignar resultados al Repeater para que se muestren en la tabla
                 repRepetidor.DataSource = resultados;
                 repRepetidor.DataBind();
-            }
+           
         }
 
         protected void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
+            List<Producto> lista = (List<Producto>)Session["ListaProductos"];
             string terminoBusqueda = txtBusqueda.Text.Trim();
-            BuscarProductos(terminoBusqueda);
+            BuscarProductos(lista, terminoBusqueda);
         }
     }
 }

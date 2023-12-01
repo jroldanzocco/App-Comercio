@@ -73,7 +73,7 @@ namespace J3AMS.UI
             try
             {
                 ProductoNegocio productoNegocio = new ProductoNegocio();
-                List<Producto> listaProductos = productoNegocio.ObtenerProductos();
+                List<Producto> listaProductos = productoNegocio.Listar();
 
                 ddlProductos.DataSource = listaProductos;
                 ddlProductos.DataValueField = "Id";
