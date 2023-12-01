@@ -11,7 +11,7 @@
                 <asp:RequiredFieldValidator runat="server" ID="txtDescripcionReq" ControlToValidate="txtDescripcion" ForeColor="Red"
                     ErrorMessage="La descripcion es requerida." Display="Dynamic" ValidationGroup="AgregarGroup" />
                 <asp:RegularExpressionValidator runat="server" ID="txtDescripcionRegex" ControlToValidate="txtDescripcion" ForeColor="Red"
-                    ValidationExpression="^[a-zA-Z0-9]+$" ErrorMessage="Ingrese solo letras y números." ValidationGroup="AgregarGroup" />
+                    ValidationExpression="^[a-zA-Z0-9\s]+$" ErrorMessage="Ingrese solo letras y números." ValidationGroup="AgregarGroup" />
             </div>
             <div class="col-md-6">
                 <label for="ddlMarca" class="form-label">Marca</label>

@@ -9,7 +9,7 @@ namespace J3AMS.Dominio
 
         [Required(ErrorMessage = "El campo es requerido")]
         [StringLength(255, ErrorMessage = "Maximo 255 caracteres")]
-        [RegularExpression("^[a-zA-Z0-9]+$", ErrorMessage = "El campo solo puede contener letras y numeros")]
+        [RegularExpression("^[a-zA-Z0-9\\s]+$", ErrorMessage = "El campo solo puede contener letras y numeros")]
         public string Descripcion { get; set; }
 
         [Range(0, 255, ErrorMessage = "El valor debe estar entre 0 y 255.")]
