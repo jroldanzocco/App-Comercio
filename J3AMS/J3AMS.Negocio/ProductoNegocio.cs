@@ -1,4 +1,5 @@
-﻿using J3AMS.Dominio;
+﻿using J3.AMS.Common;
+using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
 
@@ -78,7 +79,7 @@ namespace J3AMS.Negocio
         public void Add(Producto newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
-            try
+                try
             {
                 datos.SetConsulta("INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo, Activo) " +
                                  "VALUES (@descripcion, @tipo, @marca, @proveedor, @precioCosto, @precioVenta, 0, @stockMinimo, 1)");
@@ -100,6 +101,7 @@ namespace J3AMS.Negocio
             finally
             {
                 datos.CerrarConexion();
+            
             }
         }
         public void Delete(Producto newEntity)
