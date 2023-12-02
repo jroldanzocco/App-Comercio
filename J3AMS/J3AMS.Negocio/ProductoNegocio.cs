@@ -205,7 +205,7 @@ namespace J3AMS.Negocio
             {
                 Producto producto = new Producto();
 
-                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.Stock, A.StockMinimo " +
+                _datos.SetConsulta("SELECT A.Id AS IdArt, A.Descripcion, T.Id AS IdTipo, T.Descripcion AS Tipo, M.Id AS IdMarca, M.Descripcion AS Marca, P.Id AS IdProv, P.NombreFantasia AS Proveedor, A.PrecioCosto, A.PrecioVenta, A.Stock, A.StockMinimo " +
                                   "FROM Productos A " +
                                   "LEFT JOIN Marcas M ON A.IdMarca = M.Id " +
                                   "LEFT JOIN Tipos T ON A.IdTipo = T.Id " +
@@ -237,6 +237,7 @@ namespace J3AMS.Negocio
                             NombreFantasia = _datos.Lector["Proveedor"] as string ?? string.Empty,
                         },
                         PrecioCosto = (decimal)_datos.Lector["PrecioCosto"],
+                        PrecioVenta = (decimal)_datos.Lector["PrecioVenta"],
                         Stock = (int)_datos.Lector["Stock"],
                         StockMinimo = (int)_datos.Lector["StockMinimo"]
                     };

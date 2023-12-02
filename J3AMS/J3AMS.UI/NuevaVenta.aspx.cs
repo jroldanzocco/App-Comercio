@@ -271,8 +271,8 @@ namespace J3AMS.UI
                 {
                     conexion.Open();
 
-                    string consultaSql = "INSERT INTO FacturasVentas (IdCliente, Importe, FechaEmision) " +
-                                         "VALUES (@IdCliente, @Importe, GETDATE())";
+                    string consultaSql = "INSERT INTO FacturasVentas (IdCliente, Importe, FechaEmision, Activo) " +
+                                         "VALUES (@IdCliente, @Importe, GETDATE(), 1)";
 
                     using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
                     {
