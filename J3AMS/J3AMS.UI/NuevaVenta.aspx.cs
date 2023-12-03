@@ -182,8 +182,8 @@ namespace J3AMS.UI
                         Importe = CalcularMontoTotal(venta.DetallesVenta)
                     };
 
-                    GuardarVentaEnBaseDeDatos(venta);
                     GuardarFacturaVentaEnBaseDeDatos(facturaVenta);
+                    GuardarVentaEnBaseDeDatos(venta);
 
                     LimpiarControles();
                     ProductosVendidos.Clear();
@@ -288,9 +288,50 @@ namespace J3AMS.UI
                 throw new Exception("Error al guardar la factura en la base de datos", ex);
             }
         }
-        public void GuardarVentaEnBaseDeDatos(Venta venta)
+        public void GuardarVentaEnBaseDeDatos(Venta newEntity)
         {
-            // Sin guardar x ahora
+                AccesoADatos datos = new AccesoADatos();
+            try
+            {
+
+                datos.SetConsulta("SELECT MAX(Numero) AS UltimaFactura FROM FacturasVentas ");
+                datos.EjecutarLectura();
+
+                int IdVenta = 0;
+
+                if(datos.Lector.Read())
+                {
+                    IdVenta = (int)datos.Lector["UltimaFactura"];
+                }
+
+
+                if(IdVenta > 0)
+                {
+                    foreach (var detalle in newEntity.DetallesVenta)
+                    {
+                        AccesoADatos datosDetalle = new AccesoADatos();
+
+                        datosDetalle.SetConsulta("INSERT INTO DetallesVentas (IdVenta, IdArticulo, Cantidad, PrecioUnitario) VALUES (@IdVenta, @IdArticulo, @Cantidad, @Precio)");
+
+                        datosDetalle.SetParametro("@IdVenta", IdVenta);
+                        datosDetalle.SetParametro("@IdArticulo", detalle.IdArticulo);
+                        datosDetalle.SetParametro("@Cantidad", detalle.Cantidad);
+                        datosDetalle.SetParametro("@Precio", detalle.PrecioUnitario);
+
+                        datosDetalle.EjecutarLectura();
+                        datosDetalle.CerrarConexion();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
         }
     }
 }
