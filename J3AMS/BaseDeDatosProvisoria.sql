@@ -89,12 +89,10 @@ CREATE TABLE Ventas ( --AGREGAR CLIENTE, DIA Y USUARIO
     Activo BIT NOT NULL DEFAULT 1 --VER CONCEPTO (ANULADA O NO, POR QUE, POR QUE USUARIO, ...)
 );
 CREATE TABLE DetallesVentas (
-    Id INT PRIMARY KEY IDENTITY (1, 1),
-    IdVenta INT FOREIGN KEY REFERENCES Ventas(Id),
+    IdVenta INT FOREIGN KEY REFERENCES FacturasVentas(Numero),
     IdArticulo INT FOREIGN KEY REFERENCES Productos(Id),
     Cantidad INT NOT NULL,
-	PrecioUnitario MONEY NOT NULL
-
+    PrecioUnitario MONEY NOT NULL
 );
 CREATE TABLE Usuarios (
     Id INT PRIMARY KEY IDENTITY (1, 1),
@@ -135,26 +133,26 @@ INSERT INTO CategoriasIva (Descripcion, PorcentajeIva)
 VALUES ('IVA Reducido', 10.5);
 --Proveedores
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago)
-VALUES ('Proveedor 1 Razón Social', 'Proveedor 1 Nombre Fantasía', '12345678901', 'Domicilio 1', '1234567890', '9876543210', 'proveedor1@email.com', 1, 30);
+VALUES ('Proveedor 1 RazÃ³n Social', 'Proveedor 1 Nombre FantasÃ­a', '12345678901', 'Domicilio 1', '1234567890', '9876543210', 'proveedor1@email.com', 1, 30);
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago)
-VALUES ('Proveedor 2 Razón Social', 'Proveedor 2 Nombre Fantasía', '98765432109', 'Domicilio 2', '9876543210', '1234567890', 'proveedor2@email.com', 2, 45);
+VALUES ('Proveedor 2 RazÃ³n Social', 'Proveedor 2 Nombre FantasÃ­a', '98765432109', 'Domicilio 2', '9876543210', '1234567890', 'proveedor2@email.com', 2, 45);
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago)
-VALUES ('Proveedor 3 Razón Social', 'Proveedor 3 Nombre Fantasía', '78901234567', 'Domicilio 3', '5555555555', '6666666666', 'proveedor3@email.com', 1, 60);
+VALUES ('Proveedor 3 RazÃ³n Social', 'Proveedor 3 Nombre FantasÃ­a', '78901234567', 'Domicilio 3', '5555555555', '6666666666', 'proveedor3@email.com', 1, 60);
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago)
-VALUES ('Proveedor 4 Razón Social', 'Proveedor 4 Nombre Fantasía', '34567890123', 'Domicilio 4', '4444444444', '7777777777', 'proveedor4@email.com', 2, 30);
+VALUES ('Proveedor 4 RazÃ³n Social', 'Proveedor 4 Nombre FantasÃ­a', '34567890123', 'Domicilio 4', '4444444444', '7777777777', 'proveedor4@email.com', 2, 30);
 INSERT INTO Proveedores (RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago)
-VALUES ('Proveedor 5 Razón Social', 'Proveedor 5 Nombre Fantasía', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45);
+VALUES ('Proveedor 5 RazÃ³n Social', 'Proveedor 5 Nombre FantasÃ­a', '90123456789', 'Domicilio 15', '3333333333', '8888888888', 'proveedor5@email.com', 1, 45);
 --Clientes
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
-VALUES ('López', 'Juan', '12345678', 'Calle 123', '555-1234', '999-5678', 'juan@email.com', 1, 30, 1);
+VALUES ('LÃ³pez', 'Juan', '12345678', 'Calle 123', '555-1234', '999-5678', 'juan@email.com', 1, 30, 1);
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
-VALUES ('Martínez', 'Ana', '98765432', 'Avenida 456', '555-5678', '999-8765', 'ana@email.com', 2, 15, 1);
+VALUES ('MartÃ­nez', 'Ana', '98765432', 'Avenida 456', '555-5678', '999-8765', 'ana@email.com', 2, 15, 1);
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
-VALUES ('Gómez', 'Carlos', '34567890', 'Calle 789', '555-9876', '999-4321', 'carlos@email.com', 2, 45, 1);
+VALUES ('GÃ³mez', 'Carlos', '34567890', 'Calle 789', '555-9876', '999-4321', 'carlos@email.com', 2, 45, 1);
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
-VALUES ('Rodríguez', 'Laura', '56789012', 'Avenida 012', '555-3456', '999-1234', 'laura@email.com', 1, 60, 1);
+VALUES ('RodrÃ­guez', 'Laura', '56789012', 'Avenida 012', '555-3456', '999-1234', 'laura@email.com', 1, 60, 1);
 INSERT INTO Clientes (Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)
-VALUES ('Pérez', 'Miguel', '09876543', 'Calle 234', '555-6789', '999-2345', 'miguel@email.com', 2, 30, 1);
+VALUES ('PÃ©rez', 'Miguel', '09876543', 'Calle 234', '555-6789', '999-2345', 'miguel@email.com', 2, 30, 1);
 --Usuarios
 INSERT INTO Usuarios (UserName, Password, Email, IdRol)
 VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f','admin@admin.com',1);
