@@ -125,7 +125,7 @@ namespace J3AMS.UI
 
             string id = Request.QueryString["id"];
 
-            lblErrorVenta.Text = PVValidator < PCValidator ? "El precio de venta no puede ser mayor al precio de costo" : "";
+            lblErrorVenta.Text = PVValidator < PCValidator ? "El precio de venta no puede ser menor al precio de costo" : "";
 
 
             if (ValidatorsDA.TryValidateModel(aux) && PVValidator >= PCValidator)
