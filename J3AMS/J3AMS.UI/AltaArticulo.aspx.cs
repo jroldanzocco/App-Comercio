@@ -135,15 +135,12 @@ namespace J3AMS.UI
                 {
                     aux.Id = int.Parse(id);
                     negocio.Update(aux);
-                    Response.Redirect("BuscarArticulo.aspx");
                 }
                 else
                 {
                     negocio.Add(aux);
-                    Response.Redirect("BuscarArticulo.aspx");
                 }
-                    
-
+                Response.Redirect("BuscarArticulo.aspx");
 
             }
         }

@@ -13,6 +13,7 @@ namespace J3AMS.Dominio
         [StringLength(100, ErrorMessage = "Maximo 255 caracteres")]
         public string NombreFantasia { get; set; }
         [StringLength(255, ErrorMessage = "Maximo 255 caracteres")]
+        [Required]
         public string CUIT { get; set; }
         public string Domicilio { get; set; }
         [StringLength(20, ErrorMessage = "Maximo 255 caracteres")]

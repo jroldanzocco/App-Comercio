@@ -28,8 +28,6 @@ namespace J3AMS.UI
 
             if (!IsPostBack)
             {
-                _proveedores = new ProveedorNegocio();
-                _categoriaIva = new CategoriaIvaNegocio();
                 List<CategoriaIva> categorias = _categoriaIva.Listar();
 
                 ddlCategoriaIva.DataSource = categorias;
@@ -56,15 +54,13 @@ namespace J3AMS.UI
                     ddlCategoriaIva.SelectedValue = aux.CategoriaIva.Id.ToString();
                 }
 
-                // Verifica si existe un parámetro "id" en la URL
+               
                 if (!string.IsNullOrEmpty(Request.QueryString["id"]))
                 {
-                    // Si existe, significa que estás editando, cambia el texto del botón a "Editar"
                     btnAgregarProveedor.Text = "Editar";
                 }
                 else
                 {
-                    // Si no existe, significa que estás agregando, deja el texto del botón como "Agregar"
                     btnAgregarProveedor.Text = "Agregar";
                 }
             }
@@ -98,6 +94,12 @@ namespace J3AMS.UI
             aux.PlazoPago = PlazoValidator;
 
             string id = Request.QueryString["id"];
+
+            if(ValidatorsDA.TryValidateModel(aux))
+            {
+
+            }
+
             if (id != null)
             {
                 aux.Id = int.Parse(id);
