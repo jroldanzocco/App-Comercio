@@ -3,8 +3,6 @@ using J3AMS.Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
@@ -12,7 +10,6 @@ namespace J3AMS.UI
     public partial class BuscarArticulo : System.Web.UI.Page
     {
         private ProductoNegocio _productos;
-        private List<Producto> _listProductos;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,20 +42,15 @@ namespace J3AMS.UI
         }
         protected void btnEliminarArticulo_Click(object sender, EventArgs e)
         {
-          
+
             string id = ((Button)sender).CommandArgument;
 
             if (!string.IsNullOrEmpty(id))
             {
-                ProductoNegocio negocio = new ProductoNegocio();
-                Producto aux = new Producto();
-
                 if (int.TryParse(id, out int Id))
                 {
-                    aux.Id = Id;
-                    negocio.LogicDelete(aux.Id);
+                    _productos.LogicDelete(Id);
                 }
-
                 CargarProductos();
             }
         }
@@ -68,24 +60,23 @@ namespace J3AMS.UI
             Session.Add("ListaProductos", _productos.Listar());
             repRepetidor.DataSource = Session["ListaProductos"];
             repRepetidor.DataBind();
-            
+
         }
 
         protected void btnInformeArticulo_Click(object sender, EventArgs e)
         {
             string id = ((Button)sender).CommandArgument;
-
-            CargarInformeProductos(id);
+            int.TryParse(id, out int Id);
+            CargarInformeProductos(Id);
             string script = "$(document).ready(function () { $('#modalArticulo').modal('show'); });";
             ClientScript.RegisterStartupScript(this.GetType(), "Popup", script, true);
         }
 
-        private void CargarInformeProductos(string id)
+        private void CargarInformeProductos(int id)
         {
-            List<Producto> productos = _productos.Listar(id);
-            Producto aux = productos[0];
+            Producto aux = _productos.Get(id);
 
-            if(aux != null)
+            if (aux != null)
             {
                 lblInformeArticulo.Text = aux.Descripcion;
                 txtDescripcion.Text = aux.Descripcion;
@@ -109,23 +100,23 @@ namespace J3AMS.UI
             txtStock.ReadOnly = true;
         }
 
-        protected void BuscarProductos(List<Producto> lista, string terminoBusqueda)
-        {
-           
-                List<Producto> resultados = lista
-                    .Where(p => p.Descripcion.ToUpper().Contains(terminoBusqueda.ToUpper()) || p.Marca.Descripcion.ToUpper().Contains(terminoBusqueda.ToUpper()))
-                    .ToList();
-
-                repRepetidor.DataSource = resultados;
-                repRepetidor.DataBind();
-           
-        }
-
         protected void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
             List<Producto> lista = (List<Producto>)Session["ListaProductos"];
             string terminoBusqueda = txtBusqueda.Text.Trim();
-            BuscarProductos(lista, terminoBusqueda);
+            List<Producto> listaFiltrada = lista.Where(p => p.Descripcion
+                                                                         .ToUpper()
+                                                                         .Contains(terminoBusqueda
+                                                                                                .ToUpper())
+                                                                         ||
+                                                                         p.Marca.Descripcion
+                                                                         .ToUpper()
+                                                                         .Contains(terminoBusqueda
+                                                                                                .ToUpper()))
+                                                                         .ToList();
+
+            repRepetidor.DataSource = listaFiltrada;
+            repRepetidor.DataBind();
         }
     }
 }
