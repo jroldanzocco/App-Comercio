@@ -105,15 +105,6 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.TextBox txtBusqueda;
 
         /// <summary>
-        /// repRepetidor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater repRepetidor;
-
-        /// <summary>
         /// btnVolverAlMenu control.
         /// </summary>
         /// <remarks>
@@ -130,5 +121,14 @@ namespace J3AMS.UI
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNuevoProveedor;
+
+        /// <summary>
+        /// repRepetidor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repRepetidor;
     }
 }

@@ -2,17 +2,13 @@
 using J3AMS.Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
 {
-   
+
     public partial class BuscarProveedor : System.Web.UI.Page
     {
-        //private List<Proveedor> _listaProveedor;
         private ProveedorNegocio _proveedores;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -50,13 +46,10 @@ namespace J3AMS.UI
 
             if (!string.IsNullOrEmpty(id))
             {
-                ProveedorNegocio negocio = new ProveedorNegocio();
-                Proveedor aux = new Proveedor();
 
                 if (int.TryParse(id, out int Id))
                 {
-                    aux.Id = Id;
-                    negocio.LogicDelete(aux.Id);
+                    _proveedores.LogicDelete(Id);
                 }
 
                 CargarProveedores();

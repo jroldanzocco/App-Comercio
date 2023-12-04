@@ -54,14 +54,21 @@
         </div>
     </div>
     <div class="container-fluid">
-    <div class="d-flex justify-content-between">
-        <div>
+    <div class="d-flex justify-content-between mb-3">
+        <div class="w-100">
             <label for="txtBusqueda" class="form-label">Búsqueda</label>
             <asp:TextBox ID="txtBusqueda" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBusqueda_TextChanged" runat="server"></asp:TextBox>
         </div>
     </div>
         <div class="d-flex flex-column">
         <div class="table-responsive">
+                    <div class="mb-2">
+    <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-secondary" runat="server" Text="Volver al Menu" />
+    <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN)
+        { %>
+<asp:Button ID="btnNuevoProveedor" OnClick="btnNuevoProveedor_Click" CssClass="btn btn-success" runat="server" Text="Nuevo Proveedor" />
+<% } %>
+            </div>
         <table class="table">
             <thead>
                 <tr>
@@ -92,11 +99,7 @@
                 </ItemTemplate>
             </asp:Repeater>
         </table>
-        <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-secondary" runat="server" Text="Volver al Menu" />
-        <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN)
-            { %>
-    <asp:Button ID="btnNuevoProveedor" OnClick="btnNuevoProveedor_Click" CssClass="btn btn-success" runat="server" Text="Nuevo Proveedor" />
-    <% } %>
+            
         </div>
       </div>
     </div>
