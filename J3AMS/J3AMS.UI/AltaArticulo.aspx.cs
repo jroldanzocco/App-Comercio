@@ -61,7 +61,7 @@ namespace J3AMS.UI
                         txtDescripcion.Text = aux.Descripcion;
                         txtStock.Text = aux.Stock.ToString();
                         txtPrecioVenta.Text = aux.PrecioVenta.ToString();
-                        txtPrecioCosto.Text = aux.PrecioCosto.ToString();
+                        txtPrecioCosto.Text = aux.PrecioCompra.ToString();
 
                         ddlTipo.SelectedValue = aux.Tipo.Id.ToString();
                         ddlMarca.SelectedValue = aux.Marca.Id.ToString();
@@ -115,7 +115,7 @@ namespace J3AMS.UI
             }
 
             decimal.TryParse(txtPrecioCosto.Text, out decimal PCValidator);
-            aux.PrecioCosto = PCValidator;
+            aux.PrecioCompra = PCValidator;
 
             decimal.TryParse(txtPrecioVenta.Text, out decimal PVValidator);
             aux.PrecioVenta = PVValidator;

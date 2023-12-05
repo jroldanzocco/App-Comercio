@@ -46,11 +46,11 @@ namespace J3AMS.UI
         {
             if (!IsPostBack)
             {
-                CargarProveedoress();
+                CargarProveedores();
                 CargarProductos();
             }
         }
-        private void CargarProveedoress()
+        private void CargarProveedores()
         {
             try
             {
@@ -170,7 +170,7 @@ namespace J3AMS.UI
                         {
                             IdArticulo = producto.Id,
                             Cantidad = producto.Cantidad,
-                            PrecioUnitario = producto.PrecioVenta
+                            PrecioUnitario = producto.PrecioCompra
                         };
 
                         compra.DetalleCompra.Add(detalle);

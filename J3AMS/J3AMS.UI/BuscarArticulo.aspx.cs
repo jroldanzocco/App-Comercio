@@ -83,7 +83,7 @@ namespace J3AMS.UI
                 txtTipo.Text = aux.Tipo.Descripcion;
                 txtMarca.Text = aux.Marca.Descripcion;
                 txtProveedor.Text = aux.Proveedor.NombreFantasia;
-                txtPrecioCosto.Text = aux.PrecioCosto.ToString();
+                txtPrecioCosto.Text = aux.PrecioCompra.ToString();
                 txtPrecioVenta.Text = aux.PrecioVenta.ToString();
                 txtStock.Text = aux.Stock.ToString();
             }
