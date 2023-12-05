@@ -30,6 +30,9 @@ namespace J3AMS.UI
 
             string cliente = Request.QueryString[1];
             lblCliente.Text = "Cliente: " + clienteNegocio.Listar(cliente)[0].NombreCompleto;
+
+            string vendedor = Request.QueryString[2];
+            lblVendedor.Text = "Vendedor: " + vendedor;
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)

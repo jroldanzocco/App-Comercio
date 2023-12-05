@@ -271,13 +271,14 @@ namespace J3AMS.UI
                 {
                     conexion.Open();
 
-                    string consultaSql = "INSERT INTO FacturasVentas (IdCliente, Importe, FechaEmision, Activo) " +
-                                         "VALUES (@IdCliente, @Importe, GETDATE(), 1)";
+                    string consultaSql = "INSERT INTO FacturasVentas (IdCliente, Importe, FechaEmision, Vendedor, Activo) " +
+                                         "VALUES (@IdCliente, @Importe, GETDATE(), @Vendedor, 1)";
 
                     using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
                     {
                         comando.Parameters.AddWithValue("@IdCliente", facturaVenta.IdCliente);
                         comando.Parameters.AddWithValue("@Importe", facturaVenta.Importe);
+                        comando.Parameters.AddWithValue("@Vendedor", Session["usuario"].ToString());
 
                         comando.ExecuteNonQuery();
                     }

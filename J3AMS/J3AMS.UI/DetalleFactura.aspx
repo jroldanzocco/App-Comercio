@@ -7,6 +7,7 @@
         </div>
         <div class="justify-content-between d-flex">
             <asp:Label ID="lblNumeroFactura" CssClass="form-label" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblVendedor" runat="server" Text=""></asp:Label>
             <asp:Label ID="lblCliente" runat="server" Text=""></asp:Label>
         </div>
         <table class="table">

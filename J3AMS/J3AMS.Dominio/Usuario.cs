@@ -20,5 +20,9 @@
             UserRole = admin ? UserRole.ADMIN : UserRole.NORMAL;
         }
 
+        public override string ToString()
+        {
+            return UserName;
+        }
     }
 }
