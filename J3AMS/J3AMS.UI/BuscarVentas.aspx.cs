@@ -32,5 +32,16 @@ namespace J3AMS.UI
             repFacturas.DataBind();
 
         }
+
+        protected void btnDetalle_Click(object sender, EventArgs e)
+        {
+            string[] numero = ((Button)sender).CommandArgument.Split(',');
+            Response.Redirect("DetalleFactura.aspx?Numero=" + numero[0] +"&Cliente=" + numero[1] + "&Vend=" + numero[2]);
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PaginaPrincipal.aspx");
+        }
     }
 }

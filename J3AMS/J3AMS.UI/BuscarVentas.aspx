@@ -2,12 +2,16 @@
 <asp:Content ID="ListadoVentas" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="container-fluid">
+        <div class="mb-2">
+            <asp:Button ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" runat="server" Text="Volver al menú" />
+        </div>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Número</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Id Cliente</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Vendedor</th>
                     <th scope="col">Importe</th>
                 </tr>
             </thead>
@@ -17,8 +21,12 @@
                     <tr runat="server">
                         <td><%# Eval("Numero") %></td>
                         <td><%# Eval("FechaEmision") %></td>
-                        <td><%# Eval("IdCliente") %></td>
-                        <td><%# Eval("Importe") %></td>              
+                        <td><%# Eval("Cliente") %></td>
+                        <td><%# Eval("Vendedor") %></td>
+                        <td><%# Eval("Importe") %></td>
+                        <td>
+                        <asp:Button ID="btnDetalle" CommandArgument='<%# Eval("Numero")+ "," + Eval("IdCliente") + "," + Eval("Vendedor") %>' OnClick="btnDetalle_Click" CommandName="FacturaId" runat="server" CssClass="btn btn-info w-auto" Text="Detalle de factura" />
+                        </td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>

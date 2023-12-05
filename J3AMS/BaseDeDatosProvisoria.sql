@@ -102,6 +102,10 @@ CREATE TABLE Usuarios (
 	IdRol TINYINT DEFAULT 2
 )
 
+--Modificación para guardar el vendedor, el default es por si ya tienen facturas cargadas
+ALTER TABLE FacturasVentas
+ADD Vendedor VARCHAR(100) NOT NULL DEFAULT('Prueba')
+
 --------------------------------------------------------------------------------------
 
 --Marcas

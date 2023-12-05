@@ -22,7 +22,7 @@ namespace J3AMS.Negocio
 
             try
             {
-                string query = "SELECT Numero, IdCliente, Importe, FechaEmision FROM FacturasVentas";
+                string query = "SELECT Numero, IdCliente, Importe, FechaEmision, Vendedor, Apellidos + ' ' + Nombres AS Apenom FROM FacturasVentas\r\nINNER JOIN Clientes C ON C.Id = IdCliente";
 
                 _datos.SetConsulta(query);
                 _datos.EjecutarLectura();
@@ -32,9 +32,11 @@ namespace J3AMS.Negocio
                     facturaVentas.Add(new FacturaVenta
                     {
                         Numero = (int)_datos.Lector["Numero"],
-                        FechaEmision = (DateTime)_datos.Lector["FechaEmision"],
                         IdCliente = (int)_datos.Lector["IdCliente"],
-                        Importe = (Decimal)_datos.Lector["Importe"]
+                        FechaEmision = (DateTime)_datos.Lector["FechaEmision"],
+                        cliente = _datos.Lector["Apenom"] as string ?? string.Empty,
+                        Importe = (Decimal)_datos.Lector["Importe"],
+                        Vendedor = _datos.Lector["Vendedor"] as string ?? string.Empty
                     });
                 }
 
