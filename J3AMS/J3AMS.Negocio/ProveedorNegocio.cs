@@ -2,13 +2,13 @@
 using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace J3AMS.Negocio
 {
     public class ProveedorNegocio : IABML<Proveedor>
     {
         private readonly AccesoADatos _datos;
-
         public ProveedorNegocio()
         {
             _datos = new AccesoADatos();
@@ -64,8 +64,6 @@ namespace J3AMS.Negocio
             }
 
         }
-
-
         public void Add(Proveedor newEntity)
         {
 
@@ -112,7 +110,6 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
-
         public void LogicDelete(int id)
         {
             try
@@ -130,7 +127,6 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
-
         public Proveedor Get(int id)
         {
 
@@ -179,7 +175,6 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
-
         public void Update(Proveedor entity)
         {
             try
@@ -210,6 +205,42 @@ namespace J3AMS.Negocio
             {
                 _datos.CerrarConexion();
             }
+        }
+        private string cadenaConexion = "server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true";
+        public List<Proveedor> ObtenerProveedores()
+        {
+            var listaProveedores = new List<Proveedor>();
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+
+                    string consultaSql = "Select Id, RazonSocial, NombreFantasia From Proveedores";
+
+                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                    {
+                        using (SqlDataReader lector = comando.ExecuteReader())
+                        {
+                            while (lector.Read())
+                            {
+                                var proveedor = new Proveedor
+                                {
+                                    Id = (int)lector["Id"],
+                                    RazonSocial = lector["RazonSocial"].ToString(),
+                                    NombreFantasia = lector["NombreFantasia"].ToString()
+                                };
+                                listaProveedores.Add(proveedor);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener proveedores desde la base de datos", ex);
+            }
+            return listaProveedores;
         }
     }
 }
