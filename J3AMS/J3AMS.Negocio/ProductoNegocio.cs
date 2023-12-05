@@ -272,7 +272,6 @@ namespace J3AMS.Negocio
                 throw new Exception($"Error al actualizar el stock: {ex.Message}");
             }
         }
-
         public Producto Get(int id)
         {
             try
@@ -329,7 +328,6 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
-
         public void LogicDelete(int id)
         {
             try

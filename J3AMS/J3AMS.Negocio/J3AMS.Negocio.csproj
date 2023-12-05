@@ -49,6 +49,7 @@
     <Compile Include="CategoriaIvaNegocio.cs" />
     <Compile Include="ClienteNegocio.cs" />
     <Compile Include="CompraNegocio.cs" />
+    <Compile Include="FacturaCompraNegocio.cs" />
     <Compile Include="FacturaVentaNegocio.cs" />
     <Compile Include="Interface\IABML.cs" />
     <Compile Include="MarcaNegocio.cs" />

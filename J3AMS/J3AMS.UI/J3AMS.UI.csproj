@@ -110,6 +110,7 @@
     <Content Include="AltaTipo.aspx" />
     <Content Include="BuscarArticulo.aspx" />
     <Content Include="BuscarCliente.aspx" />
+    <Content Include="BuscarCompras.aspx" />
     <Content Include="BuscarMarca.aspx" />
     <Content Include="BuscarProveedor.aspx" />
     <Content Include="BuscarTipo.aspx" />
@@ -259,6 +260,13 @@
     </Compile>
     <Compile Include="BuscarCliente.aspx.designer.cs">
       <DependentUpon>BuscarCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BuscarCompras.aspx.cs">
+      <DependentUpon>BuscarCompras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscarCompras.aspx.designer.cs">
+      <DependentUpon>BuscarCompras.aspx</DependentUpon>
     </Compile>
     <Compile Include="BuscarMarca.aspx.cs">
       <DependentUpon>BuscarMarca.aspx</DependentUpon>

@@ -36,7 +36,7 @@ namespace J3AMS.Dominio
         [Required(ErrorMessage = "El campo es requerido")]
         public decimal PrecioVenta { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
-        [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser menor a 0.")]
+        [Range(0, int.MaxValue, ErrorMessage = "El precio de venta no puede ser menor a 0.")]
         public int Stock { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser menor a 0.")]
