@@ -71,8 +71,6 @@ namespace J3AMS.Negocio
 
             try
             {
-                if (ValidatorsDA.TryValidateModel(newEntity))
-                {
                     _datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo) " +
                                        "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, @Celular, @Email, @Iva, @Plazo, 1)");
                     _datos.SetParametro("@Razon", newEntity.RazonSocial);
@@ -86,7 +84,7 @@ namespace J3AMS.Negocio
                     _datos.SetParametro("@Plazo", newEntity.PlazoPago);
                     _datos.SetParametro("@Activo", true);
                     _datos.EjecutarLectura();
-                }
+                
             }
             catch (Exception ex)
             {

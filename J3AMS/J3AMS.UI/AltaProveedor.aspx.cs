@@ -95,20 +95,20 @@ namespace J3AMS.UI
 
             string id = Request.QueryString["id"];
 
-            if(ValidatorsDA.TryValidateModel(aux))
-            {
+            //if(ValidatorsDA.TryValidateModel(aux))
+            //{
+                if (id != null)
+                {
+                    aux.Id = int.Parse(id);
+                    _proveedores.Update(aux);
+                }
+                else
+                    _proveedores.Add(aux);
 
-            }
+                Response.Redirect("BuscarProveedor.aspx");
+            //}
 
-            if (id != null)
-            {
-                aux.Id = int.Parse(id);
-                _proveedores.Update(aux);
-            }
-            else
-                _proveedores.Add(aux);
-
-            Response.Redirect("BuscarProveedor.aspx");
+           
         }
     }
 }
