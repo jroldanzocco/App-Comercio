@@ -44,6 +44,7 @@ namespace J3AMS.Negocio
                     listProductos.Add(new Producto
                     {
                         Id = (int)_datos.Lector["IdArt"],
+                        Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
                         PrecioCompra = (decimal)_datos.Lector["PCompra"],
                         PrecioVenta = (decimal)_datos.Lector["PVenta"],
                         StockMinimo = (int)_datos.Lector["StMin"],
@@ -66,7 +67,7 @@ namespace J3AMS.Negocio
                         Activo = (bool)_datos.Lector["Activo"]
                     }); ;
                 }
-                return listProductos;
+                
             }
             catch (Exception ex)
             {
@@ -76,6 +77,7 @@ namespace J3AMS.Negocio
             {
                 _datos.CerrarConexion();
             }
+            return listProductos;
         }
         public void Add(Producto newEntity)
         {
