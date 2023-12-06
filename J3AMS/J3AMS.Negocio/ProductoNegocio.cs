@@ -44,6 +44,7 @@ namespace J3AMS.Negocio
                     listProductos.Add(new Producto
                     {
                         Id = (int)_datos.Lector["IdArt"],
+                        Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
                         PrecioCompra = (decimal)_datos.Lector["PCompra"],
                         PrecioVenta = (decimal)_datos.Lector["PVenta"],
                         StockMinimo = (int)_datos.Lector["StMin"],
@@ -294,7 +295,7 @@ namespace J3AMS.Negocio
                     {
                         Id = (int)_datos.Lector["IdArt"],
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
-                        PrecioCompra = (decimal)_datos.Lector["PrecioCompra"],
+                        PrecioCompra = (decimal)_datos.Lector["PCompra"],
                         PrecioVenta = (decimal)_datos.Lector["PVenta"],
                         StockMinimo = (int)_datos.Lector["StMin"],
                         Stock = (int)_datos.Lector["Stock"],

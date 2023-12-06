@@ -51,7 +51,7 @@ CREATE TABLE Productos (
     IdTipo TINYINT NULL foreign key references Tipos(Id),
     IdMarca TINYINT NULL foreign key references Marcas(Id),
     IdProveedor INT NULL foreign key references Proveedores(Id),
-	PrecioCosto MONEY NOT NULL,
+	PrecioCompra MONEY NOT NULL,
 	PrecioVenta MONEY NOT NULL,
     Stock INT NOT NULL,
     StockMinimo INT NULL,
@@ -163,7 +163,7 @@ VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d
 INSERT INTO Usuarios (UserName, Password, Email)
 VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com');
 --PARA ALTA PRODUCTO
-INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo)
+INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCompra, PrecioVenta, Stock, StockMinimo)
 VALUES ('Pera', 1, 1, 1, 1, 2, 10, 0)
-INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCosto, PrecioVenta, Stock, StockMinimo)
+INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCompra, PrecioVenta, Stock, StockMinimo)
 VALUES ('Durazno', 1, 1, 1, 1, 2, 10, 0)

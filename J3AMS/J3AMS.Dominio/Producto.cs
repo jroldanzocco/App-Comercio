@@ -34,12 +34,12 @@ namespace J3AMS.Dominio
         public decimal PrecioCompra { get; set; }
 
         [Required(ErrorMessage = "El campo es requerido")]
+        [Range(0, int.MaxValue, ErrorMessage = "El precio de venta no puede ser menor a 0.")]
         public decimal PrecioVenta { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
-        [Range(0, int.MaxValue, ErrorMessage = "El precio de venta no puede ser menor a 0.")]
-        public int Stock { get; set; }
-        [Required(ErrorMessage = "El campo es requerido")]
         [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser menor a 0.")]
+        public int Stock { get; set; }
+       
         public int StockMinimo { get; set; }
         public int Cantidad { get; set; }
         public bool Activo { get; set; }
