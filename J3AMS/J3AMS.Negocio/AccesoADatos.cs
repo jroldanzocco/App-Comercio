@@ -12,7 +12,7 @@ namespace J3AMS.Negocio
 
         public AccesoADatos()
         {
-            _conexion = new SqlConnection("server=localhost; database=J3AMS_DB; integrated security=true");
+            _conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true");
             _comando = new SqlCommand();
         }
         public void SetConsulta(string consulta)
