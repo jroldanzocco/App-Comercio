@@ -249,7 +249,7 @@ namespace J3AMS.Negocio
             }
             return listaClientes;
         }
-        private bool checkDni(string dni)
+        public bool checkDni(string dni)
         {
             var result = false;
             try

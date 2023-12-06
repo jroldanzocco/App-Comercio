@@ -74,6 +74,8 @@ namespace J3AMS.UI
 
         protected void btnAgregarCliente_Click(object sender, EventArgs e)
         {
+
+
             ClienteNegocio clienteNegocio = new ClienteNegocio();
             Cliente aux = new Cliente();
 
@@ -88,17 +90,27 @@ namespace J3AMS.UI
             aux.Celular = txtCelular.Text;
             aux.Telefono = txtTelefono.Text;
 
-            string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
-
-            if (id != "")
+            if(clienteNegocio.checkDni(aux.DNI))
             {
-                aux.Id = int.Parse(id);
-                clienteNegocio.Update(aux);
+                lblDni.Text = "";
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"] : "";
+
+                if (id != "")
+                {
+                    aux.Id = int.Parse(id);
+                    clienteNegocio.Update(aux);
+                }
+                else
+                    clienteNegocio.Add(aux);
+
+                Response.Redirect("BuscarCliente.aspx");
             }
             else
-                clienteNegocio.Add(aux);
+            {
+                lblDni.Text = "El DNI ya se encuentra registrado";
+            }
 
-            Response.Redirect("BuscarCliente.aspx");
+            
         }
     }
 }
