@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NuevaCompra.aspx.cs" Inherits="J3AMS.UI.NuevaCompra" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>Nueva Venta</h1>
+    <h1>Nueva Compra</h1>
     
     <div class="form-group">
         <label for="ddlProveedores">Proveedores:</label>
