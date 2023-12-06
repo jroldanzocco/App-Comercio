@@ -146,7 +146,6 @@ namespace J3AMS.UI
                 throw new Exception("Error al actualizar el stock en la base de datos", ex);
             }
         }
-
         protected void ddlProveedores_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (productoAgregado)
@@ -195,50 +194,53 @@ namespace J3AMS.UI
         }
         protected void btnCargarFactura_Click(object sender, EventArgs e)
         {
-            try
+            if (ProductosComprados.Count != 0)
             {
-                Proveedor proveedorSeleccionado = ObtenerProveedorSeleccionado();
-
-                if (proveedorSeleccionado != null)
+                try
                 {
-                    Compra compra = new Compra();
+                    Proveedor proveedorSeleccionado = ObtenerProveedorSeleccionado();
 
-                    foreach (Producto producto in ListaProductosSeleccionados)
+                    if (proveedorSeleccionado != null)
                     {
-                        DetalleCompra detalle = new DetalleCompra
+                        Compra compra = new Compra();
+
+                        foreach (Producto producto in ListaProductosSeleccionados)
                         {
-                            IdArticulo = producto.Id,
-                            Cantidad = producto.Cantidad,
-                            PrecioUnitario = producto.PrecioCompra
+                            DetalleCompra detalle = new DetalleCompra
+                            {
+                                IdArticulo = producto.Id,
+                                Cantidad = producto.Cantidad,
+                                PrecioUnitario = producto.PrecioCompra
+                            };
+
+                            compra.DetalleCompra.Add(detalle);
+                        }
+
+                        FacturaCompra facturaCompra = new FacturaCompra
+                        {
+                            IdProveedor = proveedorSeleccionado.Id,
+                            Importe = CalcularMontoTotal(compra.DetalleCompra)
                         };
+                        _facturaCompraNegocio.Add(facturaCompra, Session["usuario"].ToString());
+                        _compraNegocio.Add(compra);
 
-                        compra.DetalleCompra.Add(detalle);
+                        ActualizarStockEnCompra();
+
+                        LimpiarControles();
+                        ProductosComprados.Clear();
+                        ListaProductosSeleccionados.Clear();
+
+                        ddlProveedores.Enabled = true;
                     }
-
-                    FacturaCompra facturaCompra = new FacturaCompra
+                    else
                     {
-                        IdProveedor = proveedorSeleccionado.Id,
-                        Importe = CalcularMontoTotal(compra.DetalleCompra)
-                    };
-                    _facturaCompraNegocio.Add(facturaCompra, Session["usuario"].ToString());
-                    _compraNegocio.Add(compra);
-
-                    ActualizarStockEnCompra();
-
-                    LimpiarControles();
-                    ProductosComprados.Clear();
-                    ListaProductosSeleccionados.Clear();
-
-                    ddlProveedores.Enabled = true;
+                        Response.Write("Seleccione un proveedor antes de cargar la factura.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Response.Write("Seleccione un proveedor antes de cargar la factura.");
+                    Response.Write($"Error al cargar la factura: {ex.Message}");
                 }
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"Error al cargar la factura: {ex.Message}");
             }
         }
         private Proveedor ObtenerProveedorSeleccionado()

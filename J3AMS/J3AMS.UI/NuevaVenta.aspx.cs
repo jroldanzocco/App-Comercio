@@ -183,52 +183,50 @@ namespace J3AMS.UI
         {
             if (ProductosVendidos.Count != 0)
             {
-
-            
-            try
-            {
-                Cliente clienteSeleccionado = ObtenerClienteSeleccionado();
-
-                if (clienteSeleccionado != null)
+                try
                 {
-                    Venta venta = new Venta();
+                    Cliente clienteSeleccionado = ObtenerClienteSeleccionado();
 
-                    foreach (Producto producto in ListaProductosSeleccionados)
+                    if (clienteSeleccionado != null)
                     {
-                        DetalleVenta detalle = new DetalleVenta
+                        Venta venta = new Venta();
+
+                        foreach (Producto producto in ListaProductosSeleccionados)
                         {
-                            IdArticulo = producto.Id,
-                            Cantidad = producto.Cantidad,
-                            PrecioUnitario = producto.PrecioVenta
+                            DetalleVenta detalle = new DetalleVenta
+                            {
+                                IdArticulo = producto.Id,
+                                Cantidad = producto.Cantidad,
+                                PrecioUnitario = producto.PrecioVenta
+                            };
+
+                            venta.DetallesVenta.Add(detalle);
+                        }
+
+                        FacturaVenta facturaVenta = new FacturaVenta
+                        {
+                            IdCliente = clienteSeleccionado.Id,
+                            Importe = CalcularMontoTotal(venta.DetallesVenta)
                         };
 
-                        venta.DetallesVenta.Add(detalle);
+                        _facturaVentaNegocio.Add(facturaVenta, Session["usuario"].ToString());
+                        _ventaNegocio.Add(venta);
+
+                        LimpiarControles();
+                        ProductosVendidos.Clear();
+                        ListaProductosSeleccionados.Clear();
+
+                        ddlClientes.Enabled = true;
                     }
-
-                    FacturaVenta facturaVenta = new FacturaVenta
+                    else
                     {
-                        IdCliente = clienteSeleccionado.Id,
-                        Importe = CalcularMontoTotal(venta.DetallesVenta)
-                    };
-
-                    _facturaVentaNegocio.Add(facturaVenta, Session["usuario"].ToString());
-                    _ventaNegocio.Add(venta);
-
-                    LimpiarControles();
-                    ProductosVendidos.Clear();
-                    ListaProductosSeleccionados.Clear();
-
-                    ddlClientes.Enabled = true;
+                        Response.Write("Seleccione un cliente antes de generar la factura.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Response.Write("Seleccione un cliente antes de generar la factura.");
+                    Response.Write($"Error al generar la factura: {ex.Message}");
                 }
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"Error al generar la factura: {ex.Message}");
-            }
             }
         }
         private Cliente ObtenerClienteSeleccionado()
