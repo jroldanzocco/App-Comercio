@@ -186,6 +186,11 @@ namespace J3AMS.UI
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            LimpiarControles();
+            ProductosComprados.Clear();
+            ListaProductosSeleccionados.Clear();
+            ddlProveedores.Enabled = true;
+
             Response.Redirect("PaginaPrincipal.aspx");
         }
         protected void btnCargarFactura_Click(object sender, EventArgs e)
@@ -264,6 +269,8 @@ namespace J3AMS.UI
             txtCantidad.Text = string.Empty;
             repProductosSeleccionados.DataSource = null;
             repProductosSeleccionados.DataBind();
+;
+            productoAgregado = false;
         }
     }
 }
