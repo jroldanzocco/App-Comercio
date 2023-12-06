@@ -103,30 +103,50 @@ namespace J3AMS.UI
             {
                 int cantidad = ObtenerCantidad();
 
-                    if (!ProductosComprados.Any(p => p.Id == idProducto))
-                    {
-                        ProductosComprados.Add(productoEnStock);
-                        ddlProveedores.Enabled = false;
-                    }
-                    else
-                    {
-                        Response.Write("El producto ya ha sido comprado.");
-                        return;
-                    }
-                    productoEnStock.Cantidad = cantidad;
-                    ListaProductosSeleccionados.Add(productoEnStock);
-                    productoEnStock.Stock = productoEnStock.Stock + cantidad;
-                     _productoNegocio.Update(productoEnStock);
+                if (!ProductosComprados.Any(p => p.Id == idProducto))
+                {
+                    ProductosComprados.Add(productoEnStock);
+                    ddlProveedores.Enabled = false;
+                }
+                else
+                {
+                    Response.Write("El producto ya ha sido comprado.");
+                    return;
+                }
+                productoEnStock.Cantidad = cantidad;
+                ListaProductosSeleccionados.Add(productoEnStock);
+                //productoEnStock.Stock = productoEnStock.Stock + cantidad;
+                //_productoNegocio.Update(productoEnStock);
 
-                    CargarProductosSeleccionados();
-                    productoAgregado = true;
+                CargarProductosSeleccionados();
+                productoAgregado = true;
             }
             else
             {
                 Response.Write("Error al obtener información del producto desde la base de datos.");
             }
         }
-       
+        private void ActualizarStockEnCompra()
+        {
+            try
+            {
+                foreach (Producto producto in ListaProductosSeleccionados)
+                {
+                    Producto productoEnBaseDeDatos = _productoNegocio.ObtenerPorId(producto.Id);
+
+                    if (productoEnBaseDeDatos != null)
+                    {
+                        productoEnBaseDeDatos.Stock = productoEnBaseDeDatos.Stock + producto.Cantidad;
+                        _productoNegocio.Update(productoEnBaseDeDatos);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar el stock en la base de datos", ex);
+            }
+        }
+
         protected void ddlProveedores_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (productoAgregado)
@@ -166,6 +186,11 @@ namespace J3AMS.UI
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            LimpiarControles();
+            ProductosComprados.Clear();
+            ListaProductosSeleccionados.Clear();
+            ddlProveedores.Enabled = true;
+
             Response.Redirect("PaginaPrincipal.aspx");
         }
         protected void btnCargarFactura_Click(object sender, EventArgs e)
@@ -197,6 +222,8 @@ namespace J3AMS.UI
                     };
                     _facturaCompraNegocio.Add(facturaCompra, Session["usuario"].ToString());
                     _compraNegocio.Add(compra);
+
+                    ActualizarStockEnCompra();
 
                     LimpiarControles();
                     ProductosComprados.Clear();
@@ -242,6 +269,8 @@ namespace J3AMS.UI
             txtCantidad.Text = string.Empty;
             repProductosSeleccionados.DataSource = null;
             repProductosSeleccionados.DataBind();
+;
+            productoAgregado = false;
         }
     }
 }
