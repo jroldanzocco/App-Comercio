@@ -29,7 +29,7 @@ namespace J3AMS.Negocio
 
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
                         PorcentajeIva = (decimal)_datos.Lector["PorcentajeIva"]
-                    }) ;
+                    });
                 }
 
                 return listIva;

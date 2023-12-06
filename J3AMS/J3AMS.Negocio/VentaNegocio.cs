@@ -1,13 +1,6 @@
 ﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace J3AMS.Negocio
 {
@@ -115,6 +108,6 @@ namespace J3AMS.Negocio
             }
         }
 
-      
+
     }
 }

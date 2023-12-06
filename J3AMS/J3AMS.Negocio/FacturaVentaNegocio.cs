@@ -1,10 +1,6 @@
 ﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace J3AMS.Negocio
 {
@@ -28,7 +24,7 @@ namespace J3AMS.Negocio
                 _datos.SetConsulta(query);
                 _datos.EjecutarLectura();
 
-                while(_datos.Lector.Read())
+                while (_datos.Lector.Read())
                 {
                     facturaVentas.Add(new FacturaVenta
                     {
@@ -74,6 +70,6 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
-        
+
     }
 }

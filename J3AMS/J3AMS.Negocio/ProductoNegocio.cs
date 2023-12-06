@@ -1,8 +1,6 @@
-﻿using J3.AMS.Common;
-using J3AMS.Dominio;
+﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 
 namespace J3AMS.Negocio
 {
@@ -67,7 +65,7 @@ namespace J3AMS.Negocio
                         Activo = (bool)_datos.Lector["Activo"]
                     }); ;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -82,7 +80,7 @@ namespace J3AMS.Negocio
         public void Add(Producto newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
-                try
+            try
             {
                 datos.SetConsulta("INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCompra, PrecioVenta, Stock, StockMinimo, Activo) " +
                                  "VALUES (@descripcion, @tipo, @marca, @proveedor, @precioCompra, @precioVenta, 0, @stockMinimo, 1)");
@@ -104,7 +102,7 @@ namespace J3AMS.Negocio
             finally
             {
                 datos.CerrarConexion();
-            
+
             }
         }
         public void Delete(int id)

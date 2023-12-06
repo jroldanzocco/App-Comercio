@@ -23,7 +23,7 @@ namespace J3AMS.Negocio
                 _datos.SetConsulta(query);
                 _datos.SetParametro("Descripcion", newEntity.Descripcion);
                 _datos.EjecutarLectura();
-                
+
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace J3AMS.Negocio
                 _datos.SetParametro("id", id);
                 _datos.EjecutarLectura();
 
-                while(_datos.Lector.Read())
+                while (_datos.Lector.Read())
                 {
                     aux.Id = (byte)_datos.Lector["Id"]; ;
                     aux.Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty; ;
@@ -164,7 +164,7 @@ namespace J3AMS.Negocio
             }
             catch (Exception ex)
             {
-                throw ex; 
+                throw ex;
             }
             finally
             {

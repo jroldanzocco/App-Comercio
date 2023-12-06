@@ -1,11 +1,6 @@
 ﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace J3AMS.Negocio
 {
@@ -25,17 +20,17 @@ namespace J3AMS.Negocio
                 _datos.SetConsulta("SELECT C.Id AS ClienteId, Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, Activo, PlazoPago, I.Id AS IvaId, I.PorcentajeIva AS Porcentaje, I.Descripcion AS CategoriaIva FROM Clientes C" +
                     "\r\nINNER JOIN CategoriasIva I ON IdCategoriaIva = I.Id");
 
-                if(id != "" ) 
-                    {
+                if (id != "")
+                {
                     _datos.SetConsulta("SELECT C.Id AS ClienteId, Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, Activo, PlazoPago, I.Id AS IvaId, I.PorcentajeIva AS Porcentaje, I.Descripcion AS CategoriaIva FROM Clientes C" +
                     "\r\nINNER JOIN CategoriasIva I ON IdCategoriaIva = I.Id " +
                     "WHERE C.Id = @Id");
                     _datos.SetParametro("@Id", id);
-                    }
+                }
 
                 _datos.EjecutarLectura();
 
-                while(_datos.Lector.Read())
+                while (_datos.Lector.Read())
                 {
                     listClientes.Add(new Cliente()
                     {
@@ -75,7 +70,7 @@ namespace J3AMS.Negocio
             AccesoADatos datos = new AccesoADatos();
 
             try
-            { 
+            {
                 datos.SetConsulta("INSERT INTO Clientes(Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)" +
                     "\r\nVALUES(@Apellido, @Nombre, @DNI, @Domicilio, @Telefono, @Celular, @Email, @IdIva, @Plazo, 1)");
                 datos.SetParametro("@Apellido", newEntity.Apellidos);
@@ -209,7 +204,7 @@ namespace J3AMS.Negocio
 
                     };
                 }
-                    return aux;
+                return aux;
             }
             catch (Exception ex)
             {

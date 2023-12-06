@@ -2,9 +2,6 @@
 using J3AMS.Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace J3AMS.UI
@@ -96,7 +93,7 @@ namespace J3AMS.UI
             List<Cliente> clientes = _negocio.Listar(id);
             Cliente aux = clientes[0];
 
-            if(aux != null)
+            if (aux != null)
             {
                 lblInformeCliente.Text = aux.Apellidos + " " + aux.Nombres;
                 txtApellido.Text = aux.Apellidos;

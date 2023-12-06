@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace J3AMS.Negocio
-{ 
+{
     public class AccesoADatos
     {
         private SqlConnection _conexion;
@@ -17,7 +12,7 @@ namespace J3AMS.Negocio
 
         public AccesoADatos()
         {
-            _conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true");
+            _conexion = new SqlConnection("server=localhost; database=J3AMS_DB; integrated security=true");
             _comando = new SqlCommand();
         }
         public void SetConsulta(string consulta)
