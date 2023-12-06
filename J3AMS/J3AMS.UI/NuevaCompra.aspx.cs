@@ -89,29 +89,58 @@ namespace J3AMS.UI
         protected void btnAgregarProducto_Click(object sender, EventArgs e)
         {
             int idProducto = ObtenerIdProductoSeleccionado();
+            Producto productoEnStock = ObtenerProductoPorId(idProducto);
 
-            if (!ProductosComprados.Any(p => p.Id == idProducto))
+            if (productoEnStock != null)
             {
-                Producto producto = ObtenerProductoPorId(idProducto);
-                ProductosComprados.Add(producto);
-                ddlProveedores.Enabled = false;
+                int cantidad = ObtenerCantidad();
+
+                    if (!ProductosComprados.Any(p => p.Id == idProducto))
+                    {
+                        ProductosComprados.Add(productoEnStock);
+                        ddlProveedores.Enabled = false;
+                    }
+                    else
+                    {
+                        Response.Write("El producto ya ha sido comprado.");
+                        return;
+                    }
+                    productoEnStock.Cantidad = cantidad;
+                    ListaProductosSeleccionados.Add(productoEnStock);
+
+                    ActualizarStockEnBaseDeDatos(idProducto, productoEnStock.Stock + cantidad);
+
+                    CargarProductosSeleccionados();
+                    productoAgregado = true;
             }
             else
             {
-                Response.Write("El producto ya ha sido vendido.");
-                return;
+                Response.Write("Error al obtener información del producto desde la base de datos.");
             }
-
-            int cantidad = ObtenerCantidad();
-
-            if (cantidad > 0)
+        }
+        private void ActualizarStockEnBaseDeDatos(int idProducto, int nuevoStock)
+        {
+            try
             {
-                Producto producto = ObtenerProductoPorId(idProducto);
-                producto.Cantidad = cantidad;
-                ListaProductosSeleccionados.Add(producto);
-                CargarProductosSeleccionados();
+                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
+                {
+                    conexion.Open();
+
+                    string consultaSql = "UPDATE Productos SET Stock = @NuevoStock WHERE Id = @IdProducto";
+
+                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                    {
+                        comando.Parameters.AddWithValue("@NuevoStock", nuevoStock);
+                        comando.Parameters.AddWithValue("@IdProducto", idProducto);
+
+                        comando.ExecuteNonQuery();
+                    }
+                }
             }
-            productoAgregado = true;
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar el stock en la base de datos", ex);
+            }
         }
         protected void ddlProveedores_SelectedIndexChanged(object sender, EventArgs e)
         {
