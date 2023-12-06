@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace J3AMS.Negocio
 {
@@ -171,39 +172,32 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
-        private string cadenaConexion = "server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true";
         public List<Cliente> ObtenerClientes()
         {
             var listaClientes = new List<Cliente>();
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                _datos.SetConsulta("Select Id, Apellidos, Nombres From Clientes");
+                _datos.EjecutarLectura();
+
+                while (_datos.Lector.Read())
                 {
-                    conexion.Open();
-
-                    string consultaSql = "Select Id, Apellidos, Nombres From Clientes";
-
-                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                    var cliente = new Cliente
                     {
-                        using (SqlDataReader lector = comando.ExecuteReader())
-                        {
-                            while (lector.Read())
-                            {
-                                var cliente = new Cliente
-                                {
-                                    Id = (int)lector["Id"],
-                                    Apellidos = lector["Apellidos"].ToString(),
-                                    Nombres = lector["Nombres"].ToString()
-                                };
-                                listaClientes.Add(cliente);
-                            }
-                        }
-                    }
+                        Id = (int)_datos.Lector["Id"],
+                        Apellidos = _datos.Lector["Apellidos"].ToString(),
+                        Nombres = _datos.Lector["Nombres"].ToString()
+                    };
+                    listaClientes.Add(cliente);
                 }
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al obtener clientes desde la base de datos", ex);
+            }
+            finally
+            {
+                _datos.CerrarConexion();
             }
             return listaClientes;
         }
