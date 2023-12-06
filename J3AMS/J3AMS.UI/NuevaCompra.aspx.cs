@@ -12,6 +12,10 @@ namespace J3AMS.UI
     public partial class NuevaCompra : Page
     {
         private bool productoAgregado = false;
+        private ProveedorNegocio _proveedorNegocio;
+        private ProductoNegocio _productoNegocio;
+        private FacturaCompraNegocio _facturaCompraNegocio;
+        private CompraNegocio _compraNegocio;
         private List<Producto> ListaProductosSeleccionados
         {
             get
@@ -44,6 +48,10 @@ namespace J3AMS.UI
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            _proveedorNegocio = new ProveedorNegocio();
+            _productoNegocio = new ProductoNegocio();
+            _facturaCompraNegocio = new FacturaCompraNegocio();
+            _compraNegocio = new CompraNegocio();
             if (!IsPostBack)
             {
                 CargarProveedores();
@@ -107,8 +115,8 @@ namespace J3AMS.UI
                     }
                     productoEnStock.Cantidad = cantidad;
                     ListaProductosSeleccionados.Add(productoEnStock);
-
-                    ActualizarStockEnBaseDeDatos(idProducto, productoEnStock.Stock + cantidad);
+                    productoEnStock.Stock = productoEnStock.Stock + cantidad;
+                     _productoNegocio.Update(productoEnStock);
 
                     CargarProductosSeleccionados();
                     productoAgregado = true;
@@ -118,30 +126,7 @@ namespace J3AMS.UI
                 Response.Write("Error al obtener información del producto desde la base de datos.");
             }
         }
-        private void ActualizarStockEnBaseDeDatos(int idProducto, int nuevoStock)
-        {
-            try
-            {
-                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
-                {
-                    conexion.Open();
-
-                    string consultaSql = "UPDATE Productos SET Stock = @NuevoStock WHERE Id = @IdProducto";
-
-                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@NuevoStock", nuevoStock);
-                        comando.Parameters.AddWithValue("@IdProducto", idProducto);
-
-                        comando.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al actualizar el stock en la base de datos", ex);
-            }
-        }
+       
         protected void ddlProveedores_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (productoAgregado)
@@ -210,9 +195,8 @@ namespace J3AMS.UI
                         IdProveedor = proveedorSeleccionado.Id,
                         Importe = CalcularMontoTotal(compra.DetalleCompra)
                     };
-
-                    GuardarFacturaCompraEnBaseDeDatos(facturaCompra);
-                    GuardarCompraEnBaseDeDatos(compra);
+                    _facturaCompraNegocio.Add(facturaCompra, Session["usuario"].ToString());
+                    _compraNegocio.Add(compra);
 
                     LimpiarControles();
                     ProductosComprados.Clear();
@@ -237,7 +221,7 @@ namespace J3AMS.UI
             if (ddlProveedores.SelectedIndex > 0)
             {
                 int idProveedorSeleccionado = Convert.ToInt32(ddlProveedores.SelectedValue);
-                proveedorSeleccionado = ObtenerProveedorPorId(idProveedorSeleccionado);
+                proveedorSeleccionado = _proveedorNegocio.Get(idProveedorSeleccionado);
             }
 
             return proveedorSeleccionado;
@@ -258,110 +242,6 @@ namespace J3AMS.UI
             txtCantidad.Text = string.Empty;
             repProductosSeleccionados.DataSource = null;
             repProductosSeleccionados.DataBind();
-        }
-        public Proveedor ObtenerProveedorPorId(int idProveedor)
-        {
-            Proveedor proveedorEncontrado = null;
-            try
-            {
-                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
-                {
-                    conexion.Open();
-                    string consultaSql = "SELECT Id, RazonSocial, NombreFantasia FROM Proveedores WHERE Id = @Id";
-                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@Id", idProveedor);
-                        using (SqlDataReader lector = comando.ExecuteReader())
-                        {
-                            if (lector.Read())
-                            {
-                                proveedorEncontrado = new Proveedor
-                                {
-                                    Id = (int)lector["Id"],
-                                    RazonSocial = lector["RazonSocial"].ToString(),
-                                    NombreFantasia = lector["NombreFantasia"].ToString()
-                                };
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener proveedor por ID desde la base de datos", ex);
-            }
-            return proveedorEncontrado;
-        }
-        public void GuardarFacturaCompraEnBaseDeDatos(FacturaCompra facturaCompra)
-        {
-            try
-            {
-                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
-                {
-                    conexion.Open();
-
-                    string consultaSql = "INSERT INTO FacturasCompras (IdProveedor, Importe, FechaEmision, Comprador, Activo) " +
-                                         "VALUES (@IdProveedor, @Importe, GETDATE(), @Comprador, 1)";
-
-                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@IdProveedor", facturaCompra.IdProveedor);
-                        comando.Parameters.AddWithValue("@Importe", facturaCompra.Importe);
-                        comando.Parameters.AddWithValue("@Comprador", Session["usuario"].ToString());
-
-                        comando.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al guardar la factura en la base de datos", ex);
-            }
-        }
-        public void GuardarCompraEnBaseDeDatos(Compra newEntity)
-        {
-            AccesoADatos datos = new AccesoADatos();
-            try
-            {
-
-                datos.SetConsulta("SELECT MAX(Numero) AS UltimaFactura FROM FacturasCompras ");
-                datos.EjecutarLectura();
-
-                int IdCompra = 0;
-
-                if (datos.Lector.Read())
-                {
-                    IdCompra = (int)datos.Lector["UltimaFactura"];
-                }
-
-
-                if (IdCompra > 0)
-                {
-                    foreach (var detalle in newEntity.DetalleCompra)
-                    {
-                        AccesoADatos datosDetalle = new AccesoADatos();
-
-                        datosDetalle.SetConsulta("INSERT INTO DetallesCompras (IdCompra, IdArticulo, Cantidad, PrecioUnitario) VALUES (@IdCompra, @IdArticulo, @Cantidad, @Precio)");
-
-                        datosDetalle.SetParametro("@IdCompra", IdCompra);
-                        datosDetalle.SetParametro("@IdArticulo", detalle.IdArticulo);
-                        datosDetalle.SetParametro("@Cantidad", detalle.Cantidad);
-                        datosDetalle.SetParametro("@Precio", detalle.PrecioUnitario);
-
-                        datosDetalle.EjecutarLectura();
-                        datosDetalle.CerrarConexion();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
         }
     }
 }

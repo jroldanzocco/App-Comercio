@@ -72,19 +72,19 @@ namespace J3AMS.Negocio
         public void Add(Venta newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
-
             try
             {
-                datos.SetConsulta("INSERT INTO Ventas (NumeroFactura, Facturada, Activo) OUTPUT INSERTED.Id VALUES (0, 0, 1)");
 
+                datos.SetConsulta("SELECT MAX(Numero) AS UltimaFactura FROM FacturasVentas ");
                 datos.EjecutarLectura();
 
                 int IdVenta = 0;
 
                 if (datos.Lector.Read())
                 {
-                    IdVenta = Convert.ToInt32(datos.Lector["Id"]);
+                    IdVenta = (int)datos.Lector["UltimaFactura"];
                 }
+
 
                 if (IdVenta > 0)
                 {
@@ -92,11 +92,12 @@ namespace J3AMS.Negocio
                     {
                         AccesoADatos datosDetalle = new AccesoADatos();
 
-                        datosDetalle.SetConsulta("INSERT INTO DetallesVentas (IdVenta, IdArticulo, Cantidad) VALUES (@IdVenta, @IdArticulo, @Cantidad)");
+                        datosDetalle.SetConsulta("INSERT INTO DetallesVentas (IdVenta, IdArticulo, Cantidad, PrecioUnitario) VALUES (@IdVenta, @IdArticulo, @Cantidad, @Precio)");
 
                         datosDetalle.SetParametro("@IdVenta", IdVenta);
                         datosDetalle.SetParametro("@IdArticulo", detalle.IdArticulo);
                         datosDetalle.SetParametro("@Cantidad", detalle.Cantidad);
+                        datosDetalle.SetParametro("@Precio", detalle.PrecioUnitario);
 
                         datosDetalle.EjecutarLectura();
                         datosDetalle.CerrarConexion();
@@ -105,6 +106,7 @@ namespace J3AMS.Negocio
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
             finally
@@ -112,5 +114,7 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
+
+      
     }
 }

@@ -1,6 +1,7 @@
 ﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,5 +53,27 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
+        public void Add(FacturaVenta facturaVenta, string usuario)
+        {
+            try
+            {
+                _datos.SetConsulta("INSERT INTO FacturasVentas (IdCliente, Importe, FechaEmision, Vendedor, Activo) " +
+                                         "VALUES (@IdCliente, @Importe, GETDATE(), @Vendedor, 1)");
+
+                _datos.SetParametro("@IdCliente", facturaVenta.IdCliente);
+                _datos.SetParametro("@Importe", facturaVenta.Importe);
+                _datos.SetParametro("@Vendedor", usuario);
+                _datos.EjecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al guardar la factura en la base de datos", ex);
+            }
+            finally
+            {
+                _datos.CerrarConexion();
+            }
+        }
+        
     }
 }

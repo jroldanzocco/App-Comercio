@@ -12,6 +12,10 @@ namespace J3AMS.UI
     public partial class NuevaVenta : Page
     {
         private bool productoAgregado = false;
+        private ClienteNegocio _clienteNegocio;
+        private FacturaVentaNegocio _facturaVentaNegocio;
+        private VentaNegocio _ventaNegocio;
+        private ProductoNegocio _productoNegocio;
         private List<Producto> ListaProductosSeleccionados
         {
             get
@@ -44,6 +48,10 @@ namespace J3AMS.UI
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            _clienteNegocio = new ClienteNegocio();
+            _facturaVentaNegocio = new FacturaVentaNegocio();
+            _ventaNegocio = new VentaNegocio();
+            _productoNegocio = new ProductoNegocio();
             if (!IsPostBack)
             {
                 CargarClientes();
@@ -109,8 +117,8 @@ namespace J3AMS.UI
                     }
                     productoEnStock.Cantidad = cantidad;
                     ListaProductosSeleccionados.Add(productoEnStock);
-
-                    ActualizarStockEnBaseDeDatos(idProducto, productoEnStock.Stock - cantidad);
+                    productoEnStock.Stock = productoEnStock.Stock - cantidad;
+                    _productoNegocio.Update(productoEnStock);
 
                     CargarProductosSeleccionados();
                     productoAgregado = true;
@@ -125,30 +133,7 @@ namespace J3AMS.UI
                 Response.Write("Error al obtener información del producto desde la base de datos.");
             }
         }
-        private void ActualizarStockEnBaseDeDatos(int idProducto, int nuevoStock)
-        {
-            try
-            {
-                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
-                {
-                    conexion.Open();
-
-                    string consultaSql = "UPDATE Productos SET Stock = @NuevoStock WHERE Id = @IdProducto";
-
-                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@NuevoStock", nuevoStock);
-                        comando.Parameters.AddWithValue("@IdProducto", idProducto);
-
-                        comando.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al actualizar el stock en la base de datos", ex);
-            }
-        }
+        
         protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (productoAgregado)
@@ -218,8 +203,8 @@ namespace J3AMS.UI
                         Importe = CalcularMontoTotal(venta.DetallesVenta)
                     };
 
-                    GuardarFacturaVentaEnBaseDeDatos(facturaVenta);
-                    GuardarVentaEnBaseDeDatos(venta);
+                    _facturaVentaNegocio.Add(facturaVenta, Session["usuario"].ToString());
+                    _ventaNegocio.Add(venta);
 
                     LimpiarControles();
                     ProductosVendidos.Clear();
@@ -244,7 +229,7 @@ namespace J3AMS.UI
             if (ddlClientes.SelectedIndex > 0)
             {
                 int idClienteSeleccionado = Convert.ToInt32(ddlClientes.SelectedValue);
-                clienteSeleccionado = ObtenerClientePorId(idClienteSeleccionado);
+                clienteSeleccionado = _clienteNegocio.Get(idClienteSeleccionado);
             }
 
             return clienteSeleccionado;
@@ -266,109 +251,8 @@ namespace J3AMS.UI
             repProductosSeleccionados.DataSource = null;
             repProductosSeleccionados.DataBind();
         }
-        public Cliente ObtenerClientePorId(int idCliente)
-        {
-            Cliente clienteEncontrado = null;
-            try
-            {
-                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
-                {
-                    conexion.Open();
-                    string consultaSql = "SELECT Id, Nombres, Apellidos FROM Clientes WHERE Id = @Id";
-                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@Id", idCliente);
-                        using (SqlDataReader lector = comando.ExecuteReader())
-                        {
-                            if (lector.Read())
-                            {
-                                clienteEncontrado = new Cliente
-                                {
-                                    Id = (int)lector["Id"],
-                                    Apellidos = lector["Apellidos"].ToString(),
-                                    Nombres = lector["Nombres"].ToString()
-                                };
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al obtener cliente por ID desde la base de datos", ex);
-            }
-            return clienteEncontrado;
-        }
-        public void GuardarFacturaVentaEnBaseDeDatos(FacturaVenta facturaVenta)
-        {
-            try
-            {
-                using (SqlConnection conexion = new SqlConnection("server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true"))
-                {
-                    conexion.Open();
-
-                    string consultaSql = "INSERT INTO FacturasVentas (IdCliente, Importe, FechaEmision, Vendedor, Activo) " +
-                                         "VALUES (@IdCliente, @Importe, GETDATE(), @Vendedor, 1)";
-
-                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@IdCliente", facturaVenta.IdCliente);
-                        comando.Parameters.AddWithValue("@Importe", facturaVenta.Importe);
-                        comando.Parameters.AddWithValue("@Vendedor", Session["usuario"].ToString());
-
-                        comando.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al guardar la factura en la base de datos", ex);
-            }
-        }
-        public void GuardarVentaEnBaseDeDatos(Venta newEntity)
-        {
-            AccesoADatos datos = new AccesoADatos();
-            try
-            {
-
-                datos.SetConsulta("SELECT MAX(Numero) AS UltimaFactura FROM FacturasVentas ");
-                datos.EjecutarLectura();
-
-                int IdVenta = 0;
-
-                if(datos.Lector.Read())
-                {
-                    IdVenta = (int)datos.Lector["UltimaFactura"];
-                }
-
-
-                if(IdVenta > 0)
-                {
-                    foreach (var detalle in newEntity.DetallesVenta)
-                    {
-                        AccesoADatos datosDetalle = new AccesoADatos();
-
-                        datosDetalle.SetConsulta("INSERT INTO DetallesVentas (IdVenta, IdArticulo, Cantidad, PrecioUnitario) VALUES (@IdVenta, @IdArticulo, @Cantidad, @Precio)");
-
-                        datosDetalle.SetParametro("@IdVenta", IdVenta);
-                        datosDetalle.SetParametro("@IdArticulo", detalle.IdArticulo);
-                        datosDetalle.SetParametro("@Cantidad", detalle.Cantidad);
-                        datosDetalle.SetParametro("@Precio", detalle.PrecioUnitario);
-
-                        datosDetalle.EjecutarLectura();
-                        datosDetalle.CerrarConexion();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
-        }
+       
+       
+       
     }
 }

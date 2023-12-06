@@ -172,6 +172,56 @@ namespace J3AMS.Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public Cliente Get(int id)
+        {
+            try
+            {
+                Cliente aux = null;
+
+                _datos.SetConsulta("SELECT C.Id AS ClienteId, Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, Activo, PlazoPago, I.Id AS IvaId, I.PorcentajeIva AS Porcentaje, I.Descripcion AS CategoriaIva FROM Clientes C" +
+                    "\r\nINNER JOIN CategoriasIva I ON IdCategoriaIva = I.Id " +
+                    "WHERE C.Id = @Id");
+                _datos.SetParametro("@Id", id);
+
+                _datos.EjecutarLectura();
+
+                while (_datos.Lector.Read())
+                {
+                    aux = new Cliente()
+                    {
+                        Id = (int)_datos.Lector["ClienteId"],
+                        Apellidos = _datos.Lector["Apellidos"] as string ?? string.Empty,
+                        Nombres = _datos.Lector["Nombres"] as string ?? string.Empty,
+                        DNI = _datos.Lector["DNI"] as string ?? string.Empty,
+                        Domicilio = _datos.Lector["Domicilio"] as string ?? string.Empty,
+                        Telefono = _datos.Lector["Telefono"] as string ?? string.Empty,
+                        Celular = _datos.Lector["Celular"] as string ?? string.Empty,
+                        Email = _datos.Lector["Email"] as string ?? string.Empty,
+                        Plazo = (byte)_datos.Lector["PlazoPago"],
+                        Activo = (bool)_datos.Lector["Activo"],
+                        categoriaIva = new CategoriaIva()
+                        {
+                            Id = (byte)_datos.Lector["IvaId"],
+                            Descripcion = _datos.Lector["CategoriaIva"] as string ?? string.Empty,
+                            PorcentajeIva = (decimal)_datos.Lector["Porcentaje"]
+                        }
+
+                    };
+                }
+                    return aux;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                _datos.CerrarConexion();
+            }
+        }
+
         public List<Cliente> ObtenerClientes()
         {
             var listaClientes = new List<Cliente>();

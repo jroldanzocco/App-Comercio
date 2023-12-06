@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.SessionState;
 
 namespace J3AMS.Negocio
 {
@@ -49,6 +50,34 @@ namespace J3AMS.Negocio
             {
                 _datos.CerrarConexion();
             }
+        }
+
+        public void Add(FacturaCompra facturaCompra, string usuario)
+        {
+            try
+            {
+                _datos.SetConsulta("INSERT INTO FacturasCompras (IdProveedor, Importe, FechaEmision, Comprador, Activo) " +
+                                         "VALUES (@IdProveedor, @Importe, GETDATE(), @Comprador, 1)");
+                _datos.SetParametro("@IdProveedor", facturaCompra.IdProveedor);
+                _datos.SetParametro("@Importe", facturaCompra.Importe);
+                _datos.SetParametro("@Comprador", usuario);
+                _datos.EjecutarLectura();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error al guardar la factura en la base de datos", ex);
+            }
+            finally
+            {
+                _datos.CerrarConexion();
+            }
+        }
+
+        public void Add(FacturaCompra facturaCompra, object v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
