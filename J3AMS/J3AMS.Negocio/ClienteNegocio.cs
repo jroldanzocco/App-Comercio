@@ -68,22 +68,25 @@ namespace J3AMS.Negocio
         public void Add(Cliente newEntity)
         {
             AccesoADatos datos = new AccesoADatos();
-
+            
             try
             {
-                datos.SetConsulta("INSERT INTO Clientes(Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)" +
-                    "\r\nVALUES(@Apellido, @Nombre, @DNI, @Domicilio, @Telefono, @Celular, @Email, @IdIva, @Plazo, 1)");
-                datos.SetParametro("@Apellido", newEntity.Apellidos);
-                datos.SetParametro("@Nombre", newEntity.Nombres);
-                datos.SetParametro("@DNI", newEntity.DNI);
-                datos.SetParametro("@Domicilio", newEntity.Domicilio);
-                datos.SetParametro("@Telefono", newEntity.Telefono);
-                datos.SetParametro("@Celular", newEntity.Celular);
-                datos.SetParametro("@Email", newEntity.Email);
-                datos.SetParametro("@IdIva", newEntity.categoriaIva.Id);
-                datos.SetParametro("@Plazo", newEntity.Plazo);
+                if(checkDni(newEntity.DNI))
+                {
+                    datos.SetConsulta("INSERT INTO Clientes(Apellidos, Nombres, DNI, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo)" +
+                                        "\r\nVALUES(@Apellido, @Nombre, @DNI, @Domicilio, @Telefono, @Celular, @Email, @IdIva, @Plazo, 1)");
+                    datos.SetParametro("@Apellido", newEntity.Apellidos);
+                    datos.SetParametro("@Nombre", newEntity.Nombres);
+                    datos.SetParametro("@DNI", newEntity.DNI);
+                    datos.SetParametro("@Domicilio", newEntity.Domicilio);
+                    datos.SetParametro("@Telefono", newEntity.Telefono);
+                    datos.SetParametro("@Celular", newEntity.Celular);
+                    datos.SetParametro("@Email", newEntity.Email);
+                    datos.SetParametro("@IdIva", newEntity.categoriaIva.Id);
+                    datos.SetParametro("@Plazo", newEntity.Plazo);
 
-                datos.EjecutarLectura();
+                    datos.EjecutarLectura();
+                }
             }
             catch (Exception ex)
             {
@@ -246,5 +249,31 @@ namespace J3AMS.Negocio
             }
             return listaClientes;
         }
+        private bool checkDni(string dni)
+        {
+            var result = false;
+            try
+            {
+                _datos.SetConsulta("SELECT Count(DNI) from Clientes where DNI = '@dni'");
+                _datos.SetParametro("@dni", dni);
+
+                var count = (int)_datos.EjecutarLecturaEscalar();
+
+                if (count > 0)
+                    result = true;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                _datos.CerrarConexion();
+            }
+            return result;
+        }
     }
+
 }

@@ -173,10 +173,18 @@ namespace J3AMS.UI
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            LimpiarControles();
+            ProductosVendidos.Clear();
+            ListaProductosSeleccionados.Clear();
+            ddlClientes.Enabled = true;
             Response.Redirect("PaginaPrincipal.aspx");
         }
         protected void btnGenerarFactura_Click(object sender, EventArgs e)
         {
+            if (ProductosVendidos.Count != 0)
+            {
+
+            
             try
             {
                 Cliente clienteSeleccionado = ObtenerClienteSeleccionado();
@@ -221,6 +229,7 @@ namespace J3AMS.UI
             {
                 Response.Write($"Error al generar la factura: {ex.Message}");
             }
+            }
         }
         private Cliente ObtenerClienteSeleccionado()
         {
@@ -250,6 +259,7 @@ namespace J3AMS.UI
             txtCantidad.Text = string.Empty;
             repProductosSeleccionados.DataSource = null;
             repProductosSeleccionados.DataBind();
+            productoAgregado = false;
         }
        
        

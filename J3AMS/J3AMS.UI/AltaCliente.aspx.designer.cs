@@ -96,6 +96,15 @@ namespace J3AMS.UI
         protected global::System.Web.UI.WebControls.TextBox txtDni;
 
         /// <summary>
+        /// lblDni control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDni;
+
+        /// <summary>
         /// RequiredFieldValidator3 control.
         /// </summary>
         /// <remarks>

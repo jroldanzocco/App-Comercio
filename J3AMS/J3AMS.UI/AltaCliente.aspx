@@ -31,6 +31,7 @@
             <div class="col-md-6">
                 <label for="txtDni" class="form-label">CUIT/DNI</label>
                 <asp:TextBox ID="txtDni" CssClass="form-control" runat="server"></asp:TextBox>
+                <asp:Label runat="server" ForeColor="red" ID="lblDni"></asp:Label>
                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ControlToValidate="txtDni"
 ErrorMessage="DNI es requerido." Display="Dynamic" ValidationGroup="AgregarGroup" />
                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator3" ControlToValidate="txtDni" ForeColor="Red"

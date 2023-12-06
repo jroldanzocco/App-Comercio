@@ -127,6 +127,8 @@ namespace J3AMS.UI
 
             lblErrorVenta.Text = PVValidator < PCValidator ? "El precio de venta no puede ser menor al precio de costo" : "";
 
+            //if()
+
 
             if (ValidatorsDA.TryValidateModel(aux) && PVValidator >= PCValidator)
             {
