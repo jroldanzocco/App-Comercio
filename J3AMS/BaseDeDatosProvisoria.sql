@@ -59,6 +59,7 @@ CREATE TABLE Productos (
 )
 CREATE TABLE FacturasCompras (--TIPO FACTURA (SI HAY TIEMPO)
 	Numero INT PRIMARY KEY IDENTITY (1, 1),
+	FechaEmision DATETIME NOT NULL,
 	IdProveedor INT FOREIGN KEY REFERENCES Proveedores(Id),
 	Importe MONEY NOT NULL,
 	Activo BIT NOT NULL DEFAULT 1
@@ -77,10 +78,10 @@ CREATE TABLE Compras (--AGREGAR DIA Y USUARIO
 	Activo BIT NOT NULL --VER CONCEPTO (ANULADA O NO, POR QUE, POR QUE USUARIO, ...)
 );
 CREATE TABLE DetallesCompras (
-    Id INT PRIMARY KEY IDENTITY (1, 1),
-    IdCompra INT NOT NULL FOREIGN KEY REFERENCES Compras(Id),
-    IdArticulo INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
+    IdCompra INT FOREIGN KEY REFERENCES FacturasCompras(Numero),
+    IdArticulo INT FOREIGN KEY REFERENCES Productos(Id),
     Cantidad INT NOT NULL,
+    PrecioUnitario MONEY NOT NULL
 );
 CREATE TABLE Ventas ( --AGREGAR CLIENTE, DIA Y USUARIO
     Id INT PRIMARY KEY IDENTITY (1, 1),
@@ -101,10 +102,11 @@ CREATE TABLE Usuarios (
 	Email NVARCHAR(255) NOT NULL,
 	IdRol TINYINT DEFAULT 2
 )
-
 --Modificación para guardar el vendedor, el default es por si ya tienen facturas cargadas
 ALTER TABLE FacturasVentas
 ADD Vendedor VARCHAR(100) NOT NULL DEFAULT('Prueba')
+ALTER TABLE FacturasCompras
+ADD Comprador VARCHAR(100) NOT NULL DEFAULT('Prueba')
 
 --------------------------------------------------------------------------------------
 
@@ -162,8 +164,14 @@ INSERT INTO Usuarios (UserName, Password, Email, IdRol)
 VALUES ('Admin', 'c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f','admin@admin.com',1);
 INSERT INTO Usuarios (UserName, Password, Email)
 VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08','test@test.com');
+
+--Productos
+
 --PARA ALTA PRODUCTO
+
 INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCompra, PrecioVenta, Stock, StockMinimo)
 VALUES ('Pera', 1, 1, 1, 1, 2, 10, 0)
 INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCompra, PrecioVenta, Stock, StockMinimo)
 VALUES ('Durazno', 1, 1, 1, 1, 2, 10, 0)
+
+
