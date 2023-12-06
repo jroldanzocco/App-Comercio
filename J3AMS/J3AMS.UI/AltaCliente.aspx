@@ -10,7 +10,7 @@
                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="txtNombreCliente"
                 ErrorMessage="Nombre cliente es requerido." Display="Dynamic" ValidationGroup="AgregarGroup" />
                 <asp:RegularExpressionValidator runat="server" ID="txtDescripcionRegex" ControlToValidate="txtNombreCliente" ForeColor="Red"
-    ValidationExpression="^[a-zA-Z\s]+$" ErrorMessage="Ingrese solo letras." ValidationGroup="AgregarGroup" />
+    ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$" ErrorMessage="Ingrese solo letras." ValidationGroup="AgregarGroup" />
                 <asp:RegularExpressionValidator runat="server" ID="txtMaxCharactersRegex" ControlToValidate="txtNombreCliente" ForeColor="Red"
     ValidationExpression="^.{1,255}$" ErrorMessage="Ingrese hasta 255 caracteres como máximo."
     ValidationGroup="AgregarGroup" />
@@ -21,7 +21,7 @@
                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="txtApellido"
                 ErrorMessage="Apellido cliente es requerido." Display="Dynamic" ValidationGroup="AgregarGroup" />
                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="txtApellido" ForeColor="Red"
-    ValidationExpression="^[a-zA-Z\s]+$" ErrorMessage="Ingrese solo letras." ValidationGroup="AgregarGroup" />
+    ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$" ErrorMessage="Ingrese solo letras." ValidationGroup="AgregarGroup" />
                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator2" ControlToValidate="txtApellido" ForeColor="Red"
     ValidationExpression="^.{1,255}$" ErrorMessage="Ingrese hasta 255 caracteres como máximo."
     ValidationGroup="AgregarGroup" />

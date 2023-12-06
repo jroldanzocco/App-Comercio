@@ -82,8 +82,8 @@ namespace J3AMS.Negocio
             AccesoADatos datos = new AccesoADatos();
             try
             {
-                datos.SetConsulta("INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCompra, PrecioVenta, Stock, StockMinimo, Activo) " +
-                                 "VALUES (@descripcion, @tipo, @marca, @proveedor, @precioCompra, @precioVenta, 0, @stockMinimo, 1)");
+                datos.SetConsulta("INSERT INTO Productos (Descripcion, IdTipo, IdMarca, IdProveedor, PrecioCompra, PrecioVenta, Stock, Activo) " +
+                                 "VALUES (@descripcion, @tipo, @marca, @proveedor, @precioCompra, @precioVenta, @stock, 1)");
 
                 datos.SetParametro("@descripcion", newEntity.Descripcion);
                 datos.SetParametro("@tipo", newEntity.Tipo.Id);
@@ -91,7 +91,7 @@ namespace J3AMS.Negocio
                 datos.SetParametro("@proveedor", newEntity.Proveedor.Id);
                 datos.SetParametro("@precioCompra", newEntity.PrecioCompra);
                 datos.SetParametro("@precioVenta", newEntity.PrecioVenta);
-                datos.SetParametro("@stockMinimo", newEntity.StockMinimo);
+                datos.SetParametro("@stockMinimo", newEntity.Stock);
 
                 datos.EjecutarLectura();
             }
@@ -294,7 +294,7 @@ namespace J3AMS.Negocio
                     {
                         Id = (int)_datos.Lector["IdArt"],
                         Descripcion = _datos.Lector["Descripcion"] as string ?? string.Empty,
-                        PrecioCompra = (decimal)_datos.Lector["PrecioCompra"],
+                        PrecioCompra = (decimal)_datos.Lector["PCompra"],
                         PrecioVenta = (decimal)_datos.Lector["PVenta"],
                         StockMinimo = (int)_datos.Lector["StMin"],
                         Stock = (int)_datos.Lector["Stock"],

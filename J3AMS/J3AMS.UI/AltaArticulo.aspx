@@ -37,14 +37,14 @@
                 <label for="txtPrecioCosto" class="form-label">Precio Costo</label>
                 <asp:TextBox ID="txtPrecioCosto" CssClass="form-control" runat="server" />
                 <asp:RegularExpressionValidator runat="server" ID="revPrecioCosto" ControlToValidate="txtPrecioCosto" ForeColor="Red"
-                    ValidationExpression="^\d+(\,\d+)?$" ErrorMessage="Ingrese un número válido." ValidationGroup="AgregarGroup" />
+                    ValidationExpression="^\d+(\.\d+)?$" ErrorMessage="Ingrese un número válido." ValidationGroup="AgregarGroup" />
             </div>
             <div class="col-md-6">
     <label for="txtPrecioVenta" class="form-label">Precio Venta</label>
     <div class="d-flex align-items-start">
         <asp:TextBox ID="txtPrecioVenta" CssClass="form-control" runat="server" />
         <asp:RegularExpressionValidator runat="server" ID="revPrecioVenta" ControlToValidate="txtPrecioVenta" ForeColor="Red"
-            ValidationExpression="^\d+(\,\d+)?$" ErrorMessage="Ingrese un número válido." ValidationGroup="AgregarGroup" />
+            ValidationExpression="^\d+(\.\d+)?$" ErrorMessage="Ingrese un número válido." ValidationGroup="AgregarGroup" />
     </div>
     <asp:Label runat="server" ID="lblErrorVenta" ForeColor="Red"/>
 </div>
