@@ -56,10 +56,23 @@
     </div>
 
     <div class="container-fluid">
-        <div>
+        <div class="d-flex justify-content-between mb-3">
+    <div class="w-100">
             <label for="txtBusqueda" class="form-label">Búsqueda</label>
             <asp:TextBox ID="txtBusqueda" AutoPostBack="true" OnTextChanged="txtBusqueda_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
         </div>
+            </div>
+
+        <div class="d-flex flex-column">
+        <div class="mb-2">
+            <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-secondary" runat="server" Text="Volver al Menu" />
+            <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN)
+                { %>
+            <asp:Button ID="btnNuevoCliente" OnClick="btnNuevoCliente_Click" CssClass="btn btn-success" runat="server" Text="Nuevo" />
+            <% } %>
+        </div>
+        <div class="d-flex flex-column">
+            <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
@@ -70,7 +83,7 @@
                     <th scope="col">Telefono</th>
                     <th scope="col">Celular</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col" style="width: 200px";>Acciones</th>
                 </tr>
             </thead>
 
@@ -89,20 +102,17 @@
                             <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN)
                                 { %>
                             <asp:Button ID="btnEditarCliente" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEditarCliente_Click" CssClass="btn btn-primary w-auto" runat="server" Text="Editar" />
-                            <asp:Button ID="btnEliminarCliente" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarCliente_Click" CssClass="btn btn-primary w-auto" runat="server" Text="Eliminar" />
+                            <asp:Button ID="btnEliminarCliente" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnEliminarCliente_Click" CssClass="btn btn-danger w-auto" runat="server" Text="Eliminar" />
                             <% } %>
                         </td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
         </table>
-
-        <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN)
-            { %>
-        <asp:Button ID="btnNuevoCliente" OnClick="btnNuevoCliente_Click" CssClass="btn btn-primary" runat="server" Text="Nuevo" />
-        <% } %>
-        <asp:Button ID="btnVolverAlMenu" OnClick="btnVolverAlMenu_Click" CssClass="btn btn-primary" runat="server" Text="Volver al Menu" />
-
+                </div>
+            </div>
+            </div>
+        
     </div>
 
 </asp:Content>
