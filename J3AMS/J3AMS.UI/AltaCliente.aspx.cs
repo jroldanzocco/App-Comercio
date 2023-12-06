@@ -45,8 +45,6 @@ namespace J3AMS.UI
                         txtApellido.Text = aux.Apellidos;
                         txtNombreCliente.Text = aux.Nombres;
                         txtDni.Text = aux.DNI;
-                        txtFormaPago.Text = "Verificar si es necesario";
-                        txtPlazo.Text = aux.Plazo.ToString();
                         txtDomicilio.Text = aux.Domicilio;
                         txtEmail.Text = aux.Email;
                         txtCelular.Text = aux.Celular;
@@ -85,7 +83,6 @@ namespace J3AMS.UI
             CategoriaIva categoriaIva = new CategoriaIva();
             categoriaIva.Id = byte.Parse(ddlIva.SelectedValue);
             aux.categoriaIva = categoriaIva;
-            aux.Plazo = byte.Parse(txtPlazo.Text);
             aux.Domicilio = txtDomicilio.Text;
             aux.Email = txtEmail.Text;
             aux.Celular = txtCelular.Text;

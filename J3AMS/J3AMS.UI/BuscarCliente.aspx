@@ -43,9 +43,6 @@
                         <label class="d-block mt-3 font-weight-bold h6">Categoria IVA</label>
                         <asp:TextBox ID="txtCategoria" CssClass="form-control mx-auto text-center" placeholder="Categoria" runat="server" />
 
-                        <label class="d-block mt-3 font-weight-bold h6">Plazo de pago(Dias)</label>
-                        <asp:TextBox ID="txtPlazoPagoClientes" CssClass="form-control mx-auto text-center" placeholder="Dias" runat="server" />
-
                     </div>
                     <div class="modal-footer">
                         <asp:Button ID="btnVolver" CssClass="btn btn-secondary w-100 mx-auto" Text="Volver" runat="server" />
@@ -79,10 +76,8 @@
                     <th scope="col">Apellido</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">DNI</th>
-                    <th scope="col">Domicilio</th>
                     <th scope="col">Telefono</th>
-                    <th scope="col">Celular</th>
-                    <th scope="col">Email</th>
+                    
                     <th scope="col" style="width: 200px";>Acciones</th>
                 </tr>
             </thead>
@@ -93,10 +88,8 @@
                         <td><%# Eval("Apellidos") %></td>
                         <td><%# Eval("Nombres") %></td>
                         <td><%# Eval("DNI") %></td>
-                        <td><%# Eval("Domicilio") %></td>
                         <td><%# Eval("Telefono") %></td>
-                        <td><%# Eval("Celular") %></td>
-                        <td><%# Eval("Email") %></td>
+                        
                         <td class="d-flex gap-2">
                             <asp:Button ID="btnInformeCliente" OnClick="btnInformeCliente_Click" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" CssClass="btn btn-info w-auto" runat="server" Text="Informes" />
                             <% if (Session["usuario"] != null && ((J3AMS.Dominio.Usuario)Session["usuario"]).UserRole == J3AMS.Dominio.UserRole.ADMIN)

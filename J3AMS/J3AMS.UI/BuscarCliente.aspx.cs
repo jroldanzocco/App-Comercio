@@ -106,7 +106,6 @@ namespace J3AMS.UI
                 txtCelularCliente.Text = aux.Celular;
                 txtEmailCliente.Text = aux.Email;
                 txtCategoria.Text = aux.categoriaIva.Descripcion;
-                txtPlazoPagoClientes.Text = aux.Plazo.ToString();
             }
         }
 
@@ -120,7 +119,6 @@ namespace J3AMS.UI
             txtCelularCliente.ReadOnly = true;
             txtEmailCliente.ReadOnly = true;
             txtCategoria.ReadOnly = true;
-            txtPlazoPagoClientes.ReadOnly = true;
         }
 
 

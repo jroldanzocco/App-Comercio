@@ -18,6 +18,7 @@ namespace J3AMS.Dominio
         [StringLength(9, ErrorMessage = "Maximo 9 digitos")]
         [RegularExpression(@"^[A-Za-z]+(?: [A-Za-z]+)*$", ErrorMessage = "El DNI solo debe tener numeros.")]
         public string NombreCompleto => $"{Nombres} {Apellidos}";
+        [Required(ErrorMessage = "El campo es requerido")]
         public string DNI { get; set; }
         [StringLength(255, ErrorMessage = "Maximo 255 caracteres")]
         public string Domicilio { get; set; }
@@ -33,6 +34,7 @@ namespace J3AMS.Dominio
         [Required(ErrorMessage = "El campo es requerido")]
         [Range(0, 255, ErrorMessage = "El valor debe estar entre 0 y 255.")]
         public byte IdCategoriaIva { get; set; }
+        [Required(ErrorMessage = "El campo es requerido")]
         public CategoriaIva categoriaIva { get; set; }
         [Required(ErrorMessage = "El campo es requerido")]
         public byte Plazo { get; set; }
