@@ -1,8 +1,6 @@
-﻿using J3.AMS.Common;
-using J3AMS.Dominio;
+﻿using J3AMS.Dominio;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 
 namespace J3AMS.Negocio
 {
@@ -69,20 +67,20 @@ namespace J3AMS.Negocio
 
             try
             {
-                    _datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo) " +
-                                       "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, @Celular, @Email, @Iva, @Plazo, 1)");
-                    _datos.SetParametro("@Razon", newEntity.RazonSocial);
-                    _datos.SetParametro("@Nombre", newEntity.NombreFantasia);
-                    _datos.SetParametro("@CUIT", newEntity.CUIT);
-                    _datos.SetParametro("@Domicilio", newEntity.Domicilio);
-                    _datos.SetParametro("@Telefono", newEntity.Telefono);
-                    _datos.SetParametro("@Celular", newEntity.Telefono);
-                    _datos.SetParametro("@Email", newEntity.Telefono);
-                    _datos.SetParametro("@Iva", newEntity.CategoriaIva.Id);
-                    _datos.SetParametro("@Plazo", newEntity.PlazoPago);
-                    _datos.SetParametro("@Activo", true);
-                    _datos.EjecutarLectura();
-                
+                _datos.SetConsulta("INSERT INTO Proveedores(RazonSocial, NombreFantasia, CUIT, Domicilio, Telefono, Celular, Email, IdCategoriaIva, PlazoPago, Activo) " +
+                                   "VALUES(@Razon, @Nombre, @CUIT, @Domicilio, @Telefono, @Celular, @Email, @Iva, @Plazo, 1)");
+                _datos.SetParametro("@Razon", newEntity.RazonSocial);
+                _datos.SetParametro("@Nombre", newEntity.NombreFantasia);
+                _datos.SetParametro("@CUIT", newEntity.CUIT);
+                _datos.SetParametro("@Domicilio", newEntity.Domicilio);
+                _datos.SetParametro("@Telefono", newEntity.Telefono);
+                _datos.SetParametro("@Celular", newEntity.Telefono);
+                _datos.SetParametro("@Email", newEntity.Telefono);
+                _datos.SetParametro("@Iva", newEntity.CategoriaIva.Id);
+                _datos.SetParametro("@Plazo", newEntity.PlazoPago);
+                _datos.SetParametro("@Activo", true);
+                _datos.EjecutarLectura();
+
             }
             catch (Exception ex)
             {
@@ -206,39 +204,32 @@ namespace J3AMS.Negocio
                 _datos.CerrarConexion();
             }
         }
-        private string cadenaConexion = "server=.\\SQLEXPRESS; database=J3AMS_DB; integrated security=true";
         public List<Proveedor> ObtenerProveedores()
         {
             var listaProveedores = new List<Proveedor>();
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                _datos.SetConsulta("Select Id, RazonSocial, NombreFantasia From Proveedores");
+                _datos.EjecutarLectura();
+
+                while (_datos.Lector.Read())
                 {
-                    conexion.Open();
-
-                    string consultaSql = "Select Id, RazonSocial, NombreFantasia From Proveedores";
-
-                    using (SqlCommand comando = new SqlCommand(consultaSql, conexion))
+                    var proveedor = new Proveedor
                     {
-                        using (SqlDataReader lector = comando.ExecuteReader())
-                        {
-                            while (lector.Read())
-                            {
-                                var proveedor = new Proveedor
-                                {
-                                    Id = (int)lector["Id"],
-                                    RazonSocial = lector["RazonSocial"].ToString(),
-                                    NombreFantasia = lector["NombreFantasia"].ToString()
-                                };
-                                listaProveedores.Add(proveedor);
-                            }
-                        }
-                    }
+                        Id = (int)_datos.Lector["Id"],
+                        RazonSocial = _datos.Lector["RazonSocial"].ToString(),
+                        NombreFantasia = _datos.Lector["NombreFantasia"].ToString()
+                    };
+                    listaProveedores.Add(proveedor);
                 }
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al obtener proveedores desde la base de datos", ex);
+            }
+            finally
+            {
+                _datos.CerrarConexion();
             }
             return listaProveedores;
         }
